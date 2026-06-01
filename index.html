@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="House of Sirka online boutique storefront and CMS prototype."
+    />
+    <title>House of Sirka Online Boutique</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="announcement" class="announcement"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#home" data-route="home" aria-label="House of Sirka home">
+        <span class="brand-mark">HS</span>
+        <span>
+          <strong>House of Sirka</strong>
+          <small>Online Boutique</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <button type="button" data-route="shop">Shop</button>
+        <button type="button" data-route="account">Account</button>
+        <button type="button" data-route="track">Track</button>
+        <button type="button" data-route="admin">Admin CMS</button>
+      </nav>
+
+      <button type="button" class="cart-button" data-action="open-cart" aria-label="Open cart">
+        Cart <span id="cartCount">0</span>
+      </button>
+    </header>
+
+    <main>
+      <section id="home" class="hero" aria-labelledby="heroTitle">
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Premium fashion boutique</p>
+          <h1 id="heroTitle"></h1>
+          <p id="heroSubtitle" class="hero-subtitle"></p>
+          <div class="hero-actions">
+            <button type="button" class="primary-button" data-route="shop">Shop collection</button>
+            <button type="button" class="ghost-button" data-route="admin">Manage CMS</button>
+          </div>
+        </div>
+        <div class="hero-strip" aria-label="Store highlights">
+          <span>CMS-managed products</span>
+          <span>Variant stock</span>
+          <span>Secure checkout-ready flow</span>
+        </div>
+      </section>
+
+      <section class="section-band" aria-labelledby="collectionsTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Collections</p>
+            <h2 id="collectionsTitle">Browse by mood</h2>
+          </div>
+          <button type="button" class="text-button" data-route="shop">View all</button>
+        </div>
+        <div id="collectionGrid" class="collection-grid"></div>
+      </section>
+
+      <section id="shop" class="section-band store-layout" aria-labelledby="shopTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Storefront</p>
+            <h2 id="shopTitle">Product catalog</h2>
+          </div>
+          <div class="section-tools">
+            <span id="resultCount" class="result-count"></span>
+            <button type="button" class="secondary-button" data-action="reset-store">Reset demo data</button>
+          </div>
+        </div>
+
+        <form id="filters" class="filters" aria-label="Product filters">
+          <label>
+            Search
+            <input type="search" id="searchInput" placeholder="Dress, blazer, silk..." />
+          </label>
+          <label>
+            Category
+            <select id="categoryFilter"></select>
+          </label>
+          <label>
+            Size
+            <select id="sizeFilter"></select>
+          </label>
+          <label>
+            Color
+            <select id="colorFilter"></select>
+          </label>
+          <label>
+            Max price
+            <input type="range" id="priceFilter" min="300" max="3000" step="50" />
+            <span id="priceValue"></span>
+          </label>
+          <label>
+            Sort
+            <select id="sortFilter">
+              <option value="featured">Featured</option>
+              <option value="newest">Newest</option>
+              <option value="price-low">Price: low to high</option>
+              <option value="price-high">Price: high to low</option>
+              <option value="popular">Popularity</option>
+            </select>
+          </label>
+        </form>
+
+        <div id="productGrid" class="product-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="account" class="section-band account-layout" aria-labelledby="accountTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Customer portal</p>
+            <h2 id="accountTitle">Account, orders, wishlist</h2>
+          </div>
+        </div>
+        <div class="account-grid">
+          <form id="accountForm" class="panel-form">
+            <h3>Profile</h3>
+            <label>
+              First name
+              <input name="firstName" required />
+            </label>
+            <label>
+              Last name
+              <input name="lastName" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Phone
+              <input name="phone" />
+            </label>
+            <label class="checkbox-line">
+              <input type="checkbox" name="marketingOptIn" />
+              Receive collection updates
+            </label>
+            <button type="submit" class="primary-button">Save profile</button>
+          </form>
+
+          <div class="panel-list">
+            <h3>Saved addresses</h3>
+            <form id="addressForm" class="inline-form">
+              <input name="address" placeholder="Add delivery address" required />
+              <button type="submit" class="secondary-button">Add</button>
+            </form>
+            <div id="addressList"></div>
+          </div>
+
+          <div class="panel-list">
+            <h3>Order history</h3>
+            <div id="accountOrders"></div>
+          </div>
+
+          <div class="panel-list">
+            <h3>Wishlist</h3>
+            <div id="wishlistList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="track" class="section-band tracking-layout" aria-labelledby="trackTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Order tracking</p>
+            <h2 id="trackTitle">Follow a purchase</h2>
+          </div>
+        </div>
+        <form id="trackingForm" class="tracking-form">
+          <label>
+            Order number
+            <input name="orderNumber" placeholder="HOS-1001" required />
+          </label>
+          <button type="submit" class="primary-button">Track order</button>
+        </form>
+        <div id="trackingResult" class="tracking-result"></div>
+      </section>
+
+      <section id="admin" class="section-band admin-layout" aria-labelledby="adminTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">CMS and operations</p>
+            <h2 id="adminTitle">Admin control center</h2>
+          </div>
+          <label class="role-picker">
+            Active role
+            <select id="roleSelect">
+              <option>Super Admin</option>
+              <option>Admin</option>
+              <option>Content Manager</option>
+              <option>Order Manager</option>
+              <option>Inventory Manager</option>
+              <option>Marketing Manager</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-shell">
+          <div class="admin-tabs" role="tablist" aria-label="Admin modules">
+            <button type="button" class="active" data-admin-tab="dashboard">Dashboard</button>
+            <button type="button" data-admin-tab="products">Products</button>
+            <button type="button" data-admin-tab="content">Content</button>
+            <button type="button" data-admin-tab="orders">Orders</button>
+            <button type="button" data-admin-tab="promotions">Promotions</button>
+            <button type="button" data-admin-tab="inventory">Inventory</button>
+            <button type="button" data-admin-tab="reports">Reports</button>
+          </div>
+          <div id="adminPanel" class="admin-panel"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>House of Sirka</strong>
+        <p id="footerCopy"></p>
+      </div>
+      <div id="socialLinks" class="social-links"></div>
+    </footer>
+
+    <aside id="cartDrawer" class="cart-drawer" aria-hidden="true" aria-label="Shopping cart">
+      <div class="drawer-head">
+        <h2>Shopping cart</h2>
+        <button type="button" class="icon-button" data-action="close-cart" aria-label="Close cart">X</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <form id="couponForm" class="coupon-form">
+        <input name="coupon" placeholder="Coupon code" />
+        <button type="submit" class="secondary-button">Apply</button>
+      </form>
+      <div id="cartSummary" class="cart-summary"></div>
+      <button type="button" class="primary-button full-button" data-action="start-checkout">
+        Checkout
+      </button>
+    </aside>
+    <div id="scrim" class="scrim" data-action="close-overlays"></div>
+
+    <div id="productModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true"></div>
+    <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
