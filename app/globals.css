@@ -2,8 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Semantic layer. Components should reach for these rather than raw hues —
+ * it keeps contrast decisions in one place and leaves room for theming later.
+ * Values map to the primitive ramps in tailwind.config.js.
+ */
 :root {
   color-scheme: light;
+
+  --surface: #fff9f1; /* ink-100 */
+  --surface-raised: #fffdf8; /* ink-50  */
+  --surface-sunken: #f7ead8; /* ink-200 */
+  --surface-accent: #fce7e2; /* wine-50 */
+  --surface-inverse: #561026; /* wine-800 */
+
+  --content: #151413; /* ink-900  17.6:1 */
+  --content-muted: #4a443e; /* ink-700   9.2:1 */
+  --content-subtle: #6e655c; /* ink-600   5.5:1 — floor for real text */
+  --content-brand: #561026; /* wine-800 */
+  --content-accent: #7a5a1f; /* brass-700 6.1:1 — replaces brass-as-text */
+  --content-onbrand: #ffffff;
+
+  --border-subtle: #f5da9b; /* brass-200 — decorative hairlines only */
+  --border-default: #d69c3c; /* brass-400 — dividers, card edges */
+  --border-strong: #9c7129; /* brass-600 — inputs, controls (SC 1.4.11) */
+  --border-focus: #8b1e3f; /* wine-600  8.52:1 */
+
+  --action: #8b1e3f;
+  --action-hover: #6e1832;
+  --action-quiet: #fce7e2;
+  --success: #2f5b47;
+  --sale: #a44a2c;
+  --highlight: #f2b84b;
 }
 
 * {
@@ -16,8 +46,8 @@ html {
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #fff9f1 0%, #fffdf8 46%, #f7ead8 100%);
-  color: #151413;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-raised) 46%, var(--surface-sunken) 100%);
+  color: var(--content);
 }
 
 button,
@@ -40,19 +70,36 @@ img {
   max-width: 100%;
 }
 
+/**
+ * A single visible focus indicator for every interactive element.
+ * 2px wine on the page surface is 8.52:1, comfortably past the 3:1 that
+ * WCAG SC 1.4.11 requires for non-text contrast.
+ */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/** Aligns N$ columns in carts, summaries and order tables. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-  -webkit-text-fill-color: #151413;
+  -webkit-text-fill-color: var(--content);
   box-shadow: 0 0 0 1000px #fffaf2 inset;
   transition: background-color 9999s ease-in-out 0s;
 }
 
 ::selection {
-  background: #f7d8d4;
-  color: #561026;
+  background: var(--surface-accent);
+  color: var(--content-brand);
 }
 
 .floral-paper {
@@ -73,7 +120,7 @@ select:-webkit-autofill {
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  background: #7a1734;
+  background: var(--action);
 }
 
 .range-thumb::-moz-range-thumb {
@@ -81,5 +128,5 @@ select:-webkit-autofill {
   height: 18px;
   border: 0;
   border-radius: 999px;
-  background: #7a1734;
+  background: var(--action);
 }
