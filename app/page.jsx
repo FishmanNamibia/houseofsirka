@@ -37,6 +37,7 @@ import {
   unique,
 } from "@/lib/format";
 import { fileToDataUrl } from "@/lib/media";
+import { Modal, Sheet, Toast } from "@/components/ui";
 
 
 export default function Home() {
@@ -816,11 +817,7 @@ export default function Home() {
         />
       )}
 
-      {notice && (
-        <div className="fixed bottom-4 right-4 z-50 rounded-md bg-ink px-4 py-3 text-sm font-semibold text-white shadow-soft">
-          {notice}
-        </div>
-      )}
+      <Toast message={notice} />
     </main>
   );
 }
@@ -964,8 +961,13 @@ function ProductModal({
   }, [product]);
 
   return (
-    <Overlay onClose={onClose}>
-      <div className="grid max-h-[calc(100vh-2rem)] w-[min(1000px,calc(100vw-2rem))] overflow-auto rounded-md border border-brass-200 bg-ink-50 shadow-soft lg:grid-cols-[.9fr_1fr]">
+    <Modal
+      onClose={onClose}
+      title={product.name}
+      showClose={false}
+      width="min(1000px, calc(100vw - 2rem))"
+      className="grid overflow-auto lg:grid-cols-[.9fr_1fr]"
+    >
         <div className="relative min-h-96 bg-ink-200 p-3 lg:min-h-[620px]">
           <button
             type="button"
@@ -989,7 +991,7 @@ function ProductModal({
               <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">{product.category}</p>
               <h2 className="mt-2 font-display text-display-md leading-tight text-wine-800">{product.name}</h2>
             </div>
-            <button type="button" onClick={onClose} className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
+            <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
               <X size={18} />
             </button>
           </div>
@@ -1077,8 +1079,7 @@ function ProductModal({
             </div>
           </div>
         </div>
-      </div>
-    </Overlay>
+    </Modal>
   );
 }
 
@@ -1092,8 +1093,14 @@ function ImageCatalogueViewer({ product, products, onClose, onSelect, onViewProd
   }
 
   return (
-    <Overlay onClose={onClose}>
-      <div className="grid max-h-[calc(100vh-2rem)] w-[min(1180px,calc(100vw-2rem))] overflow-hidden rounded-md border border-brass-200 bg-ink text-white shadow-soft lg:grid-cols-[1fr_310px]">
+    <Modal
+      onClose={onClose}
+      title={`${product.name} images`}
+      showClose={false}
+      tone="dark"
+      width="min(1180px, calc(100vw - 2rem))"
+      className="grid overflow-hidden lg:grid-cols-[1fr_310px]"
+    >
         <div className="relative grid min-h-[68vh] place-items-center bg-black">
           <img
             src={product.image}
@@ -1163,29 +1170,20 @@ function ImageCatalogueViewer({ product, products, onClose, onSelect, onViewProd
             </div>
           </div>
         </aside>
-      </div>
-    </Overlay>
+    </Modal>
   );
 }
 
 function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQuantity, onCoupon, onCheckout }) {
   if (!open) return null;
   return (
-    <>
-      <div className="fixed inset-0 z-40 bg-black/40" onClick={onClose} />
-      <aside className="fixed right-0 top-0 z-50 grid h-screen w-[min(430px,100vw)] grid-rows-[auto_1fr_auto] bg-ink-50 p-5 shadow-soft">
-        <div className="flex items-center justify-between border-b border-brass-200 pb-4">
-          <h2 className="font-display text-display-sm text-wine-800">Cart</h2>
-          <button type="button" onClick={onClose} className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
-            <X size={18} />
-          </button>
-        </div>
-        <div className="overflow-auto py-4">
+    <Sheet open={open} onClose={onClose} side="right" title="Cart">
+      <div className="overflow-auto px-5 py-4">
           {cart.length ? (
             <div className="grid gap-4">
               {cart.map((line) => (
                 <div key={line.id} className="grid grid-cols-[76px_1fr] gap-3 border-b border-brass-200 pb-4">
-                  <img src={line.image} alt="" className="h-24 w-20 rounded object-cover" />
+                  <img src={line.image} alt={line.name} className="h-24 w-20 rounded object-cover" />
                   <div className="grid gap-1">
                     <strong>{line.name}</strong>
                     <span className="text-sm text-ink-600">
@@ -1218,7 +1216,7 @@ function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQuantity,
             <EmptyState text="Your cart is ready for the first piece." />
           )}
         </div>
-        <div className="border-t border-brass-200 pt-4">
+      <div className="border-t border-brass-200 px-5 pb-5 pt-4">
           <label className="grid gap-2 text-sm font-bold text-ink-700">
             Coupon
             <input
@@ -1233,7 +1231,7 @@ function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQuantity,
               className={classNames(
                 "mt-3 rounded-md px-3 py-2 text-sm font-semibold",
                 summary.couponValid
-                  ? "bg-garden/10 text-garden-700"
+                  ? "bg-garden-50 text-garden-700"
                   : "bg-wine-50 text-wine-600",
               )}
             >
@@ -1250,8 +1248,7 @@ function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQuantity,
             Checkout
           </button>
         </div>
-      </aside>
-    </>
+    </Sheet>
   );
 }
 
@@ -1340,8 +1337,13 @@ function CheckoutModal({ cart, summary, settings, fmt, customer, onClose, onSubm
   }
 
   return (
-    <Overlay onClose={onClose}>
-      <div className="max-h-[calc(100vh-2rem)] w-[min(980px,calc(100vw-2rem))] overflow-auto rounded-md border border-brass-200 bg-ink-50 p-5 shadow-soft md:p-7">
+    <Modal
+      onClose={onClose}
+      title="Secure checkout"
+      showClose={false}
+      width="min(980px, calc(100vw - 2rem))"
+      className="overflow-auto p-5 md:p-7"
+    >
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">Secure checkout</p>
@@ -1349,7 +1351,7 @@ function CheckoutModal({ cart, summary, settings, fmt, customer, onClose, onSubm
               {step === 1 ? "Your details" : step === 2 ? "Payment" : "Confirm order"}
             </h2>
           </div>
-          <button type="button" onClick={onClose} className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
             <X size={18} />
           </button>
         </div>
@@ -1688,8 +1690,7 @@ function CheckoutModal({ cart, summary, settings, fmt, customer, onClose, onSubm
             <SummaryRows summary={summary} fmt={fmt} />
           </div>
         </div>
-      </div>
-    </Overlay>
+    </Modal>
   );
 }
 
@@ -1702,14 +1703,19 @@ function OrderDetailModal({ order, settings, fmt, onClose }) {
   const dateStr = order.createdAt ? new Date(order.createdAt).toLocaleString() : "";
 
   return (
-    <Overlay onClose={onClose}>
-      <div className="max-h-[calc(100vh-2rem)] w-[min(920px,calc(100vw-2rem))] overflow-auto rounded-md border border-brass-200 bg-ink-50 p-5 shadow-soft md:p-7">
+    <Modal
+      onClose={onClose}
+      title={`Order ${order.orderNumber}`}
+      showClose={false}
+      width="min(920px, calc(100vw - 2rem))"
+      className="overflow-auto p-5 md:p-7"
+    >
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">Order confirmation</p>
             <h2 className="mt-2 font-display text-display-md text-wine-800">{order.orderNumber}</h2>
           </div>
-          <button type="button" onClick={onClose} className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
             <X size={18} />
           </button>
         </div>
@@ -1749,7 +1755,7 @@ function OrderDetailModal({ order, settings, fmt, onClose }) {
               <div className="mt-3 grid gap-3">
                 {(order.items || []).map((item) => (
                   <div key={item.id} className="flex items-center gap-3 border-b border-brass-200 pb-3 last:border-b-0 last:pb-0">
-                    <img src={item.image} alt="" className="h-16 w-12 rounded object-cover" />
+                    <img src={item.image} alt={item.name} className="h-16 w-12 rounded object-cover" />
                     <div className="flex-1">
                       <strong className="block text-sm">{item.name}</strong>
                       <span className="text-xs text-ink-600">{item.size} / {item.color} × {item.quantity}</span>
@@ -1870,8 +1876,7 @@ function OrderDetailModal({ order, settings, fmt, onClose }) {
             </button>
           </div>
         </div>
-      </div>
-    </Overlay>
+    </Modal>
   );
 }
 
@@ -1984,7 +1989,7 @@ function CustomerAccountView({ store, customerEmail, fmt, onViewOrder, onLogout,
                   onClick={() => onSelectProduct(product)}
                   className="flex items-center gap-3 rounded-md border border-brass-200 bg-white p-2 text-left transition hover:border-wine-600"
                 >
-                  <img src={product.image} alt="" className="h-16 w-12 rounded object-cover" />
+                  <img src={product.image} alt={product.name} className="h-16 w-12 rounded object-cover" />
                   <span>
                     <strong className="block">{product.name}</strong>
                     <span className="text-sm text-ink-600">{fmt(productPrice(product))}</span>
@@ -2043,14 +2048,6 @@ function EmptyState({ text }) {
   return (
     <div className="rounded-md border border-dashed border-brass-200 bg-ink-100 p-6 text-center text-sm text-ink-600">
       {text}
-    </div>
-  );
-}
-
-function Overlay({ children, onClose }) {
-  return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 p-4" onMouseDown={onClose}>
-      <div onMouseDown={(event) => event.stopPropagation()}>{children}</div>
     </div>
   );
 }
