@@ -24,15 +24,15 @@ import {
   Users,
 } from "lucide-react";
 import {
-  createSeedPromotions,
   evaluatePromotion,
-  normalizePromotions,
   promotionTargetLabel,
   PROMOTION_SCOPES,
   PROMOTION_TYPES,
 } from "@/lib/promotions";
+import { STORAGE_KEY, initialStore, normalizeStore } from "@/lib/catalog";
+import { money, productPrice, splitLines, totalStock, uid } from "@/lib/format";
+import { fileToDataUrl } from "@/lib/media";
 
-const STORAGE_KEY = "house-of-sirka-next-store";
 const AUTH_KEY = "house-of-sirka-admin-auth";
 const ADMIN_EMAIL = "admin@houseofsirka.local";
 const ADMIN_PASSWORD = "sirka-admin";
@@ -67,204 +67,6 @@ const adminTabs = [
   { id: "settings", label: "Settings", icon: Settings },
 ];
 
-const fallbackStore = {
-  products: [
-    {
-      id: "p-liora",
-      name: "Liora Satin Midi Dress",
-      sku: "HOS-DRS-101",
-      category: "Dresses",
-      collection: "Evening Edit",
-      price: 1490,
-      salePrice: 1290,
-      image:
-        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1100&q=82",
-      description: "Bias-cut satin midi dress with a soft evening drape.",
-      tags: ["Featured", "Best seller"],
-      rating: 4.8,
-      createdAt: "2026-04-02",
-      status: "Published",
-      variants: [
-        { id: "v-liora-s-merlot", size: "S", color: "Merlot", stock: 5 },
-        { id: "v-liora-m-merlot", size: "M", color: "Merlot", stock: 2 },
-      ],
-    },
-    {
-      id: "p-amara",
-      name: "Amara Tailored Blazer",
-      sku: "HOS-OUT-204",
-      category: "Outerwear",
-      collection: "Workroom",
-      price: 1890,
-      salePrice: null,
-      image:
-        "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=1100&q=82",
-      description: "Single-breasted blazer with a structured shoulder and satin lining.",
-      tags: ["Featured", "Tailored"],
-      rating: 4.7,
-      createdAt: "2026-03-20",
-      status: "Published",
-      variants: [
-        { id: "v-amara-s-black", size: "S", color: "Black", stock: 4 },
-        { id: "v-amara-m-black", size: "M", color: "Black", stock: 6 },
-      ],
-    },
-  ],
-  orders: [],
-  customers: [],
-  promotions: createSeedPromotions(),
-  inventoryLogs: [],
-  wishlist: [],
-  cart: [],
-  couponCode: "",
-  role: "Super Admin",
-  settings: {
-    storeName: "House of Sirka",
-    storeEmail: "hello@houseofsirka.local",
-    storePhone: "+264 81 000 0000",
-    storeAddress: "Windhoek, Namibia",
-    currency: "N$",
-    locale: "en-NA",
-    taxRate: 15,
-    deliveryFee: 95,
-    freeDeliveryThreshold: 1500,
-    deliveryAreas: "Windhoek, Swakopmund, Walvis Bay",
-    deliveryOptions: "Windhoek delivery\nCourier delivery\nPickup arrangement",
-    defaultCity: "Windhoek",
-    orderPrefix: "HOS",
-    orderStatuses: "Pending Payment\nProcessing\nPacked\nShipped\nDelivered\nCancelled\nRefunded",
-    lowStockThreshold: 2,
-    paymentMethods: "Online card payment\nEWallet transfer\nEFT bank transfer\nPay upon delivery",
-    proofRequiredMethods: "EWallet transfer\nEFT bank transfer",
-    autoConfirmMethods: "Online card payment",
-    bankName: "First National Bank Namibia",
-    bankAccountName: "House of Sirka",
-    bankAccountNumber: "",
-    bankBranchCode: "",
-    bankReference: "Use your order number as reference",
-    ewalletProvider: "FNB EWallet",
-    ewalletNumber: "+264 81 000 0000",
-    ewalletInstructions: "Send to the number above and upload proof of payment.",
-    whatsappNumber: "+264810000000",
-    whatsappMessage: "Hi House of Sirka, I'd like to enquire about my order.",
-    supportEmail: "support@houseofsirka.local",
-    notificationEmail: "orders@houseofsirka.local",
-    instagramUrl: "",
-    facebookUrl: "",
-    tiktokUrl: "",
-    // ── Email service ──
-    emailProvider: "none",
-    smtpHost: "",
-    smtpPort: "587",
-    smtpUser: "",
-    smtpPass: "",
-    smtpEncryption: "tls",
-    emailApiKey: "",
-    emailFromAddress: "",
-    emailFromName: "House of Sirka",
-    emailReplyTo: "",
-    sendOrderConfirmation: true,
-    sendShippingUpdates: true,
-    // ── Online payment gateway ──
-    paymentGateway: "stripe",
-    gatewayMode: "sandbox",
-    gatewayPublicKey: "pk_test_51Demo00000000000000000000000000000000000000000000",
-    gatewaySecretKey: "sk_test_51Demo00000000000000000000000000000000000000000000",
-    gatewayWebhookSecret: "whsec_demo000000000000000000000000000000",
-    gatewayMerchantId: "",
-    gatewayExtraConfig: '{"paymentMethodTypes": ["card"], "currency": "nad"}',
-    maintenanceMode: false,
-  },
-  content: {
-    announcement: "A cheerful atelier edit: free Windhoek delivery over N$1,500",
-    heroTitle: "House of Sirka",
-    heroBadge: "Classical boutique, bright mood",
-    heroSubtitle:
-      "A graceful online boutique for dresses, tailoring, and soft statement pieces with an old-world heart and a bright modern pulse.",
-    heroImage:
-      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=84",
-    heroCtaPrimary: "Shop the salon",
-    heroCtaSecondary: "View collections",
-    fittingNoteTitle: "Fitting note",
-    fittingNoteText: "Soft dresses, fine tailoring, and occasion pieces arranged for calm browsing.",
-    heroSecondaryImage:
-      "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=900&q=82",
-    heroSecondaryLabel: "Evening edit",
-    heroSecondaryBadge: "Sunny classic",
-    campaignTitle: "The Garden Salon",
-    campaignCopy:
-      "Classical silhouettes, sunlit color, and pieces arranged like a private fitting room rather than a warehouse shelf.",
-    catalogEyebrow: "Boutique rail",
-    catalogTitle: "Pieces with presence",
-    catalogCopy: "A brighter product room with enough structure for shopping and enough warmth to feel personal.",
-    collectionsEyebrow: "Collections",
-    collection1Title: "Evening Edit",
-    collection1Category: "Dresses",
-    collection1Image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=900&q=82",
-    collection2Title: "Workroom",
-    collection2Category: "Outerwear",
-    collection2Image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=82",
-    collection3Title: "Resort Sets",
-    collection3Category: "Sets",
-    collection3Image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=82",
-    collection4Title: "Essentials",
-    collection4Category: "Tops",
-    collection4Image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=82",
-    accountEyebrow: "Customer",
-    accountTitle: "Account and order tracking",
-    accountCopy: "Log in with your email to view your orders, track payment status, and manage your wishlist.",
-    footerTagline: "Classical silhouettes, cheerful color, and a gentler way to shop online.",
-  },
-};
-
-function uid(prefix) {
-  return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
-}
-
-function splitLines(value) {
-  return String(value || "").split("\n").map((s) => s.trim()).filter(Boolean);
-}
-
-function money(value, currency = "N$", locale = "en-NA") {
-  return `${currency}${Number(value || 0).toLocaleString(locale, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-}
-
-function productPrice(product) {
-  return product.salePrice || product.price;
-}
-
-function totalStock(product) {
-  return product.variants.reduce((sum, variant) => sum + Number(variant.stock || 0), 0);
-}
-
-function stripNulls(obj) {
-  const out = {};
-  for (const [k, v] of Object.entries(obj || {})) {
-    if (v != null) out[k] = v;
-  }
-  return out;
-}
-
-function normalizeStore(store) {
-  return {
-    ...fallbackStore,
-    ...store,
-    customers: store.customers || [],
-    promotions: normalizePromotions(store.promotions),
-    settings: {
-      ...fallbackStore.settings,
-      ...stripNulls(store.settings),
-    },
-    content: {
-      ...fallbackStore.content,
-      ...stripNulls(store.content),
-    },
-  };
-}
-
 function cleanPhone(value) {
   return String(value || "").replace(/[^\d]/g, "");
 }
@@ -287,7 +89,7 @@ function createPromotionDraft(promotion = {}) {
 }
 
 export default function AdminPage() {
-  const [store, setStore] = useState(fallbackStore);
+  const [store, setStore] = useState(initialStore);
   const [hydrated, setHydrated] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [activeAdminTab, setActiveAdminTab] = useState("dashboard");
@@ -303,7 +105,7 @@ export default function AdminPage() {
       try {
         setStore(normalizeStore(JSON.parse(saved)));
       } catch {
-        setStore(fallbackStore);
+        setStore(initialStore);
       }
     }
 
@@ -474,7 +276,7 @@ export default function AdminPage() {
   function resetStore() {
     if (!window.confirm("Reset all store data to defaults? This cannot be undone.")) return;
     window.localStorage.removeItem(STORAGE_KEY);
-    setStore(fallbackStore);
+    setStore(initialStore);
     show("Store data reset to defaults.");
   }
 
@@ -958,29 +760,6 @@ export default function AdminPage() {
       )}
     </main>
   );
-}
-
-function fileToDataUrl(file, maxWidth = 800, quality = 0.75) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = () => reject(reader.error);
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        const scale = img.width > maxWidth ? maxWidth / img.width : 1;
-        const w = Math.round(img.width * scale);
-        const h = Math.round(img.height * scale);
-        const canvas = document.createElement("canvas");
-        canvas.width = w;
-        canvas.height = h;
-        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL("image/jpeg", quality));
-      };
-      img.onerror = () => resolve(String(reader.result || ""));
-      img.src = String(reader.result || "");
-    };
-    reader.readAsDataURL(file);
-  });
 }
 
 function ImageUpload({ name, label, value, maxWidth = 800 }) {

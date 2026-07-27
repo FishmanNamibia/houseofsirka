@@ -3,8 +3,11 @@
   "configurations": [
     {
       "name": "house-of-sirka",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=/opt/homebrew/bin:$PATH && exec node node_modules/next/dist/bin/next dev -p 3080"
+      ],
       "port": 3080
     }
   ]
