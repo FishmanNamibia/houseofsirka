@@ -1,38 +1,42 @@
-# dependencies
-/node_modules
-/.pnp
+# Dependencies — hoisted to the workspace root, but npm may still create
+# per-app directories for conflicting versions.
+node_modules/
+.pnp
 .pnp.js
 
-# next.js
-/.next/
-/out/
+# Next.js (storefront)
+.next/
+out/
 
-# production
-/build
+# Medusa (backend)
+.medusa/
+dist/
 
-# misc
+# Turbo
+.turbo/
+
+# Build output
+build/
+
+# Environment — never commit. apps/backend/.env holds the JWT and cookie
+# signing secrets and the database URL.
+.env
+.env.*
+!.env.template
+!.env.example
+
+# Misc
 .DS_Store
 *.pem
 
-# debug
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
-.env
-
-# vercel
+# Vercel
 .vercel
 
-# typescript
+# TypeScript
 *.tsbuildinfo
 next-env.d.ts
-
-# Medusa backend
-backend/node_modules
-backend/.env
-backend/apps/*/node_modules
-backend/apps/*/.medusa
-backend/apps/*/dist
