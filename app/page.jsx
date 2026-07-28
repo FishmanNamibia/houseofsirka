@@ -14,7 +14,6 @@ import {
   Minus,
   Plus,
   Search,
-  ShoppingBag,
   SlidersHorizontal,
   User,
   X,
@@ -38,6 +37,7 @@ import {
 } from "@/lib/format";
 import { fileToDataUrl } from "@/lib/media";
 import { Modal, Sheet, Toast } from "@/components/ui";
+import SiteHeader from "@/components/layout/SiteHeader";
 
 
 export default function Home() {
@@ -448,66 +448,26 @@ export default function Home() {
 
   return (
     <main id="main" className="min-h-screen bg-ink-100 text-ink-900">
-      <div className="bg-garden-700 px-4 py-2 text-center text-sm font-semibold text-white">
-        {store.content.announcement}
-      </div>
-
-      <header className="sticky top-0 z-30 border-b border-brass-200 bg-pearl/88 px-4 backdrop-blur-xl md:px-8">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 py-4">
-          <a href="#shop" className="flex items-center">
-            <img
-              src="/house-of-sirka-logo-final.png"
-              alt="House of Sirka"
-              className="h-auto w-[170px] sm:w-[220px]"
-            />
-          </a>
-
-          <nav className="flex flex-wrap items-center gap-1 text-sm font-semibold">
-            {[
-              { label: "Shop", href: "#shop" },
-              { label: "Collections", href: "#collections" },
-              { label: "Account", href: "#account" },
-            ].map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="rounded-md px-3 py-2 text-ink-800 transition hover:bg-wine-50 hover:text-wine-600"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <button
-            type="button"
-            onClick={() => setCartOpen(true)}
-            className="inline-flex h-11 items-center gap-2 rounded-md border border-wine-600 bg-wine-600 px-4 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-wine-700"
-          >
-            <ShoppingBag size={18} />
-            Cart
-            <span className="grid min-w-6 place-items-center rounded-full bg-brass-300 px-2 py-0.5 text-xs text-ink-900">
-              {cartCount}
-            </span>
-          </button>
-        </div>
-      </header>
+      <span id="top" />
+      <SiteHeader
+        announcement={store.content.announcement}
+        cartCount={cartCount}
+        onCartOpen={() => setCartOpen(true)}
+      />
 
       <section id="shop" className="floral-paper relative overflow-hidden border-b border-brass-200">
-        <div className="mx-auto grid min-h-[calc(100vh-116px)] max-w-7xl gap-10 px-4 py-12 md:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 md:px-8 lg:min-h-[calc(100vh-140px)] lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:py-16">
           <div className="relative z-10">
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-brass-200 bg-pearl/80 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-garden-700 shadow-sm">
+            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-brass-200 bg-ink-50/80 px-4 py-2 text-eyebrow uppercase text-garden-700 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-brass-300" />
               {store.content.heroBadge}
             </div>
-            <h1 className="sr-only">{store.content.heroTitle}</h1>
-            <div className="w-fit max-w-full border border-brass-200 bg-pearl/82 p-4 shadow-sm backdrop-blur">
-              <img
-                src="/house-of-sirka-logo-final.png"
-                alt="House of Sirka Intimate Collections"
-                className="h-auto w-[min(430px,82vw)]"
-              />
-            </div>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-700 md:text-xl">
+            {/* A real, visible H1. The wordmark image that stood here duplicated
+                the header logo and left the page with only an sr-only heading. */}
+            <h1 className="font-display text-display-lg text-wine-800 sm:text-display-xl lg:text-display-2xl">
+              {store.content.heroTitle}
+            </h1>
+            <p className="mt-6 max-w-[68ch] text-body-lg text-ink-700">
               {store.content.heroSubtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -538,29 +498,32 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative min-h-[560px]">
-            <div className="absolute left-0 top-8 hidden w-48 border border-brass-200 bg-ink-50 p-4 shadow-soft md:block">
+          {/* Columns 1-2 hold the text cards, columns 3-6 the main image, so no
+              card can sit on top of the photograph. A fixed row track on large
+              screens keeps the collage from outgrowing the copy beside it. */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:h-[600px] lg:grid-cols-6 lg:grid-rows-6 lg:gap-3">
+            <div className="order-2 border border-brass-200 bg-ink-50 p-4 shadow-soft sm:order-none lg:col-span-2 lg:col-start-1 lg:row-span-2 lg:row-start-2">
               <p className="font-display text-display-sm text-wine-800">{store.content.fittingNoteTitle}</p>
-              <p className="mt-2 text-sm leading-6 text-ink-600">
-                {store.content.fittingNoteText}
-              </p>
+              <p className="mt-2 text-body-sm text-ink-600">{store.content.fittingNoteText}</p>
             </div>
-            <div className="absolute right-0 top-0 h-[82%] w-[78%] border border-brass-200 bg-ink-200 p-3 shadow-soft">
+
+            <div className="order-1 border border-brass-200 bg-ink-200 p-3 shadow-soft sm:order-none sm:col-span-2 lg:col-span-4 lg:col-start-3 lg:row-span-6 lg:row-start-1">
               <img
                 src={store.content.heroImage}
                 alt=""
-                className="h-full w-full object-cover"
+                className="h-56 w-full object-cover sm:h-80 lg:h-full"
               />
             </div>
-            <div className="absolute bottom-0 left-8 w-[58%] border border-brass-200 bg-ink-50 p-3 shadow-soft">
+
+            <div className="order-3 border border-brass-200 bg-ink-50 p-3 shadow-soft sm:order-none lg:col-span-2 lg:col-start-1 lg:row-span-2 lg:row-start-4">
               <img
                 src={store.content.heroSecondaryImage}
                 alt=""
-                className="h-64 w-full object-cover"
+                className="h-48 w-full object-cover lg:h-28"
               />
-              <div className="flex items-center justify-between gap-3 px-2 py-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-1 py-2">
                 <span className="font-display text-display-sm text-wine-800">{store.content.heroSecondaryLabel}</span>
-                <span className="rounded-full bg-brass-300 px-3 py-1 text-xs font-black text-ink-900">
+                <span className="rounded-full bg-brass-300 px-3 py-1 text-micro text-ink-900">
                   {store.content.heroSecondaryBadge}
                 </span>
               </div>
@@ -574,7 +537,7 @@ export default function Home() {
       <section id="collections" className="border-b border-brass-200 bg-ink-50 px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto max-w-7xl">
           <SectionTitle eyebrow={store.content.collectionsEyebrow} title={store.content.campaignTitle} copy={store.content.campaignCopy} />
-          <div className="mt-8 grid gap-4 md:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               [store.content.collection1Title, store.content.collection1Category, store.content.collection1Image],
               [store.content.collection2Title, store.content.collection2Category, store.content.collection2Image],
@@ -616,8 +579,8 @@ export default function Home() {
             />
           </div>
 
-          <div className="mt-8 grid gap-3 rounded-md border border-brass-200 bg-ink-50 p-4 shadow-sm lg:grid-cols-[1.3fr_repeat(5,1fr)]">
-            <label className="grid gap-2 text-sm font-bold text-ink-700">
+          <div className="mt-8 grid gap-3 rounded-md border border-brass-200 bg-ink-50 p-4 shadow-sm sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.3fr_repeat(5,1fr)]">
+            <label className="grid gap-2 text-body-sm font-bold text-ink-700 sm:col-span-2 md:col-span-3 lg:col-span-1">
               <span className="inline-flex items-center gap-2"><Search size={16} /> Search</span>
               <input
                 value={filters.search}
