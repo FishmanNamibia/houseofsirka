@@ -26,9 +26,21 @@ function Account() {
         <div className="mx-auto mt-10 max-w-md">
           <div className="rounded-md border border-brass-200 bg-ink-50 p-6 shadow-sm">
             <LogIn className="mb-4 text-wine-600" size={24} aria-hidden="true" />
-            <h2 className="font-display text-display-sm text-wine-800">Customer login</h2>
+            <h2 className="font-display text-display-sm text-wine-800">Find your order</h2>
             <p className="mt-2 text-body-sm text-ink-600">
               Enter the email address you used when placing your order.
+            </p>
+
+            {/*
+              This is an unverified lookup, not authentication — there is no
+              password and no session. Calling it a "login" would imply a
+              protection that does not exist, so it is labelled for what it is
+              until real accounts are built on a backend.
+            */}
+            <p className="mt-3 rounded-md border border-brass-600 bg-brass-50 p-3 text-caption text-ink-700">
+              Order history is looked up by email only — anyone entering your address could see it.
+              Please do not enter anything you would not want a shared computer to remember. Proper
+              accounts with passwords are coming.
             </p>
             <form
               onSubmit={(event) => {
@@ -36,7 +48,7 @@ function Account() {
                 const email = new FormData(event.currentTarget).get("loginEmail");
                 if (email) {
                   customerLogin(email);
-                  show("Logged in successfully.");
+                  show("Showing orders for that email address.");
                 }
               }}
               className="mt-5 grid gap-3"
@@ -44,9 +56,9 @@ function Account() {
               <TextInput name="loginEmail" type="email" label="Email address" required />
               <button
                 type="submit"
-                className="h-11 rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+                className="h-12 rounded-md bg-wine-600 font-semibold text-white transition hover:bg-wine-700"
               >
-                View my orders
+                Find my orders
               </button>
             </form>
             <p className="mt-4 text-caption text-ink-600">
