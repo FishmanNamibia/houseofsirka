@@ -148,7 +148,7 @@ function Shell({ children }) {
 
           <div className="mx-auto mt-10 max-w-7xl border-t border-white/15 pt-6">
             <p className="mt-6 text-caption text-white/70">
-              © {new Date().getFullYear()} House of Sirka · Prices in Namibian dollars, VAT included · Windhoek, Namibia
+              © {new Date().getFullYear()} House of Sirka · Windhoek, Namibia
             </p>
           </div>
         </div>
