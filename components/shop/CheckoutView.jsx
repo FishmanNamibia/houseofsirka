@@ -24,8 +24,6 @@ const WALLET_METHODS = [
  * are the details that cause a payment to be abandoned halfway.
  */
 const METHOD_NOTES = {
-  PayToday:
-    "Pay instantly from the PayToday app — search for House of Sirka and use your order number as the description.",
   "EFT bank transfer":
     "Transfer to our FNB Namibia account using your order number as the reference, then upload the proof.",
   "FNB eWallet":
