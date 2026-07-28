@@ -309,9 +309,10 @@ export function StoreProvider({ children }) {
       };
     });
 
+    // The receipt is its own page now, so no modal is opened here; the
+    // checkout route navigates to /checkout/confirmation after this returns.
     setCheckoutOpen(false);
     setCartOpen(false);
-    setViewingOrder(order);
     if (order.email) customerLogin(order.email);
     show(`Order ${orderNumber} placed successfully.`);
 

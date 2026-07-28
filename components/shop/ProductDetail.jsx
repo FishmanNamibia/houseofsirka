@@ -5,13 +5,12 @@ import Link from "next/link";
 import { ChevronRight, Heart, ShieldCheck, Truck } from "lucide-react";
 import { COLOR_SWATCHES, productSlug } from "@/lib/catalog";
 import { classNames, productPrice, totalStock, unique } from "@/lib/format";
-import { StoreProvider, useStore } from "@/components/store/StoreProvider";
-import SiteHeader from "@/components/layout/SiteHeader";
+import { useStore } from "@/components/store/StoreProvider";
+import StorefrontShell from "@/components/layout/StorefrontShell";
 import SmartImage from "@/components/ui/SmartImage";
-import { Toast } from "@/components/ui";
 
 function Detail({ slug, seedProduct }) {
-  const { store, hydrated, cartCount, setCartOpen, fmt, addToCart, toggleWishlist, notice } = useStore();
+  const { store, hydrated, fmt, addToCart, toggleWishlist } = useStore();
 
   // Seed data renders first so the server HTML and the first client render
   // match; once localStorage is read, admin edits take over.
@@ -23,20 +22,19 @@ function Detail({ slug, seedProduct }) {
   if (hydrated && !product) {
     return (
       <>
-        <SiteHeader announcement={store.content.announcement} cartCount={cartCount} onCartOpen={() => setCartOpen(true)} />
-        <main id="main" className="mx-auto max-w-3xl px-4 py-24 text-center">
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center">
           <h1 className="font-display text-display-lg text-wine-800">Piece not found</h1>
           <p className="mt-4 text-body text-ink-600">This piece may have been archived.</p>
           <Link href="/" className="mt-8 inline-flex h-12 items-center rounded-md bg-wine-600 px-6 font-semibold text-white">
             Back to the boutique
           </Link>
-        </main>
+        </div>
       </>
     );
   }
 
   if (!product) {
-    return <main id="main" className="mx-auto max-w-6xl px-4 py-24" aria-busy="true" />;
+    return <div className="mx-auto max-w-6xl px-4 py-24" aria-busy="true" />;
   }
 
   const variants = product.variants || [];
@@ -45,10 +43,7 @@ function Detail({ slug, seedProduct }) {
   const colors = unique(variants.map((v) => v.color));
 
   return (
-    <>
-      <SiteHeader announcement={store.content.announcement} cartCount={cartCount} onCartOpen={() => setCartOpen(true)} />
-
-      <main id="main" className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
         <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1 text-body-sm text-ink-600">
           <Link href="/" className="hover:text-wine-600">Home</Link>
           <ChevronRight size={14} aria-hidden="true" />
@@ -151,17 +146,14 @@ function Detail({ slug, seedProduct }) {
             </dl>
           </div>
         </div>
-      </main>
-
-      <Toast message={notice} />
-    </>
+    </div>
   );
 }
 
 export default function ProductDetail(props) {
   return (
-    <StoreProvider>
+    <StorefrontShell>
       <Detail {...props} />
-    </StoreProvider>
+    </StorefrontShell>
   );
 }

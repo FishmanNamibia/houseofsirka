@@ -81,6 +81,19 @@ img {
   border-radius: 3px;
 }
 
+/**
+ * Fraunces variation defaults. SOFT rounds the terminals slightly; WONK stays
+ * at 0 for interface headings and is dialled up only on the hero, where the
+ * quirk reads as character rather than noise.
+ */
+.font-display {
+  font-variation-settings: "SOFT" 25, "WONK" 0;
+}
+
+.display-hero {
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+}
+
 /** Aligns N$ columns in carts, summaries and order tables. */
 .tabular {
   font-variant-numeric: tabular-nums;

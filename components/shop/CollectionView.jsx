@@ -4,13 +4,12 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { productSlug } from "@/lib/catalog";
 import { productPrice, totalStock } from "@/lib/format";
-import { StoreProvider, useStore } from "@/components/store/StoreProvider";
-import SiteHeader from "@/components/layout/SiteHeader";
+import { useStore } from "@/components/store/StoreProvider";
+import StorefrontShell from "@/components/layout/StorefrontShell";
 import SmartImage from "@/components/ui/SmartImage";
-import { Toast } from "@/components/ui";
 
 function View({ category, seedProducts }) {
-  const { store, hydrated, publishedProducts, cartCount, setCartOpen, fmt, notice } = useStore();
+  const { hydrated, publishedProducts, fmt } = useStore();
 
   // Seed first so server HTML and first client render agree.
   const products = hydrated
@@ -18,10 +17,7 @@ function View({ category, seedProducts }) {
     : seedProducts;
 
   return (
-    <>
-      <SiteHeader announcement={store.content.announcement} cartCount={cartCount} onCartOpen={() => setCartOpen(true)} />
-
-      <main id="main" className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1 text-body-sm text-ink-600">
           <Link href="/" className="hover:text-wine-600">Home</Link>
           <ChevronRight size={14} aria-hidden="true" />
@@ -67,17 +63,14 @@ function View({ category, seedProducts }) {
         {!products.length && (
           <p className="mt-10 text-body text-ink-600">Nothing in this collection just now.</p>
         )}
-      </main>
-
-      <Toast message={notice} />
-    </>
+    </div>
   );
 }
 
 export default function CollectionView(props) {
   return (
-    <StoreProvider>
+    <StorefrontShell>
       <View {...props} />
-    </StoreProvider>
+    </StorefrontShell>
   );
 }
