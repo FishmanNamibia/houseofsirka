@@ -29,3 +29,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Medusa backend
+backend/node_modules
+backend/.env
+backend/apps/*/node_modules
+backend/apps/*/.medusa
+backend/apps/*/dist
