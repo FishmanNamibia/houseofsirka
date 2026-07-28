@@ -1,0 +1,709 @@
+{
+  "products": [
+    {
+      "handle": "liora-satin-midi-dress",
+      "title": "Liora Satin Midi Dress",
+      "sku": "HOS-DRS-101",
+      "category": "Dresses",
+      "collection": "Evening Edit",
+      "price": 1490,
+      "salePrice": 1290,
+      "description": "Bias-cut satin that moves with you, on adjustable straps. Cut for Windhoek evening functions — warm enough at eight, still right at midnight.",
+      "images": [
+        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Featured",
+        "Best seller"
+      ],
+      "createdAt": "2026-04-02",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Merlot",
+          "stock": 5,
+          "sku": "HOS-DRS-101-S-MER"
+        },
+        {
+          "size": "M",
+          "color": "Merlot",
+          "stock": 2,
+          "sku": "HOS-DRS-101-M-MER"
+        },
+        {
+          "size": "L",
+          "color": "Black",
+          "stock": 3,
+          "sku": "HOS-DRS-101-L-BLA"
+        }
+      ]
+    },
+    {
+      "handle": "amara-tailored-blazer",
+      "title": "Amara Tailored Blazer",
+      "sku": "HOS-OUT-204",
+      "category": "Outerwear",
+      "collection": "The Workroom",
+      "price": 1890,
+      "salePrice": null,
+      "description": "A structured shoulder and satin lining, cut with room for a light layer beneath. Made for offices that run cold and afternoons that do not.",
+      "images": [
+        "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Featured",
+        "Tailored"
+      ],
+      "createdAt": "2026-03-20",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Black",
+          "stock": 4,
+          "sku": "HOS-OUT-204-S-BLA"
+        },
+        {
+          "size": "M",
+          "color": "Black",
+          "stock": 6,
+          "sku": "HOS-OUT-204-M-BLA"
+        },
+        {
+          "size": "L",
+          "color": "Ivory",
+          "stock": 1,
+          "sku": "HOS-OUT-204-L-IVO"
+        }
+      ]
+    },
+    {
+      "handle": "sira-linen-co-ord-set",
+      "title": "Sira Linen Co-ord Set",
+      "sku": "HOS-SET-118",
+      "category": "Sets",
+      "collection": "Coast",
+      "price": 1190,
+      "salePrice": 990,
+      "description": "Linen-blend shirt and easy trouser, cut loose for the coast. Made with Swakopmund wind and January heat in mind.",
+      "images": [
+        "https://images.unsplash.com/photo-1596783074918-c84cb06531ca?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1596783074918-c84cb06531ca?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "New arrival"
+      ],
+      "createdAt": "2026-04-14",
+      "variants": [
+        {
+          "size": "XS",
+          "color": "Jade",
+          "stock": 3,
+          "sku": "HOS-SET-118-XS-JAD"
+        },
+        {
+          "size": "S",
+          "color": "Jade",
+          "stock": 5,
+          "sku": "HOS-SET-118-S-JAD"
+        },
+        {
+          "size": "M",
+          "color": "Sand",
+          "stock": 4,
+          "sku": "HOS-SET-118-M-SAN"
+        }
+      ]
+    },
+    {
+      "handle": "naledi-pleated-skirt",
+      "title": "Naledi Pleated Skirt",
+      "sku": "HOS-SKT-077",
+      "category": "Skirts",
+      "collection": "New Arrivals",
+      "price": 820,
+      "salePrice": null,
+      "description": "A fluid pleat on a clean waistband — easy from a Katutura morning to a Klein Windhoek lunch without a change.",
+      "images": [
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "New arrival"
+      ],
+      "createdAt": "2026-04-18",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Rose",
+          "stock": 8,
+          "sku": "HOS-SKT-077-S-ROS"
+        },
+        {
+          "size": "M",
+          "color": "Navy",
+          "stock": 0,
+          "sku": "HOS-SKT-077-M-NAV"
+        },
+        {
+          "size": "L",
+          "color": "Navy",
+          "stock": 2,
+          "sku": "HOS-SKT-077-L-NAV"
+        }
+      ]
+    },
+    {
+      "handle": "mira-rib-knit-top",
+      "title": "Mira Rib Knit Top",
+      "sku": "HOS-TOP-042",
+      "category": "Tops",
+      "collection": "Essentials",
+      "price": 540,
+      "salePrice": null,
+      "description": "Square neckline, close rib, honest weight. The piece that layers under everything else on this rail from May to August.",
+      "images": [
+        "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Best seller"
+      ],
+      "createdAt": "2026-02-22",
+      "variants": [
+        {
+          "size": "XS",
+          "color": "Ivory",
+          "stock": 10,
+          "sku": "HOS-TOP-042-XS-IVO"
+        },
+        {
+          "size": "S",
+          "color": "Black",
+          "stock": 12,
+          "sku": "HOS-TOP-042-S-BLA"
+        },
+        {
+          "size": "M",
+          "color": "Jade",
+          "stock": 7,
+          "sku": "HOS-TOP-042-M-JAD"
+        }
+      ]
+    },
+    {
+      "handle": "kalahari-wrap-coat",
+      "title": "Kalahari Wrap Coat",
+      "sku": "HOS-OUT-301",
+      "category": "Outerwear",
+      "collection": "Highland Winter",
+      "price": 2680,
+      "salePrice": 2290,
+      "description": "A generous collar and belted waist for Khomas Hochland winter mornings, when Windhoek drops to single figures before sunrise.",
+      "images": [
+        "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Featured",
+        "Low stock"
+      ],
+      "createdAt": "2026-04-16",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Sand",
+          "stock": 1,
+          "sku": "HOS-OUT-301-S-SAN"
+        },
+        {
+          "size": "M",
+          "color": "Stone",
+          "stock": 2,
+          "sku": "HOS-OUT-301-M-STO"
+        },
+        {
+          "size": "L",
+          "color": "Black",
+          "stock": 0,
+          "sku": "HOS-OUT-301-L-BLA"
+        }
+      ]
+    },
+    {
+      "handle": "omuti-cotton-camisole",
+      "title": "Omuti Cotton Camisole",
+      "sku": "HOS-INT-410",
+      "category": "Intimates",
+      "collection": "Everyday Intimates",
+      "price": 390,
+      "salePrice": null,
+      "description": "Combed cotton camisole with adjustable straps and a bound neckline. Cut to sit flat under a shirt, breathable enough for a Windhoek February.",
+      "images": [
+        "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "New arrival"
+      ],
+      "createdAt": "2026-05-02",
+      "variants": [
+        {
+          "size": "XS",
+          "color": "Ivory",
+          "stock": 9,
+          "sku": "HOS-INT-410-XS-IVO"
+        },
+        {
+          "size": "S",
+          "color": "Ivory",
+          "stock": 12,
+          "sku": "HOS-INT-410-S-IVO"
+        },
+        {
+          "size": "M",
+          "color": "Black",
+          "stock": 10,
+          "sku": "HOS-INT-410-M-BLA"
+        },
+        {
+          "size": "L",
+          "color": "Black",
+          "stock": 6,
+          "sku": "HOS-INT-410-L-BLA"
+        }
+      ]
+    },
+    {
+      "handle": "ehungi-soft-cup-bralette",
+      "title": "Ehungi Soft-Cup Bralette",
+      "sku": "HOS-INT-415",
+      "category": "Intimates",
+      "collection": "Everyday Intimates",
+      "price": 460,
+      "salePrice": null,
+      "description": "Unlined soft-cup bralette in stretch jersey, wide underband, no wire. Made for wearing all day rather than counting the hours.",
+      "images": [
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Best seller"
+      ],
+      "createdAt": "2026-05-06",
+      "variants": [
+        {
+          "size": "XS",
+          "color": "Rose",
+          "stock": 7,
+          "sku": "HOS-INT-415-XS-ROS"
+        },
+        {
+          "size": "S",
+          "color": "Rose",
+          "stock": 11,
+          "sku": "HOS-INT-415-S-ROS"
+        },
+        {
+          "size": "M",
+          "color": "Ivory",
+          "stock": 9,
+          "sku": "HOS-INT-415-M-IVO"
+        },
+        {
+          "size": "L",
+          "color": "Black",
+          "stock": 5,
+          "sku": "HOS-INT-415-L-BLA"
+        }
+      ]
+    },
+    {
+      "handle": "ondjila-slip-dress",
+      "title": "Ondjila Satin Slip",
+      "sku": "HOS-INT-422",
+      "category": "Intimates",
+      "collection": "Evening Edit",
+      "price": 690,
+      "salePrice": 590,
+      "description": "Bias satin slip that works under a sheer dress or on its own after dark. Adjustable strap, French seams throughout.",
+      "images": [
+        "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Featured"
+      ],
+      "createdAt": "2026-05-11",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Merlot",
+          "stock": 4,
+          "sku": "HOS-INT-422-S-MER"
+        },
+        {
+          "size": "M",
+          "color": "Merlot",
+          "stock": 6,
+          "sku": "HOS-INT-422-M-MER"
+        },
+        {
+          "size": "L",
+          "color": "Navy",
+          "stock": 3,
+          "sku": "HOS-INT-422-L-NAV"
+        }
+      ]
+    },
+    {
+      "handle": "tulinawa-lounge-set",
+      "title": "Tulinawa Lounge Set",
+      "sku": "HOS-INT-430",
+      "category": "Intimates",
+      "collection": "Everyday Intimates",
+      "price": 880,
+      "salePrice": null,
+      "description": "Brushed cotton shirt and short set with piped edges. The set you keep for the first cold week of May.",
+      "images": [
+        "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "New arrival"
+      ],
+      "createdAt": "2026-05-14",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Stone",
+          "stock": 5,
+          "sku": "HOS-INT-430-S-STO"
+        },
+        {
+          "size": "M",
+          "color": "Stone",
+          "stock": 7,
+          "sku": "HOS-INT-430-M-STO"
+        },
+        {
+          "size": "L",
+          "color": "Sand",
+          "stock": 4,
+          "sku": "HOS-INT-430-L-SAN"
+        }
+      ]
+    },
+    {
+      "handle": "etosha-linen-shirt-dress",
+      "title": "Etosha Linen Shirt Dress",
+      "sku": "HOS-DRS-118",
+      "category": "Dresses",
+      "collection": "Coast",
+      "price": 1180,
+      "salePrice": null,
+      "description": "Collared linen shirt dress with a self belt and deep pockets. Loose enough for the drive to Swakop, sharp enough for lunch at the other end.",
+      "images": [
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "New arrival"
+      ],
+      "createdAt": "2026-05-19",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Ivory",
+          "stock": 6,
+          "sku": "HOS-DRS-118-S-IVO"
+        },
+        {
+          "size": "M",
+          "color": "Ivory",
+          "stock": 8,
+          "sku": "HOS-DRS-118-M-IVO"
+        },
+        {
+          "size": "L",
+          "color": "Sand",
+          "stock": 5,
+          "sku": "HOS-DRS-118-L-SAN"
+        },
+        {
+          "size": "XL",
+          "color": "Sand",
+          "stock": 3,
+          "sku": "HOS-DRS-118-XL-SAN"
+        }
+      ]
+    },
+    {
+      "handle": "mariental-wrap-dress",
+      "title": "Mariental Wrap Dress",
+      "sku": "HOS-DRS-124",
+      "category": "Dresses",
+      "collection": "The Workroom",
+      "price": 1390,
+      "salePrice": 1190,
+      "description": "True wrap with a fixed inner tie, so it stays closed when you sit down. Ponte knit that holds its shape through a working day.",
+      "images": [
+        "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Featured",
+        "Best seller"
+      ],
+      "createdAt": "2026-05-23",
+      "variants": [
+        {
+          "size": "XS",
+          "color": "Navy",
+          "stock": 4,
+          "sku": "HOS-DRS-124-XS-NAV"
+        },
+        {
+          "size": "S",
+          "color": "Navy",
+          "stock": 7,
+          "sku": "HOS-DRS-124-S-NAV"
+        },
+        {
+          "size": "M",
+          "color": "Merlot",
+          "stock": 6,
+          "sku": "HOS-DRS-124-M-MER"
+        },
+        {
+          "size": "L",
+          "color": "Merlot",
+          "stock": 4,
+          "sku": "HOS-DRS-124-L-MER"
+        }
+      ]
+    },
+    {
+      "handle": "oshana-wide-leg-trouser",
+      "title": "Oshana Wide-Leg Trouser",
+      "sku": "HOS-TRS-201",
+      "category": "Trousers",
+      "collection": "The Workroom",
+      "price": 980,
+      "salePrice": null,
+      "description": "High-waisted wide leg with a clean front and a hidden hook closure. Hemmed to your height at the workroom, no charge.",
+      "images": [
+        "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "New arrival"
+      ],
+      "createdAt": "2026-05-27",
+      "variants": [
+        {
+          "size": "XS",
+          "color": "Black",
+          "stock": 6,
+          "sku": "HOS-TRS-201-XS-BLA"
+        },
+        {
+          "size": "S",
+          "color": "Black",
+          "stock": 9,
+          "sku": "HOS-TRS-201-S-BLA"
+        },
+        {
+          "size": "M",
+          "color": "Stone",
+          "stock": 7,
+          "sku": "HOS-TRS-201-M-STO"
+        },
+        {
+          "size": "L",
+          "color": "Stone",
+          "stock": 4,
+          "sku": "HOS-TRS-201-L-STO"
+        }
+      ]
+    },
+    {
+      "handle": "katutura-tapered-trouser",
+      "title": "Katutura Tapered Trouser",
+      "sku": "HOS-TRS-208",
+      "category": "Trousers",
+      "collection": "Essentials",
+      "price": 890,
+      "salePrice": null,
+      "description": "Mid-rise taper in a stretch twill that survives a full week. Cut a little longer in the rise than most, because most are cut short.",
+      "images": [
+        "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=1100&q=82",
+      "tags": [],
+      "createdAt": "2026-06-01",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Navy",
+          "stock": 8,
+          "sku": "HOS-TRS-208-S-NAV"
+        },
+        {
+          "size": "M",
+          "color": "Navy",
+          "stock": 10,
+          "sku": "HOS-TRS-208-M-NAV"
+        },
+        {
+          "size": "L",
+          "color": "Black",
+          "stock": 6,
+          "sku": "HOS-TRS-208-L-BLA"
+        },
+        {
+          "size": "XL",
+          "color": "Black",
+          "stock": 3,
+          "sku": "HOS-TRS-208-XL-BLA"
+        }
+      ]
+    },
+    {
+      "handle": "brandberg-merino-cardigan",
+      "title": "Brandberg Merino Cardigan",
+      "sku": "HOS-KNT-305",
+      "category": "Knitwear",
+      "collection": "Highland Winter",
+      "price": 1450,
+      "salePrice": null,
+      "description": "Fine merino cardigan with horn buttons and a ribbed hem. Light enough to carry, warm enough for a Khomas Hochland morning.",
+      "images": [
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Featured"
+      ],
+      "createdAt": "2026-06-05",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Sand",
+          "stock": 4,
+          "sku": "HOS-KNT-305-S-SAN"
+        },
+        {
+          "size": "M",
+          "color": "Sand",
+          "stock": 6,
+          "sku": "HOS-KNT-305-M-SAN"
+        },
+        {
+          "size": "L",
+          "color": "Merlot",
+          "stock": 3,
+          "sku": "HOS-KNT-305-L-MER"
+        }
+      ]
+    },
+    {
+      "handle": "swakop-cotton-knit",
+      "title": "Swakop Cotton Knit",
+      "sku": "HOS-KNT-312",
+      "category": "Knitwear",
+      "collection": "Coast",
+      "price": 760,
+      "salePrice": 650,
+      "description": "Loose cotton knit with a dropped shoulder, for the hour after sunset when the coast turns cold without warning.",
+      "images": [
+        "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1100&q=82",
+        "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1100&q=82"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1100&q=82",
+      "tags": [
+        "Best seller"
+      ],
+      "createdAt": "2026-06-09",
+      "variants": [
+        {
+          "size": "S",
+          "color": "Ivory",
+          "stock": 7,
+          "sku": "HOS-KNT-312-S-IVO"
+        },
+        {
+          "size": "M",
+          "color": "Ivory",
+          "stock": 9,
+          "sku": "HOS-KNT-312-M-IVO"
+        },
+        {
+          "size": "L",
+          "color": "Jade",
+          "stock": 5,
+          "sku": "HOS-KNT-312-L-JAD"
+        }
+      ]
+    }
+  ],
+  "colors": {
+    "Black": "#131313",
+    "Ivory": "#F5EFE4",
+    "Merlot": "#6B1730",
+    "Jade": "#0E6760",
+    "Ochre": "#A87F36",
+    "Rose": "#D79BA5",
+    "Navy": "#18233F",
+    "Stone": "#B7B0A7",
+    "Sand": "#C7B191"
+  }
+}
