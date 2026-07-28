@@ -57,7 +57,16 @@ export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
   return (
     <article className="group overflow-hidden rounded-md border border-brass-200 bg-ink-50 shadow-sm transition hover:-translate-y-1 hover:border-brass-400 hover:shadow-soft">
       <div className="relative aspect-[4/5] bg-ink-200 p-3">
-        <Link href={`/products/${productSlug(product)}`} className="block h-full w-full overflow-hidden">
+        {/* Presentational for assistive tech: the title link below already
+            names this product, so exposing the image as a third link to the
+            same place would give every card three tab stops. Still clickable
+            with a mouse. */}
+        <Link
+          href={`/products/${productSlug(product)}`}
+          tabIndex={-1}
+          aria-hidden="true"
+          className="block h-full w-full overflow-hidden"
+        >
           <img
             src={product.image}
             alt={product.name}

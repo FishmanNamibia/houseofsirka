@@ -142,7 +142,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
               <Search size={20} />
             </button>
             <Link
-              href="/account"
+              href="/wishlist"
               aria-label="Wishlist"
               className="hidden h-11 w-11 place-items-center rounded-md text-ink-800 transition hover:bg-wine-50 hover:text-wine-600 md:grid"
             >

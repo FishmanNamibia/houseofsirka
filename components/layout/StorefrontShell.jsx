@@ -23,6 +23,7 @@ const HELP_LINKS = [
   { label: "Returns & exchanges", href: "/returns" },
   { label: "FAQ", href: "/faq" },
   { label: "Track an order", href: "/account" },
+  { label: "Wishlist", href: "/wishlist" },
 ];
 
 const WORKROOM_LINKS = [
