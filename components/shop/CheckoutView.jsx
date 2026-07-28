@@ -26,8 +26,6 @@ const WALLET_METHODS = [
 const METHOD_NOTES = {
   PayToday:
     "Pay instantly from the PayToday app — search for House of Sirka and use your order number as the description.",
-  "Card payment":
-    "Visa or Mastercard. You are redirected to our payment provider; we never see your card details.",
   "EFT bank transfer":
     "Transfer to our FNB Namibia account using your order number as the reference, then upload the proof.",
   "FNB eWallet":
