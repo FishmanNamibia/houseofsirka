@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MessageCircle } from "lucide-react";
-import { splitLines } from "@/lib/format";
 import { StoreProvider, useStore } from "@/components/store/StoreProvider";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { CartDrawer, OrderDetailModal } from "@/components/shop/parts";
@@ -46,6 +44,7 @@ function Shell({ children }) {
     <>
       <SiteHeader
         announcement={store.content.announcement}
+        settings={cfg}
         cartCount={cartCount}
         onCartOpen={() => setCartOpen(true)}
       />
@@ -93,17 +92,12 @@ function Shell({ children }) {
         </div>
 
         <div className="px-4 py-12 md:px-8">
-          <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.1fr]">
+          <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
             <div>
               <div className="mb-4 w-44 rounded bg-ink-50 p-2">
                 <img src="/house-of-sirka-logo-final.png" alt="House of Sirka" className="h-auto w-full" />
               </div>
               <p className="max-w-[44ch] text-body-sm text-white/85">{store.content.footerTagline}</p>
-              <p className="mt-4 text-body-sm text-white/85">
-                {cfg.storeAddress}
-                <br />
-                Open by appointment for fittings
-              </p>
             </div>
 
             <nav aria-label="Shop">
@@ -137,45 +131,10 @@ function Shell({ children }) {
                   </li>
                 ))}
               </ul>
-
-              <h2 className="mt-6 text-eyebrow uppercase text-white/70">Reach us</h2>
-              <ul className="mt-4 grid gap-2.5 text-body-sm text-white/85">
-                {cfg.whatsappNumber && (
-                  <li>
-                    <a
-                      href={`https://wa.me/${cfg.whatsappNumber.replace(/[^0-9]/g, "")}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 font-semibold transition hover:text-white hover:underline"
-                    >
-                      <MessageCircle size={15} aria-hidden="true" /> WhatsApp
-                    </a>
-                  </li>
-                )}
-                {cfg.storePhone && (
-                  <li><a href={`tel:${cfg.storePhone.replace(/[^0-9+]/g, "")}`} className="transition hover:text-white hover:underline">{cfg.storePhone}</a></li>
-                )}
-                {cfg.supportEmail && (
-                  <li><a href={`mailto:${cfg.supportEmail}`} className="transition hover:text-white hover:underline">{cfg.supportEmail}</a></li>
-                )}
-              </ul>
             </div>
           </div>
 
           <div className="mx-auto mt-10 max-w-7xl border-t border-white/15 pt-6">
-            <h2 className="text-eyebrow uppercase text-white/70">We accept</h2>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {splitLines(cfg.paymentMethods).map((method) => (
-                <li key={method} className="rounded-full border border-white/25 px-3 py-1.5 text-caption font-semibold text-white/90">
-                  {method}
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-6 text-body-sm text-white/85">
-              <span className="font-semibold">Delivering to</span> {cfg.deliveryAreas}
-            </p>
-
             <p className="mt-6 text-caption text-white/70">
               © {new Date().getFullYear()} House of Sirka · Prices in Namibian dollars, VAT included · Windhoek, Namibia
             </p>

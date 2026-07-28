@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, ShoppingBag } from "lucide-react";
+import { Heart, Mail, Menu, MessageCircle, Phone, ShoppingBag } from "lucide-react";
 import { classNames } from "@/lib/format";
 import Sheet from "@/components/ui/Sheet";
 
@@ -22,34 +22,73 @@ const SECONDARY = [
 ];
 
 /**
- * Logo left, navigation beside it, actions right — the arrangement shoppers
- * expect, and the one that lets the logo double as the home link without
- * hunting for it.
+ * Three bands, in the order shoppers expect them:
  *
- * Laid out on a grid rather than flex-wrap so the header cannot stack on a
- * phone; it stays 56px there and 80px from md.
+ *   1. a slim utility strip carrying the delivery promise and how to reach the
+ *      atelier — the details that otherwise clutter the footer
+ *   2. the main bar: logo left, navigation centred, actions right
+ *   3. a focus-trapped drawer standing in for the nav on small screens
+ *
+ * Laid out on a grid rather than flex-wrap so the bar cannot stack on a phone;
+ * it stays 56px there and 80px from md.
  */
-export default function SiteHeader({ announcement, cartCount = 0, onCartOpen }) {
+export default function SiteHeader({ announcement, settings = {}, cartCount = 0, onCartOpen }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close the drawer when navigation actually happens.
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
   const isActive = (href) => pathname === href || pathname.startsWith(`${href}/`);
+  const whatsapp = String(settings.whatsappNumber || "").replace(/[^0-9]/g, "");
 
   return (
     <>
-      {announcement && (
-        <div className="bg-garden-700 px-4 py-2 text-center text-body-sm font-semibold text-white">
-          {announcement}
+      <div className="border-b border-brass-200 bg-wine-800 text-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-2 md:px-8">
+          <p className="text-caption text-white/90">{announcement}</p>
+
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 text-caption">
+            {whatsapp && (
+              <li>
+                <a
+                  href={`https://wa.me/${whatsapp}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-white/90 transition hover:text-white hover:underline"
+                >
+                  <MessageCircle size={13} aria-hidden="true" /> WhatsApp
+                </a>
+              </li>
+            )}
+            {settings.storePhone && (
+              <li>
+                <a
+                  href={`tel:${settings.storePhone.replace(/[^0-9+]/g, "")}`}
+                  className="inline-flex items-center gap-1.5 text-white/90 transition hover:text-white hover:underline"
+                >
+                  <Phone size={13} aria-hidden="true" />
+                  <span className="tabular">{settings.storePhone}</span>
+                </a>
+              </li>
+            )}
+            {settings.supportEmail && (
+              <li className="hidden sm:block">
+                <a
+                  href={`mailto:${settings.supportEmail}`}
+                  className="inline-flex items-center gap-1.5 text-white/90 transition hover:text-white hover:underline"
+                >
+                  <Mail size={13} aria-hidden="true" /> {settings.supportEmail}
+                </a>
+              </li>
+            )}
+          </ul>
         </div>
-      )}
+      </div>
 
       <header className="sticky top-0 z-30 border-b border-brass-200 bg-ink-50/90 backdrop-blur-xl">
-        <div className="mx-auto grid h-14 max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 md:h-20 md:gap-6 md:px-8">
+        <div className="mx-auto grid h-14 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:h-20 md:gap-6 md:px-8">
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -71,14 +110,14 @@ export default function SiteHeader({ announcement, cartCount = 0, onCartOpen }) 
             </Link>
           </div>
 
-          <nav className="hidden items-center gap-1 text-body-sm font-semibold md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-2 text-body-sm font-semibold md:flex" aria-label="Primary">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={classNames(
-                  "rounded-md px-3 py-2 transition",
+                  "rounded-md px-4 py-2 transition",
                   isActive(item.href)
                     ? "bg-wine-50 text-wine-700"
                     : "text-ink-800 hover:bg-wine-50 hover:text-wine-600",
@@ -88,6 +127,10 @@ export default function SiteHeader({ announcement, cartCount = 0, onCartOpen }) 
               </Link>
             ))}
           </nav>
+
+          {/* Keeps the centre column truly centred on mobile, where the nav is
+              hidden and the grid would otherwise collapse around it. */}
+          <span className="md:hidden" aria-hidden="true" />
 
           <div className="flex items-center justify-end gap-1">
             <Link
@@ -147,9 +190,19 @@ export default function SiteHeader({ announcement, cartCount = 0, onCartOpen }) 
             ))}
           </ul>
         </nav>
-        <div className="border-t border-brass-200 px-5 py-4 text-body-sm text-ink-600">
-          Windhoek atelier · free delivery over N$1,500
-        </div>
+
+        {whatsapp && (
+          <div className="border-t border-brass-200 px-5 py-4">
+            <a
+              href={`https://wa.me/${whatsapp}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-body-sm font-semibold text-garden-700 hover:text-wine-600"
+            >
+              <MessageCircle size={16} aria-hidden="true" /> Message the atelier
+            </a>
+          </div>
+        )}
       </Sheet>
     </>
   );
