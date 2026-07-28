@@ -9,13 +9,39 @@ import { fileToDataUrl } from "@/lib/media";
 import { useStore } from "@/components/store/StoreProvider";
 import StorefrontShell from "@/components/layout/StorefrontShell";
 
-/** Copy shown under each method so the shopper knows what happens next. */
+/** Send-to-a-cellphone-number wallets: all need our number displayed. */
+const WALLET_METHODS = [
+  "FNB eWallet",
+  "PayPulse / BlueVoucher (Standard Bank)",
+  "EasyWallet (Bank Windhoek)",
+  "Send Money (Nedbank)",
+  "FNB Pay2Cell",
+];
+
+/**
+ * Customer-facing note per method, describing the actual mechanics of each
+ * Namibian rail — USSD strings, limits and voucher expiry included, since those
+ * are the details that cause a payment to be abandoned halfway.
+ */
 const METHOD_NOTES = {
-  PayToday: "Pay from the PayToday app, then upload your confirmation.",
-  "FNB eWallet": "Send to our eWallet number, then upload the confirmation SMS.",
-  "EFT bank transfer": "Transfer using your order number as reference, then upload the proof.",
-  "Card payment": "Paid securely now. Your order goes straight into production.",
-  "Pay on delivery": "Pay the courier when your piece arrives. Windhoek and Okahandja only.",
+  PayToday:
+    "Pay instantly from the PayToday app — search for House of Sirka and use your order number as the description.",
+  "Card payment":
+    "Visa or Mastercard. You are redirected to our payment provider; we never see your card details.",
+  "EFT bank transfer":
+    "Transfer to our FNB Namibia account using your order number as the reference, then upload the proof.",
+  "FNB eWallet":
+    "Send to our number from the FNB app or *140*321#, then upload the confirmation SMS. Maximum N$5,000.",
+  "PayPulse / BlueVoucher (Standard Bank)":
+    "Send from the PayPulse app or *140*6626#, then upload the confirmation SMS. The voucher PIN is valid 72 hours.",
+  "EasyWallet (Bank Windhoek)":
+    "Send from the Bank Windhoek app or *140*295#, then upload the confirmation SMS.",
+  "Send Money (Nedbank)":
+    "Send from the Nedbank Money app, then upload the confirmation SMS. Maximum N$5,000 per day.",
+  "FNB Pay2Cell":
+    "FNB to FNB only, via *140*321#. Use this if you bank with FNB; otherwise choose eWallet.",
+  "Pay on delivery":
+    "Pay the courier in cash when your piece arrives. Windhoek and Okahandja only.",
 };
 
 function Field({ label, name, type = "text", required, defaultValue, placeholder, autoComplete, hint }) {
@@ -242,9 +268,10 @@ function Checkout() {
               </dl>
             )}
 
-            {(payment === "FNB eWallet" || payment === "PayToday") && (
+            {WALLET_METHODS.includes(payment) && (
               <p className="mt-4 rounded-md bg-ink-100 p-4 text-body-sm text-ink-700">
-                Send to <strong className="tabular">{cfg.ewalletNumber}</strong>. {cfg.ewalletInstructions}
+                Send to <strong className="tabular">{cfg.ewalletNumber}</strong>, then upload the
+                confirmation below. Use your order number as the reference where the app allows one.
               </p>
             )}
 
