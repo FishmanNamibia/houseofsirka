@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: name,
-    description: `${name} from the House of Sirka atelier in Windhoek — classical silhouettes, held in depth across sizes.`,
+    description: `${name} from the House of Sirka workroom in Windhoek — classical silhouettes, held in depth across sizes.`,
     alternates: { canonical: `/collections/${category}` },
   };
 }

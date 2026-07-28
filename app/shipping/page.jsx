@@ -11,7 +11,7 @@ const RATES = [
   { area: "Windhoek", time: "1–2 working days", cost: "N$95 · free over N$1,500" },
   { area: "Swakopmund & Walvis Bay", time: "2–3 working days", cost: "N$140" },
   { area: "Other Namibian towns", time: "3–5 working days", cost: "N$180" },
-  { area: "Atelier collection", time: "Same day once ready", cost: "Free" },
+  { area: "Workroom collection", time: "Same day once ready", cost: "Free" },
 ];
 
 export default function ShippingPage() {
@@ -46,7 +46,7 @@ export default function ShippingPage() {
 
       <Section heading="How your order moves">
         <ul className="grid gap-2">
-          <li>Your order is confirmed and, where payment is on proof, verified by the atelier.</li>
+          <li>Your order is confirmed and, where payment is on proof, verified by the workroom.</li>
           <li>Pieces are checked, pressed and packed — usually within one working day.</li>
           <li>You receive a message with the courier or collection details.</li>
           <li>Bespoke tailoring and alterations add 5–10 working days; we confirm the date with you.</li>

@@ -1,3 +1,5 @@
+import { reviewsFor, reviewSummary } from "@/lib/reviews";
+
 const SITE = "https://houseofsirka.com";
 
 function Script({ data }) {
@@ -13,6 +15,9 @@ function Script({ data }) {
 export function ProductJsonLd({ product, slug }) {
   const price = product.salePrice || product.price;
   const inStock = (product.variants || []).some((v) => Number(v.stock) > 0);
+  // Derived from the same seed the page renders, so the markup can never claim
+  // a rating the page does not show.
+  const summary = reviewSummary(reviewsFor(product));
 
   return (
     <Script
@@ -36,13 +41,13 @@ export function ProductJsonLd({ product, slug }) {
             : "https://schema.org/OutOfStock",
           seller: { "@type": "Organization", name: "House of Sirka" },
         },
-        ...(product.rating
+        ...(summary.count
           ? {
               aggregateRating: {
                 "@type": "AggregateRating",
-                ratingValue: String(product.rating),
+                ratingValue: String(summary.average),
                 bestRating: "5",
-                ratingCount: String(Math.max(1, (product.reviews || []).length || 5)),
+                ratingCount: String(summary.count),
               },
             }
           : {}),

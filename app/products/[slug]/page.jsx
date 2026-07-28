@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   const product = getSeedProduct(slug);
 
   if (!product) {
-    return { title: "Product", description: "A piece from the House of Sirka atelier." };
+    return { title: "Product", description: "A piece from the House of Sirka workroom." };
   }
 
   return {

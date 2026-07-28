@@ -25,8 +25,8 @@ const HELP_LINKS = [
   { label: "Track an order", href: "/account" },
 ];
 
-const ATELIER_LINKS = [
-  { label: "About the atelier", href: "/about" },
+const WORKROOM_LINKS = [
+  { label: "About the workroom", href: "/about" },
   { label: "Contact & fittings", href: "/contact" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
@@ -134,9 +134,9 @@ function Shell({ children }) {
             </nav>
 
             <div>
-              <h2 className="text-eyebrow uppercase text-white/70">Atelier</h2>
+              <h2 className="text-eyebrow uppercase text-white/70">Workroom</h2>
               <ul className="mt-4 grid gap-2.5 text-body-sm">
-                {ATELIER_LINKS.map((item) => (
+                {WORKROOM_LINKS.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className="text-white/85 transition hover:text-white hover:underline">{item.label}</Link>
                   </li>

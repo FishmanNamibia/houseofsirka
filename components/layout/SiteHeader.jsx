@@ -25,7 +25,7 @@ const SECONDARY = [
  * Three bands, in the order shoppers expect them:
  *
  *   1. a slim utility strip carrying the delivery promise and how to reach the
- *      atelier — the details that otherwise clutter the footer
+ *      workroom — the details that otherwise clutter the footer
  *   2. the main bar: logo left, navigation centred, actions right
  *   3. a focus-trapped drawer standing in for the nav on small screens
  *
@@ -207,7 +207,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
               rel="noreferrer"
               className="inline-flex items-center gap-2 text-body-sm font-semibold text-garden-700 hover:text-wine-600"
             >
-              <MessageCircle size={16} aria-hidden="true" /> Message the atelier
+              <MessageCircle size={16} aria-hidden="true" /> Message the workroom
             </a>
           </div>
         )}

@@ -30,7 +30,7 @@ const FAQS = [
   },
   {
     q: "Do you alter pieces?",
-    a: "Yes, and the first alteration on anything bought from the boutique is included. Hems, waists and straps are done at the Windhoek atelier.",
+    a: "Yes, and the first alteration on anything bought from the boutique is included. Hems, waists and straps are done at our Windhoek workroom.",
   },
 ];
 
@@ -38,7 +38,7 @@ export default function FaqPage() {
   return (
     <ContentShell
       title="Frequently asked questions"
-      intro="If your question is not answered here, message the atelier on WhatsApp."
+      intro="If your question is not answered here, message the workroom on WhatsApp."
     >
       {FAQS.map((item) => (
         <Section key={item.q} heading={item.q}>

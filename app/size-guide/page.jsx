@@ -19,7 +19,7 @@ export default function SizeGuidePage() {
   return (
     <ContentShell
       title="Size guide"
-      intro="All measurements are body measurements in centimetres, not garment measurements. If you fall between two sizes in a fitted style, take the larger one — our atelier can always take a piece in."
+      intro="All measurements are body measurements in centimetres, not garment measurements. If you fall between two sizes in a fitted style, take the larger one — our workroom can always take a piece in."
     >
       <Section heading="Measurements">
         {/* Wide tables must scroll inside their own container so the page body
@@ -69,7 +69,7 @@ export default function SizeGuidePage() {
       <Section heading="Alterations">
         <p>
           Every piece bought from the boutique includes one complimentary alteration at our Windhoek
-          atelier — hems, waist adjustments and strap shortening. Bring your order number.
+          workroom — hems, waist adjustments and strap shortening. Bring your order number.
         </p>
       </Section>
     </ContentShell>

@@ -81,7 +81,7 @@ function Confirmation() {
       <h2 className="mt-10 font-display text-display-sm text-wine-800">What happens next</h2>
       <ol className="mt-4 grid gap-3 text-body text-ink-700">
         <li className="flex gap-3"><span className="tabular font-semibold text-wine-600">1.</span> We confirm payment and check your pieces.</li>
-        <li className="flex gap-3"><span className="tabular font-semibold text-wine-600">2.</span> Your order is pressed and packed at the Windhoek atelier.</li>
+        <li className="flex gap-3"><span className="tabular font-semibold text-wine-600">2.</span> Your order is pressed and packed at our Windhoek workroom.</li>
         <li className="flex gap-3"><span className="tabular font-semibold text-wine-600">3.</span> We message you with courier or collection details.</li>
       </ol>
 

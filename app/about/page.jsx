@@ -1,7 +1,7 @@
 import ContentShell, { Section } from "@/components/layout/ContentShell";
 
 export const metadata = {
-  title: "About the atelier",
+  title: "About the workroom",
   description:
     "House of Sirka is a Windhoek boutique making dresses, tailoring and intimate collections with an old-world hand and a bright modern pulse.",
   alternates: { canonical: "/about" },
@@ -10,7 +10,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <ContentShell
-      title="About the atelier"
+      title="About the workroom"
       intro="House of Sirka began in Windhoek with a simple frustration: clothes that fit almost, but never quite."
     >
       <Section heading="How we work">
@@ -36,7 +36,7 @@ export default function AboutPage() {
 
       <Section heading="Visiting">
         <p>
-          The atelier is in Windhoek and open by appointment for fittings and collections. Message us
+          The workroom is in Windhoek and open by appointment for fittings and collections. Message us
           and we will find a time.
         </p>
       </Section>

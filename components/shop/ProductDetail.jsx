@@ -7,7 +7,11 @@ import { COLOR_SWATCHES, productSlug } from "@/lib/catalog";
 import { classNames, productPrice, totalStock, unique } from "@/lib/format";
 import { useStore } from "@/components/store/StoreProvider";
 import StorefrontShell from "@/components/layout/StorefrontShell";
-import SmartImage from "@/components/ui/SmartImage";
+import ProductGallery from "@/components/shop/ProductGallery";
+import SizeAndFit from "@/components/shop/SizeAndFit";
+import Reviews from "@/components/shop/Reviews";
+import RelatedProducts from "@/components/shop/RelatedProducts";
+import StickyBuyBar from "@/components/shop/StickyBuyBar";
 
 function Detail({ slug, seedProduct }) {
   const { store, hydrated, fmt, addToCart, toggleWishlist } = useStore();
@@ -55,9 +59,10 @@ function Detail({ slug, seedProduct }) {
         </nav>
 
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-brass-200 bg-ink-200">
-            <SmartImage src={product.image} alt={product.name} className="object-cover" priority sizes="(max-width: 1024px) 100vw, 50vw" />
-          </div>
+          <ProductGallery
+            images={product.images?.length ? product.images : [product.image]}
+            alt={product.name}
+          />
 
           <div>
             <p className="text-eyebrow uppercase text-garden-700">{product.collection}</p>
@@ -146,6 +151,18 @@ function Detail({ slug, seedProduct }) {
             </dl>
           </div>
         </div>
+
+        <SizeAndFit product={product} />
+        <Reviews product={product} />
+        <RelatedProducts product={product} />
+
+        <StickyBuyBar
+          product={product}
+          variant={activeVariant}
+          stock={stock}
+          fmt={fmt}
+          onAdd={() => activeVariant && addToCart(product, activeVariant.id, 1)}
+        />
     </div>
   );
 }

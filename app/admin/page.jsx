@@ -532,7 +532,7 @@ export default function AdminPage() {
               <div className="relative min-h-[360px] overflow-hidden rounded-md border border-brass-200 bg-ink-100 shadow-soft">
                 <img
                   src={store.content.heroImage}
-                  alt="House of Sirka atelier mood"
+                  alt="House of Sirka workroom mood"
                   className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-white/10" />
