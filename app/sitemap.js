@@ -3,7 +3,8 @@ import { SEED_PRODUCTS, SEED_CATEGORIES, productSlug } from "@/lib/catalog";
 const SITE = "https://houseofsirka.com";
 
 const STATIC_PAGES = [
-  "", "/about", "/contact", "/faq", "/size-guide", "/shipping", "/returns", "/privacy", "/terms",
+  "", "/shop", "/collections", "/about", "/contact", "/faq",
+  "/size-guide", "/shipping", "/returns", "/privacy", "/terms",
 ];
 
 export default function sitemap() {

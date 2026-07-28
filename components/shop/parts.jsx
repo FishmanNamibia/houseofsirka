@@ -1,0 +1,1020 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
+  Heart,
+  LogOut,
+  MessageCircle,
+  Minus,
+  Plus,
+  ShieldCheck,
+  ShoppingBag,
+  Truck,
+  User,
+  X,
+} from "lucide-react";
+import { COLOR_SWATCHES as swatches, productSlug } from "@/lib/catalog";
+import { classNames, productPrice, splitLines, totalStock, unique } from "@/lib/format";
+import { fileToDataUrl } from "@/lib/media";
+import { Modal, Sheet } from "@/components/ui";
+
+export function SectionTitle({ eyebrow, title, copy }) {
+  return (
+    <div>
+      <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-clay-700">{eyebrow}</p>
+      <h2 className="font-display text-display-md leading-tight text-wine-800 md:text-display-lg">{title}</h2>
+      {copy && <p className="mt-3 max-w-2xl text-ink-600">{copy}</p>}
+    </div>
+  );
+}
+
+export function SelectFilter({ label, value, options, onChange }) {
+  return (
+    <label className="grid gap-2 text-sm font-bold text-ink-700">
+      {label}
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+      >
+        {options.map((option) => (
+          <option key={option}>{option}</option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
+  const stock = totalStock(product);
+  const colors = unique(product.variants.map((variant) => variant.color));
+
+  return (
+    <article className="group overflow-hidden rounded-md border border-brass-200 bg-ink-50 shadow-sm transition hover:-translate-y-1 hover:border-brass-400 hover:shadow-soft">
+      <div className="relative aspect-[4/5] bg-ink-200 p-3">
+        <Link href={`/products/${productSlug(product)}`} className="block h-full w-full overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.025]"
+          />
+        </Link>
+        <span
+          className={classNames(
+            "absolute left-5 top-5 rounded-full border border-brass-200 bg-pearl/94 px-3 py-1 text-xs font-black shadow-sm",
+            stock <= 2 ? "text-wine-600" : "text-garden-700",
+          )}
+        >
+          {stock ? `${stock} in stock` : "Out of stock"}
+        </span>
+        <button
+          type="button"
+          onClick={onWish}
+          className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-brass-200 bg-pearl/94 text-wine-600 shadow-sm"
+          aria-label="Toggle wishlist"
+        >
+          <Heart size={18} fill={wished ? "currentColor" : "none"} />
+        </button>
+      </div>
+      <div className="grid gap-3 p-4">
+        <div className="flex justify-between gap-3 text-xs font-bold uppercase tracking-[0.16em] text-garden-700">
+          <span>{product.category}</span>
+          <span>{product.sku}</span>
+        </div>
+        <div>
+          <h3 className="font-display text-display-sm leading-tight text-wine-800">
+            <Link href={`/products/${productSlug(product)}`} className="transition hover:text-wine-600">
+              {product.name}
+            </Link>
+          </h3>
+          <p className="mt-1 line-clamp-2 text-sm text-ink-600">{product.description}</p>
+        </div>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex gap-1">
+            {colors.map((color) => (
+              <span
+                key={color}
+                title={color}
+                className="h-5 w-5 rounded-full border border-brass-400"
+                style={{ backgroundColor: swatches[color] || "#ddd" }}
+              >
+                <span className="sr-only">{color}</span>
+              </span>
+            ))}
+          </div>
+          <span className="text-sm font-bold text-ink-600">{product.rating}/5</span>
+        </div>
+        <div className="flex items-baseline gap-2">
+          <strong className="text-lg">{fmt(productPrice(product))}</strong>
+          {product.salePrice && <del className="text-sm text-ink-600">{fmt(product.price)}</del>}
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <Link
+            href={`/products/${productSlug(product)}`}
+            className="inline-flex h-11 items-center justify-center rounded-md bg-wine-600 px-3 text-body-sm font-bold text-white transition hover:bg-wine-700"
+          >
+            View
+          </Link>
+          <button
+            type="button"
+            disabled={!stock}
+            onClick={onQuickAdd}
+            className="h-11 rounded-md border border-brass-200 bg-ink-100 px-3 text-sm font-bold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
+          >
+            Quick add
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQuantity, onCoupon, onCheckout }) {
+  if (!open) return null;
+  return (
+    <Sheet open={open} onClose={onClose} side="right" title="Cart">
+      <div className="overflow-auto px-5 py-4">
+          {cart.length ? (
+            <div className="grid gap-4">
+              {cart.map((line) => (
+                <div key={line.id} className="grid grid-cols-[76px_1fr] gap-3 border-b border-brass-200 pb-4">
+                  <img src={line.image} alt={line.name} className="h-24 w-20 rounded object-cover" />
+                  <div className="grid gap-1">
+                    <strong>{line.name}</strong>
+                    <span className="text-sm text-ink-600">
+                      {line.size} / {line.color}
+                    </span>
+                    <span className="text-sm font-bold">{fmt(line.price * line.quantity)}</span>
+                    {line.quantity > 1 && <span className="text-xs text-ink-600">{fmt(line.price)} each</span>}
+                    <div className="mt-2 flex items-center gap-2">
+                      <button type="button" onClick={() => onQuantity(line.id, -1)} className="grid h-8 w-8 place-items-center rounded border border-brass-200 transition hover:border-wine-600 hover:text-wine-600">
+                        <Minus size={14} />
+                      </button>
+                      <span className="min-w-8 text-center font-bold">{line.quantity}</span>
+                      <button type="button" onClick={() => onQuantity(line.id, 1)} className="grid h-8 w-8 place-items-center rounded border border-brass-200 transition hover:border-wine-600 hover:text-wine-600">
+                        <Plus size={14} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onQuantity(line.id, -line.quantity)}
+                        className="ml-2 grid h-8 w-8 place-items-center rounded border border-brass-200 text-ink-600 transition hover:border-wine-600 hover:text-wine-600"
+                        title="Remove from cart"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <EmptyState text="Your cart is ready for the first piece." />
+          )}
+        </div>
+      <div className="border-t border-brass-200 px-5 pb-5 pt-4">
+          <label className="grid gap-2 text-sm font-bold text-ink-700">
+            Coupon
+            <input
+              value={couponCode}
+              onChange={(event) => onCoupon(event.target.value)}
+              placeholder="SIRKA10 or FREESHIP"
+              className="h-11 rounded-md border border-brass-600 px-3"
+            />
+          </label>
+          {summary.couponMessage && (
+            <div
+              className={classNames(
+                "mt-3 rounded-md px-3 py-2 text-sm font-semibold",
+                summary.couponValid
+                  ? "bg-garden-50 text-garden-700"
+                  : "bg-wine-50 text-wine-600",
+              )}
+            >
+              {summary.couponMessage}
+            </div>
+          )}
+          <SummaryRows summary={summary} fmt={fmt} />
+          <button
+            type="button"
+            disabled={!cart.length}
+            onClick={onCheckout}
+            className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+          >
+            Checkout
+          </button>
+        </div>
+    </Sheet>
+  );
+}
+
+export function CheckoutModal({ cart, summary, settings, fmt, customer, onClose, onSubmit }) {
+  const paymentMethodsList = splitLines(settings.paymentMethods);
+  const deliveryOptionsList = splitLines(settings.deliveryOptions);
+  const proofMethods = splitLines(settings.proofRequiredMethods);
+  const autoMethods = splitLines(settings.autoConfirmMethods);
+  const c = customer || {};
+  const hasGateway = settings.paymentGateway && settings.paymentGateway !== "none";
+
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethodsList[0] || "");
+  const [processing, setProcessing] = useState(false);
+  const [cardFields, setCardFields] = useState({ number: "", expiry: "", cvc: "", holder: "" });
+
+  const proofRequired = proofMethods.includes(paymentMethod);
+  const isOnlinePayment = autoMethods.includes(paymentMethod);
+
+  const stepLabels = ["Details", "Payment", "Confirm"];
+
+  async function handleDetailsSubmit(event) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const proofFile = form.get("proofOfPayment");
+    const proofUploaded = proofFile instanceof File && proofFile.size > 0;
+
+    if (proofRequired && !proofUploaded) {
+      return;
+    }
+
+    let proofOfPayment = null;
+    if (proofUploaded) {
+      proofOfPayment = {
+        name: proofFile.name,
+        type: proofFile.type,
+        size: proofFile.size,
+        dataUrl: await fileToDataUrl(proofFile),
+        uploadedAt: new Date().toISOString(),
+      };
+    }
+
+    setFormData({
+      name: form.get("name"),
+      email: form.get("email"),
+      phone: form.get("phone"),
+      whatsapp: form.get("whatsapp"),
+      city: form.get("city"),
+      accountType: form.get("accountType"),
+      delivery: form.get("delivery"),
+      address: form.get("address"),
+      payment: form.get("payment"),
+      marketingOptIn: form.has("marketingOptIn"),
+      proofOfPayment,
+    });
+    setStep(2);
+  }
+
+  function processOnlinePayment() {
+    const { number, expiry, cvc, holder } = cardFields;
+    if (!number.replace(/\s/g, "") || !expiry || !cvc || !holder.trim()) return;
+    setProcessing(true);
+    setTimeout(() => {
+      setProcessing(false);
+      setFormData((prev) => ({
+        ...prev,
+        gatewayResult: {
+          status: "succeeded",
+          paymentId: `pi_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
+          gateway: settings.paymentGateway,
+          mode: settings.gatewayMode,
+          last4: number.replace(/\s/g, "").slice(-4),
+          processedAt: new Date().toISOString(),
+        },
+      }));
+      setStep(3);
+    }, 2200);
+  }
+
+  function confirmOrder() {
+    onSubmit({
+      formData,
+      gatewayResult: formData.gatewayResult || null,
+    });
+  }
+
+  return (
+    <Modal
+      onClose={onClose}
+      title="Secure checkout"
+      showClose={false}
+      width="min(980px, calc(100vw - 2rem))"
+      className="overflow-auto p-5 md:p-7"
+    >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">Secure checkout</p>
+            <h2 className="mt-2 font-display text-display-md text-wine-800">
+              {step === 1 ? "Your details" : step === 2 ? "Payment" : "Confirm order"}
+            </h2>
+          </div>
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          {stepLabels.map((label, index) => (
+            <div key={label} className="text-center">
+              <span
+                className={classNames(
+                  "block h-2 rounded-full transition-colors",
+                  index + 1 <= step ? "bg-wine-600" : "bg-brass/20",
+                )}
+              />
+              <span className={classNames("mt-1 block text-xs font-bold", index + 1 <= step ? "text-wine-600" : "text-ink-600")}>
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+          <div>
+            {step === 1 && (
+              <form onSubmit={handleDetailsSubmit} className="grid gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <TextInput name="name" label="Full name" defaultValue={c.name || ""} required />
+                  <TextInput name="email" type="email" label="Email" defaultValue={c.email || ""} required />
+                  <TextInput name="phone" label="Phone" defaultValue={c.phone || ""} required />
+                  <TextInput name="whatsapp" label="WhatsApp number" defaultValue={c.whatsapp || ""} />
+                  <TextInput name="city" label="Town / city" defaultValue={c.city || settings.defaultCity || "Windhoek"} required />
+                  <label className="grid gap-2 text-sm font-bold text-ink-700">
+                    Customer type
+                    <select name="accountType" className="h-11 rounded-md border border-brass-600 px-3">
+                      <option value="registered">Register customer profile</option>
+                      <option value="guest">Guest checkout</option>
+                    </select>
+                  </label>
+                  <label className="grid gap-2 text-sm font-bold text-ink-700">
+                    Delivery option
+                    <select name="delivery" className="h-11 rounded-md border border-brass-600 px-3">
+                      {deliveryOptionsList.map((opt) => (
+                        <option key={opt}>{opt}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="grid gap-2 text-sm font-bold text-ink-700 sm:col-span-2">
+                    Shipping address
+                    <input name="address" required defaultValue={c.address || ""} placeholder="Street, suburb, town, country" className="h-11 rounded-md border border-brass-600 px-3" />
+                  </label>
+                  <label className="grid gap-2 text-sm font-bold text-ink-700 sm:col-span-2">
+                    Payment method
+                    <select
+                      name="payment"
+                      value={paymentMethod}
+                      onChange={(event) => setPaymentMethod(event.target.value)}
+                      className="h-11 rounded-md border border-brass-600 px-3"
+                    >
+                      {paymentMethodsList.map((opt) => (
+                        <option key={opt}>{opt}</option>
+                      ))}
+                    </select>
+                  </label>
+                  {proofRequired && (
+                    <label className="grid gap-2 text-sm font-bold text-ink-700 sm:col-span-2">
+                      Proof of payment
+                      <input
+                        name="proofOfPayment"
+                        type="file"
+                        accept="image/*,.pdf"
+                        required
+                        className="rounded-md border border-brass-600 bg-white px-3 py-2 file:mr-3 file:rounded-md file:border-0 file:bg-petal file:px-3 file:py-2 file:text-sm file:font-bold file:text-wine"
+                      />
+                      <span className="text-xs font-medium text-ink-600">
+                        Required for {paymentMethod}. Upload a screenshot, photo, or PDF proof before checkout.
+                      </span>
+                    </label>
+                  )}
+                  <label className="flex items-center gap-2 text-sm font-bold text-ink-700 sm:col-span-2">
+                    <input name="marketingOptIn" type="checkbox" className="h-4 w-4" />
+                    Receive order updates and follow-up messages
+                  </label>
+                </div>
+                <button type="submit" className="h-12 rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700">
+                  Continue to payment
+                </button>
+              </form>
+            )}
+
+            {step === 2 && (
+              <div className="grid gap-4">
+                {isOnlinePayment && hasGateway && (
+                  <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+                    <div className="mb-3 flex items-center gap-2">
+                      <CreditCard size={20} className="text-wine-600" />
+                      <h3 className="font-bold text-wine-800">Card payment</h3>
+                      <span className="ml-auto rounded-full bg-brass/10 px-2 py-0.5 text-[10px] font-black uppercase text-ink-600">
+                        {settings.paymentGateway} · {settings.gatewayMode}
+                      </span>
+                    </div>
+                    <p className="mb-4 text-sm text-ink-600">
+                      Enter your card details below. Your payment will be processed securely via {settings.paymentGateway}.
+                    </p>
+                    <div className="grid gap-3">
+                      <label className="grid gap-2 text-sm font-bold text-ink-700">
+                        Cardholder name
+                        <input
+                          value={cardFields.holder}
+                          onChange={(e) => setCardFields((f) => ({ ...f, holder: e.target.value }))}
+                          placeholder="Name on card"
+                          className="h-11 rounded-md border border-brass-600 px-3"
+                          required
+                        />
+                      </label>
+                      <label className="grid gap-2 text-sm font-bold text-ink-700">
+                        Card number
+                        <input
+                          value={cardFields.number}
+                          onChange={(e) => {
+                            const raw = e.target.value.replace(/\D/g, "").slice(0, 16);
+                            setCardFields((f) => ({ ...f, number: raw.replace(/(.{4})/g, "$1 ").trim() }));
+                          }}
+                          placeholder="4242 4242 4242 4242"
+                          className="h-11 rounded-md border border-brass-600 px-3 font-mono tracking-wider"
+                          required
+                        />
+                      </label>
+                      <div className="grid grid-cols-2 gap-3">
+                        <label className="grid gap-2 text-sm font-bold text-ink-700">
+                          Expiry
+                          <input
+                            value={cardFields.expiry}
+                            onChange={(e) => {
+                              let raw = e.target.value.replace(/\D/g, "").slice(0, 4);
+                              if (raw.length > 2) raw = raw.slice(0, 2) + "/" + raw.slice(2);
+                              setCardFields((f) => ({ ...f, expiry: raw }));
+                            }}
+                            placeholder="MM/YY"
+                            className="h-11 rounded-md border border-brass-600 px-3 font-mono"
+                            required
+                          />
+                        </label>
+                        <label className="grid gap-2 text-sm font-bold text-ink-700">
+                          CVC
+                          <input
+                            value={cardFields.cvc}
+                            onChange={(e) => setCardFields((f) => ({ ...f, cvc: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
+                            placeholder="123"
+                            className="h-11 rounded-md border border-brass-600 px-3 font-mono"
+                            required
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    {settings.gatewayMode === "sandbox" && (
+                      <p className="mt-3 rounded-md bg-marigold/10 px-3 py-2 text-xs text-ink-600">
+                        <strong className="text-ink-800">Test mode:</strong> Use card number <span className="font-mono">4242 4242 4242 4242</span>, any future expiry, and any 3-digit CVC.
+                      </p>
+                    )}
+                    <button
+                      type="button"
+                      disabled={processing}
+                      onClick={processOnlinePayment}
+                      className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700 disabled:opacity-60"
+                    >
+                      {processing ? (
+                        <span className="inline-flex items-center gap-2">
+                          <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                          Processing payment…
+                        </span>
+                      ) : (
+                        `Pay ${fmt(summary.total)}`
+                      )}
+                    </button>
+                  </div>
+                )}
+
+                {isOnlinePayment && !hasGateway && (
+                  <div className="rounded-md border border-wine/20 bg-wine-50 p-5">
+                    <h3 className="font-bold text-wine-600">Online payment unavailable</h3>
+                    <p className="mt-2 text-sm text-ink-700">
+                      No payment gateway is configured. Please go back and select a different payment method, or contact the store.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="mt-3 h-10 rounded-md border border-brass-200 px-4 font-bold text-ink-700 transition hover:border-wine-600"
+                    >
+                      Go back
+                    </button>
+                  </div>
+                )}
+
+                {!isOnlinePayment && paymentMethod.toLowerCase().includes("eft") && (
+                  <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+                    <h3 className="font-bold text-wine-800">Bank / EFT transfer</h3>
+                    <p className="mt-2 text-sm text-ink-700">
+                      Please transfer <strong>{fmt(summary.total)}</strong> to the account below. Your order will be processed once payment is confirmed.
+                    </p>
+                    <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                      {settings.bankName && <InfoRow label="Bank" value={settings.bankName} />}
+                      {settings.bankAccountName && <InfoRow label="Account name" value={settings.bankAccountName} />}
+                      {settings.bankAccountNumber && <InfoRow label="Account number" value={settings.bankAccountNumber} />}
+                      {settings.bankBranchCode && <InfoRow label="Branch code" value={settings.bankBranchCode} />}
+                      <InfoRow label="Reference" value="Your order number (shown after placing)" />
+                      {settings.bankReference && <p className="mt-2 text-xs text-ink-600">{settings.bankReference}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setStep(3)}
+                      className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+                    >
+                      I understand — place order
+                    </button>
+                  </div>
+                )}
+
+                {!isOnlinePayment && paymentMethod.toLowerCase().includes("wallet") && (
+                  <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+                    <h3 className="font-bold text-wine-800">EWallet payment</h3>
+                    <p className="mt-2 text-sm text-ink-700">
+                      Send <strong>{fmt(summary.total)}</strong> to the number below.
+                    </p>
+                    <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                      {settings.ewalletProvider && <InfoRow label="Provider" value={settings.ewalletProvider} />}
+                      {settings.ewalletNumber && <InfoRow label="Send to" value={settings.ewalletNumber} />}
+                      <InfoRow label="Reference" value="Your order number (shown after placing)" />
+                      {settings.ewalletInstructions && <p className="mt-2 text-xs text-ink-600">{settings.ewalletInstructions}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setStep(3)}
+                      className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+                    >
+                      I understand — place order
+                    </button>
+                  </div>
+                )}
+
+                {!isOnlinePayment && paymentMethod.toLowerCase().includes("delivery") && (
+                  <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+                    <h3 className="font-bold text-wine-800">Pay upon delivery</h3>
+                    <p className="mt-2 text-sm text-ink-700">
+                      You will pay <strong>{fmt(summary.total)}</strong> when your order is delivered. Please have the exact amount ready.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setStep(3)}
+                      className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                )}
+
+                {!isOnlinePayment && !paymentMethod.toLowerCase().includes("eft") && !paymentMethod.toLowerCase().includes("wallet") && !paymentMethod.toLowerCase().includes("delivery") && (
+                  <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+                    <h3 className="font-bold text-wine-800">{paymentMethod}</h3>
+                    <p className="mt-2 text-sm text-ink-700">
+                      Your order of <strong>{fmt(summary.total)}</strong> will be placed. Payment instructions will follow.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setStep(3)}
+                      className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="h-10 rounded-md border border-brass-200 font-bold text-ink-600 transition hover:border-wine-600 hover:text-wine-600"
+                >
+                  ← Back to details
+                </button>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className="grid gap-4">
+                <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+                  <h3 className="font-bold text-wine-800">Review your order</h3>
+                  <div className="mt-3 grid gap-2 text-sm">
+                    <InfoRow label="Name" value={formData?.name} />
+                    <InfoRow label="Email" value={formData?.email} />
+                    <InfoRow label="Phone" value={formData?.phone} />
+                    <InfoRow label="Delivery" value={formData?.delivery} />
+                    <InfoRow label="Address" value={formData?.address} />
+                    <InfoRow label="Payment" value={formData?.payment} />
+                    {formData?.gatewayResult && (
+                      <div className="flex items-center gap-2 rounded-md bg-garden/10 px-3 py-2 text-sm font-bold text-garden-700">
+                        <Check size={16} />
+                        Card ending {formData.gatewayResult.last4} — payment succeeded
+                      </div>
+                    )}
+                    {formData?.proofOfPayment && (
+                      <div className="flex items-center gap-2 rounded-md bg-garden/10 px-3 py-2 text-sm font-bold text-garden-700">
+                        <Check size={16} />
+                        Proof of payment attached
+                      </div>
+                    )}
+                    {!formData?.gatewayResult && !formData?.proofOfPayment && !formData?.payment?.toLowerCase().includes("delivery") && (
+                      <div className="rounded-md bg-wine-50 px-3 py-2 text-sm font-bold text-wine-600">
+                        Payment pending — complete payment after placing your order.
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={confirmOrder}
+                  className="h-12 rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+                >
+                  {formData?.gatewayResult ? "Confirm paid order" : "Place order"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep(2)}
+                  className="h-10 rounded-md border border-brass-200 font-bold text-ink-600 transition hover:border-wine-600 hover:text-wine-600"
+                >
+                  ← Back to payment
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+            <h3 className="font-display text-display-sm text-wine-800">Order review</h3>
+            <div className="mt-4 grid gap-3">
+              {cart.map((line) => (
+                <InfoRow key={line.id} label={`${line.name} x ${line.quantity}`} value={fmt(line.price * line.quantity)} />
+              ))}
+            </div>
+            <SummaryRows summary={summary} fmt={fmt} />
+          </div>
+        </div>
+    </Modal>
+  );
+}
+
+export function OrderDetailModal({ order, settings, fmt, onClose }) {
+  const steps = ["Pending Payment", "Processing", "Packed", "Shipped", "Delivered"];
+  const activeIndex = Math.max(0, steps.indexOf(order.status));
+  const isPaid = order.paymentStatus === "Paid";
+  const proofMethods = splitLines(settings.proofRequiredMethods);
+  const needsProof = proofMethods.includes(order.payment) && !isPaid;
+  const dateStr = order.createdAt ? new Date(order.createdAt).toLocaleString() : "";
+
+  return (
+    <Modal
+      onClose={onClose}
+      title={`Order ${order.orderNumber}`}
+      showClose={false}
+      width="min(920px, calc(100vw - 2rem))"
+      className="overflow-auto p-5 md:p-7"
+    >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">Order confirmation</p>
+            <h2 className="mt-2 font-display text-display-md text-wine-800">{order.orderNumber}</h2>
+          </div>
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="mt-4 flex items-center gap-3">
+          <span
+            className={classNames(
+              "rounded-full px-3 py-1 text-sm font-black",
+              isPaid ? "bg-garden/10 text-garden-700" : "bg-wine-50 text-wine-600",
+            )}
+          >
+            {order.paymentStatus}
+          </span>
+          <span className="rounded-full bg-brass/10 px-3 py-1 text-sm font-bold text-ink-700">
+            {order.status}
+          </span>
+          <span className="text-sm text-ink-600">{dateStr}</span>
+        </div>
+
+        <div className="mt-3 grid grid-cols-5 gap-1">
+          {steps.map((step, index) => (
+            <div key={step} className="text-center">
+              <span
+                className={classNames("block h-2 rounded-full", index <= activeIndex ? "bg-garden-700" : "bg-brass/20")}
+              />
+              <span className={classNames("mt-1 block text-[10px]", index <= activeIndex ? "font-bold text-garden-700" : "text-ink-600")}>
+                {step}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+          <div className="grid gap-5">
+            <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+              <h3 className="font-bold text-wine-800">Order items</h3>
+              <div className="mt-3 grid gap-3">
+                {(order.items || []).map((item) => (
+                  <div key={item.id} className="flex items-center gap-3 border-b border-brass-200 pb-3 last:border-b-0 last:pb-0">
+                    <img src={item.image} alt={item.name} className="h-16 w-12 rounded object-cover" />
+                    <div className="flex-1">
+                      <strong className="block text-sm">{item.name}</strong>
+                      <span className="text-xs text-ink-600">{item.size} / {item.color} × {item.quantity}</span>
+                    </div>
+                    <strong className="text-sm">{fmt(item.price * item.quantity)}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {!isPaid && (
+              <div className="rounded-md border border-wine/20 bg-wine-50 p-4">
+                <h3 className="font-bold text-wine-600">Payment required</h3>
+                <p className="mt-1 text-sm text-ink-700">
+                  Your order is confirmed but awaiting payment via <strong>{order.payment}</strong>.
+                </p>
+
+                {order.payment === "EFT bank transfer" || (proofMethods.includes(order.payment) && order.payment.toLowerCase().includes("eft")) ? (
+                  <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                    <h4 className="font-bold">Bank / EFT details</h4>
+                    <div className="mt-2 grid gap-1">
+                      {settings.bankName && <InfoRow label="Bank" value={settings.bankName} />}
+                      {settings.bankAccountName && <InfoRow label="Account name" value={settings.bankAccountName} />}
+                      {settings.bankAccountNumber && <InfoRow label="Account number" value={settings.bankAccountNumber} />}
+                      {settings.bankBranchCode && <InfoRow label="Branch code" value={settings.bankBranchCode} />}
+                      <InfoRow label="Reference" value={order.orderNumber} />
+                      {settings.bankReference && (
+                        <p className="mt-2 text-xs text-ink-600">{settings.bankReference}</p>
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+
+                {order.payment === "EWallet transfer" || (proofMethods.includes(order.payment) && order.payment.toLowerCase().includes("wallet")) ? (
+                  <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                    <h4 className="font-bold">EWallet details</h4>
+                    <div className="mt-2 grid gap-1">
+                      {settings.ewalletProvider && <InfoRow label="Provider" value={settings.ewalletProvider} />}
+                      {settings.ewalletNumber && <InfoRow label="Send to" value={settings.ewalletNumber} />}
+                      <InfoRow label="Reference" value={order.orderNumber} />
+                      {settings.ewalletInstructions && (
+                        <p className="mt-2 text-xs text-ink-600">{settings.ewalletInstructions}</p>
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+
+                {order.payment?.toLowerCase().includes("delivery") && (
+                  <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                    <p className="text-ink-700">
+                      Payment will be collected upon delivery. Please have <strong>{fmt(order.total)}</strong> ready.
+                    </p>
+                  </div>
+                )}
+
+                {needsProof && !order.proofOfPayment && (
+                  <p className="mt-3 text-sm font-bold text-wine-600">
+                    Please upload your proof of payment to expedite processing. Contact us at {settings.supportEmail || "support"} or WhatsApp {settings.whatsappNumber || ""}.
+                  </p>
+                )}
+
+                {order.proofOfPayment && (
+                  <div className="mt-3 flex items-center gap-2 rounded-md bg-garden/10 px-3 py-2 text-sm font-bold text-garden-700">
+                    <Check size={16} />
+                    Proof of payment uploaded — awaiting verification.
+                  </div>
+                )}
+              </div>
+            )}
+
+            {isPaid && (
+              <div className="flex items-center gap-2 rounded-md bg-garden/10 px-4 py-3 text-sm font-bold text-garden-700">
+                <Check size={18} />
+                Payment confirmed — your order is being processed.
+              </div>
+            )}
+          </div>
+
+          <div className="grid content-start gap-4">
+            <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+              <h3 className="font-bold text-wine-800">Order summary</h3>
+              <div className="mt-3 grid gap-2 text-sm">
+                <InfoRow label="Subtotal" value={fmt(order.items?.reduce((s, i) => s + i.price * i.quantity, 0) || 0)} />
+                {order.promotion && <InfoRow label={`Discount (${order.promotion.code})`} value={`-${fmt(order.promotion.discount)}`} />}
+                <InfoRow label="Total" value={fmt(order.total)} />
+              </div>
+            </div>
+
+            <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+              <h3 className="font-bold text-wine-800">Details</h3>
+              <div className="mt-3 grid gap-2 text-sm">
+                <InfoRow label="Customer" value={order.customer} />
+                <InfoRow label="Email" value={order.email} />
+                <InfoRow label="Phone" value={order.phone || "—"} />
+                <InfoRow label="Delivery" value={order.delivery} />
+                <InfoRow label="Address" value={order.address || "—"} />
+                <InfoRow label="Payment" value={order.payment} />
+              </div>
+            </div>
+
+            {settings.whatsappNumber && (
+              <a
+                href={`https://wa.me/${settings.whatsappNumber.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(`Hi, I have a question about order ${order.orderNumber}`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-garden-700 px-4 font-bold text-white transition hover:bg-garden/90"
+              >
+                <MessageCircle size={18} /> Contact via WhatsApp
+              </a>
+            )}
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-brass-200 px-4 font-bold text-ink-700 transition hover:border-wine-600 hover:text-wine-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+    </Modal>
+  );
+}
+
+export function OrderMini({ order, fmt, onClick }) {
+  const steps = ["Pending Payment", "Processing", "Packed", "Shipped", "Delivered"];
+  const activeIndex = Math.max(0, steps.indexOf(order.status));
+  const isPaid = order.paymentStatus === "Paid";
+  const dateStr = order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-md border border-brass-200 bg-ink-100 p-4 text-left transition hover:border-wine-600 hover:shadow-sm"
+    >
+      <div className="flex justify-between gap-4">
+        <strong>{order.orderNumber}</strong>
+        <strong>{fmt(order.total)}</strong>
+      </div>
+      <div className="mt-1 flex items-center justify-between gap-2 text-sm">
+        <span className="text-ink-600">{dateStr}</span>
+        <span
+          className={classNames(
+            "rounded-full px-2 py-0.5 text-xs font-black",
+            isPaid ? "bg-garden/10 text-garden-700" : "bg-wine-50 text-wine-600",
+          )}
+        >
+          {order.paymentStatus}
+        </span>
+      </div>
+      <div className="mt-1 text-xs text-ink-600">
+        {order.items?.length || 0} item{(order.items?.length || 0) !== 1 ? "s" : ""} · {order.payment} · {order.status}
+      </div>
+      <div className="mt-3 grid grid-cols-5 gap-1">
+        {steps.map((step, index) => (
+          <span
+            key={step}
+            title={step}
+            className={classNames("h-2 rounded-full", index <= activeIndex ? "bg-garden-700" : "bg-brass/20")}
+          />
+        ))}
+      </div>
+    </button>
+  );
+}
+
+export function CustomerAccountView({ store, customerEmail, fmt, onViewOrder, onLogout }) {
+  const myOrders = store.orders.filter((o) => o.email === customerEmail);
+  const myProfile = store.customers?.find((c) => c.email === customerEmail);
+  const paidOrders = myOrders.filter((o) => o.paymentStatus === "Paid");
+  const pendingOrders = myOrders.filter((o) => o.paymentStatus !== "Paid");
+  const totalSpent = paidOrders.reduce((s, o) => s + Number(o.total || 0), 0);
+
+  return (
+    <div className="mt-8 grid gap-5 lg:grid-cols-[.85fr_1.15fr_1fr]">
+      <div className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm">
+        <User className="mb-4 text-wine-600" size={24} />
+        <h3 className="font-display text-display-sm text-wine-800">My account</h3>
+        <div className="mt-3 grid gap-2 text-sm">
+          <InfoRow label="Name" value={myProfile?.name || "—"} />
+          <InfoRow label="Email" value={customerEmail} />
+          <InfoRow label="Phone" value={myProfile?.phone || "—"} />
+        </div>
+        <div className="mt-4 grid gap-2 text-sm">
+          <InfoRow label="Orders placed" value={myOrders.length} />
+          <InfoRow label="Paid" value={paidOrders.length} />
+          <InfoRow label="Awaiting payment" value={pendingOrders.length} />
+          <InfoRow label="Total spent" value={fmt(totalSpent)} />
+          <InfoRow label="Wishlist" value={store.wishlist.length} />
+        </div>
+        <button
+          type="button"
+          onClick={onLogout}
+          className="mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md border border-brass-200 text-sm font-bold text-ink-600 transition hover:border-wine-600 hover:text-wine-600"
+        >
+          <LogOut size={16} /> Sign out
+        </button>
+      </div>
+
+      <div className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm">
+        <h3 className="font-display text-display-sm text-wine-800">My orders</h3>
+        <div className="mt-4 grid gap-3 max-h-[460px] overflow-y-auto pr-1">
+          {myOrders.length ? (
+            myOrders.map((order) => (
+              <OrderMini
+                key={order.id}
+                order={order}
+                fmt={fmt}
+                onClick={() => onViewOrder(order)}
+              />
+            ))
+          ) : (
+            <div className="rounded-md border border-brass-200 bg-ink-100 p-4 text-center text-sm text-ink-600">
+              No orders found for {customerEmail}. Place an order to see it here.
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm">
+        <h3 className="font-display text-display-sm text-wine-800">Wishlist</h3>
+        <div className="mt-4 grid gap-3">
+          {store.wishlist.length ? (
+            store.wishlist
+              .map((id) => store.products.find((product) => product.id === id))
+              .filter(Boolean)
+              .map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/products/${productSlug(product)}`}
+                  className="flex items-center gap-3 rounded-md border border-brass-200 bg-white p-2 text-left transition hover:border-wine-600"
+                >
+                  <img src={product.image} alt={product.name} className="h-16 w-12 rounded object-cover" />
+                  <span>
+                    <strong className="block">{product.name}</strong>
+                    <span className="tabular text-body-sm text-ink-600">{fmt(productPrice(product))}</span>
+                  </span>
+                </Link>
+              ))
+          ) : (
+            <EmptyState text="Save products to build your wishlist." />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function InfoRow({ label, value }) {
+  return (
+    <div className="flex items-center justify-between gap-4 border-b border-brass-200 py-2 last:border-b-0">
+      <span className="text-ink-600">{label}</span>
+      <strong className="text-right">{value}</strong>
+    </div>
+  );
+}
+
+export function SummaryRows({ summary, fmt }) {
+  return (
+    <div className="mt-4 grid gap-2 text-sm">
+      <InfoRow label="Subtotal" value={fmt(summary.subtotal)} />
+      <InfoRow label="Discount" value={`-${fmt(summary.discount)}`} />
+      <InfoRow label="Shipping" value={summary.shipping ? fmt(summary.shipping) : "Free"} />
+      <InfoRow label="Estimated tax" value={fmt(summary.tax)} />
+      <div className="flex items-center justify-between gap-4 border-t border-brass-200 pt-3 text-lg">
+        <span className="font-bold">Total</span>
+        <strong>{fmt(summary.total)}</strong>
+      </div>
+    </div>
+  );
+}
+
+export function TextInput({ label, name, type = "text", defaultValue = "", required = false }) {
+  return (
+    <label className="grid gap-2 text-sm font-bold text-ink-700">
+      {label}
+      <input
+        name={name}
+        type={type}
+        required={required}
+        defaultValue={defaultValue}
+        className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+      />
+    </label>
+  );
+}
+
+export function EmptyState({ text }) {
+  return (
+    <div className="rounded-md border border-dashed border-brass-200 bg-ink-100 p-6 text-center text-sm text-ink-600">
+      {text}
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <StoreProvider>
+      <StorefrontHome />
+    </StoreProvider>
+  );
+}
