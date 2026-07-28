@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { StoreProvider, useStore } from "@/components/store/StoreProvider";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { CartDrawer, OrderDetailModal } from "@/components/shop/parts";
+import SearchOverlay from "@/components/shop/SearchOverlay";
 import { Toast } from "@/components/ui";
 
 const SHOP_LINKS = [
@@ -32,8 +34,9 @@ const ATELIER_LINKS = [
 
 function Shell({ children }) {
   const router = useRouter();
+  const [searchOpen, setSearchOpen] = useState(false);
   const {
-    store, cfg, fmt, cartSummary, cartCount,
+    store, cfg, fmt, cartSummary, cartCount, publishedProducts,
     cartOpen, setCartOpen,
     viewingOrder, setViewingOrder,
     notice, show,
@@ -47,6 +50,14 @@ function Shell({ children }) {
         settings={cfg}
         cartCount={cartCount}
         onCartOpen={() => setCartOpen(true)}
+        onSearchOpen={() => setSearchOpen(true)}
+      />
+
+      <SearchOverlay
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        products={publishedProducts}
+        fmt={fmt}
       />
 
       <main id="main" className="min-h-screen bg-ink-100 text-ink-900">{children}</main>

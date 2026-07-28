@@ -175,7 +175,7 @@ function Checkout() {
         <div className="grid gap-8">
           <section aria-labelledby="h-details" className="grid gap-4">
             <h2 id="h-details" className="font-display text-display-sm text-wine-800">Where it goes</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid items-start gap-x-4 gap-y-5 sm:grid-cols-2">
               <Field label="Full name" name="name" required defaultValue={c.name} autoComplete="name" />
               <Field label="Email" name="email" type="email" required defaultValue={c.email || customerEmail} autoComplete="email" hint="Your order confirmation goes here." />
               <Field label="Phone / WhatsApp" name="phone" type="tel" required defaultValue={c.phone} autoComplete="tel" placeholder="+264 81 000 0000" />

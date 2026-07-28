@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Mail, Menu, MessageCircle, Phone, ShoppingBag } from "lucide-react";
+import { Heart, Mail, Menu, MessageCircle, Phone, Search, ShoppingBag } from "lucide-react";
 import { classNames } from "@/lib/format";
 import Sheet from "@/components/ui/Sheet";
 
@@ -32,7 +32,7 @@ const SECONDARY = [
  * Laid out on a grid rather than flex-wrap so the bar cannot stack on a phone;
  * it stays 56px there and 80px from md.
  */
-export default function SiteHeader({ announcement, settings = {}, cartCount = 0, onCartOpen }) {
+export default function SiteHeader({ announcement, settings = {}, cartCount = 0, onCartOpen, onSearchOpen }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -133,6 +133,14 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
           <span className="md:hidden" aria-hidden="true" />
 
           <div className="flex items-center justify-end gap-1">
+            <button
+              type="button"
+              onClick={onSearchOpen}
+              aria-label="Search"
+              className="grid h-11 w-11 place-items-center rounded-md text-ink-800 transition hover:bg-wine-50 hover:text-wine-600"
+            >
+              <Search size={20} />
+            </button>
             <Link
               href="/account"
               aria-label="Wishlist"
