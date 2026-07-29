@@ -33,7 +33,7 @@ function Landing() {
         reads as noise.
       */}
       <section className="border-b border-brass-200 bg-ink-50">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 md:px-8 lg:grid-cols-2 lg:gap-16 lg:py-20">
+        <div className="mx-auto grid max-w-shell items-center gap-10 px-4 py-12 md:px-8 xl:px-12 xl:px-12 lg:grid-cols-2 lg:gap-16 lg:py-20">
           <div className="max-w-xl">
             <p className="text-eyebrow uppercase text-garden-700">{content.heroBadge}</p>
             <h1 className="display-hero mt-4 font-display text-display-lg text-wine-800 sm:text-display-xl">
@@ -68,7 +68,7 @@ function Landing() {
       </section>
 
       <section className="bg-ink-100 px-4 py-14 md:px-8 md:py-20">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-shell">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="mb-2 text-eyebrow uppercase text-clay-700">{content.collectionsEyebrow}</p>
@@ -110,8 +110,8 @@ function Landing() {
         </div>
       </section>
 
-      <section className="bg-ink-100 px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto max-w-7xl">
+      <section className="bg-ink-100 px-4 py-12 md:px-8 xl:px-12 xl:px-12 md:py-16">
+        <div className="mx-auto max-w-shell">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="mb-2 text-eyebrow uppercase text-clay-700">{content.catalogEyebrow}</p>
@@ -146,8 +146,8 @@ function Landing() {
         </div>
       </section>
 
-      <section className="bg-wine-50 px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-[1.4fr_1fr] md:items-center">
+      <section className="bg-wine-50 px-4 py-12 md:px-8 xl:px-12 xl:px-12 md:py-16">
+        <div className="mx-auto grid max-w-shell gap-6 md:grid-cols-[1.4fr_1fr] md:items-center">
           <div>
             <p className="mb-2 text-eyebrow uppercase text-clay-700">{content.accountEyebrow}</p>
             <h2 className="font-display text-display-md leading-tight text-wine-800">{content.accountTitle}</h2>

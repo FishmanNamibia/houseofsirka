@@ -642,7 +642,7 @@ export default function AdminPage() {
 
   return (
     <main id="main" className="min-h-screen bg-ink-100 px-4 py-8 text-ink-900 md:px-8">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-shell">
         <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <a

@@ -14,7 +14,7 @@ function Wishlist() {
     .filter(Boolean);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
+    <div className="mx-auto max-w-shell px-4 py-8 md:px-8 xl:px-12 md:py-12">
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1 text-body-sm text-ink-600">
         <Link href="/" className="hover:text-wine-600">Home</Link>
         <ChevronRight size={14} aria-hidden="true" />
@@ -29,7 +29,7 @@ function Wishlist() {
       {saved.length ? (
         <>
         <h2 className="sr-only">Saved pieces</h2>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {saved.map((product) => (
             <ProductCard
               key={product.id}

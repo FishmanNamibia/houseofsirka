@@ -46,7 +46,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
   return (
     <>
       <div className="border-b border-brass-200 bg-wine-800 text-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-2 md:px-8">
+        <div className="mx-auto flex max-w-shell flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-2 md:px-8 xl:px-12">
           <p className="text-caption text-white/90">{announcement}</p>
 
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 text-caption">
@@ -88,7 +88,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
       </div>
 
       <header className="sticky top-0 z-30 border-b border-brass-200 bg-ink-50/90 backdrop-blur-xl">
-        <div className="mx-auto grid h-14 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:h-20 md:gap-6 md:px-8">
+        <div className="mx-auto grid h-14 max-w-shell grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:h-20 md:gap-6 md:px-8 xl:px-12">
           <div className="flex items-center gap-2">
             <button
               type="button"

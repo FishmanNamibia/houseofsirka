@@ -89,6 +89,16 @@ module.exports = {
         marigold: "#F2B84B",
       },
 
+      /**
+       * Page shell width. 1280px (max-w-7xl) left noticeable dead margin on the
+       * 1440px+ displays most desktop shoppers use, and squeezed the product
+       * grid to four columns when there was room for five.
+       */
+      maxWidth: {
+        shell: "1600px",
+        "shell-narrow": "1100px",
+      },
+
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "Cambria", "serif"],

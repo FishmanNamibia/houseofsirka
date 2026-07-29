@@ -47,7 +47,7 @@ function Detail({ slug, seedProduct }) {
   const colors = unique(variants.map((v) => v.color));
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+    <div className="mx-auto max-w-shell px-4 py-8 md:px-8 xl:px-12">
         <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1 text-body-sm text-ink-600">
           <Link href="/" className="hover:text-wine-600">Home</Link>
           <ChevronRight size={14} aria-hidden="true" />

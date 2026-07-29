@@ -16,7 +16,7 @@ function Shell({ title, intro, children }) {
         onCartOpen={() => setCartOpen(true)}
       />
 
-      <main id="main" className="mx-auto max-w-4xl px-4 py-10 md:px-8 md:py-16">
+      <main id="main" className="mx-auto max-w-4xl px-4 py-10 md:px-8 xl:px-12 xl:px-12 md:py-16">
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1 text-body-sm text-ink-600">
           <Link href="/" className="hover:text-wine-600">Home</Link>
           <ChevronRight size={14} aria-hidden="true" />
@@ -29,7 +29,7 @@ function Shell({ title, intro, children }) {
         <div className="prose-sirka mt-10 grid gap-6">{children}</div>
       </main>
 
-      <footer className="mt-16 border-t border-brass-200 bg-ink-50 px-4 py-10 md:px-8">
+      <footer className="mt-16 border-t border-brass-200 bg-ink-50 px-4 py-10 md:px-8 xl:px-12 xl:px-12">
         <div className="mx-auto flex max-w-4xl flex-wrap gap-x-6 gap-y-2 text-body-sm text-ink-600">
           <Link href="/about" className="hover:text-wine-600">About</Link>
           <Link href="/contact" className="hover:text-wine-600">Contact</Link>

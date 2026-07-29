@@ -64,8 +64,8 @@ function Shell({ children }) {
       <main id="main" className="min-h-screen bg-ink-100 text-ink-900">{children}</main>
 
       <footer className="bg-wine-800 text-white">
-        <div className="border-b border-white/15 px-4 py-10 md:px-8">
-          <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-[1.1fr_1fr] md:items-center">
+        <div className="border-b border-white/15 px-4 py-10 md:px-8 xl:px-12 xl:px-12">
+          <div className="mx-auto grid max-w-shell gap-6 md:grid-cols-[1.1fr_1fr] md:items-center">
             <div>
               <h2 className="font-display text-display-sm">First look at new pieces</h2>
               <p className="mt-2 max-w-[52ch] text-body-sm text-white/85">
@@ -103,8 +103,8 @@ function Shell({ children }) {
           </div>
         </div>
 
-        <div className="px-4 py-12 md:px-8">
-          <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+        <div className="px-4 py-12 md:px-8 xl:px-12 xl:px-12">
+          <div className="mx-auto grid max-w-shell gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
             <div>
               <div className="mb-4 w-44 rounded bg-ink-50 p-2">
                 <img src="/house-of-sirka-logo-final.png" alt="House of Sirka" className="h-auto w-full" />
@@ -146,7 +146,7 @@ function Shell({ children }) {
             </div>
           </div>
 
-          <div className="mx-auto mt-10 max-w-7xl border-t border-white/15 pt-6">
+          <div className="mx-auto mt-10 max-w-shell border-t border-white/15 pt-6">
             <p className="mt-6 text-caption text-white/70">
               © {new Date().getFullYear()} House of Sirka · Windhoek, Namibia
             </p>

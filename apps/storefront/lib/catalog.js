@@ -22,7 +22,7 @@ export const STORAGE_KEY = "house-of-sirka-next-store";
  * Anything edited in the admin panel differs from that snapshot and is left
  * alone, so new seed copy lands without discarding real content work.
  */
-export const SEED_VERSION = 10;
+export const SEED_VERSION = 11;
 export const CUSTOMER_KEY = "house-of-sirka-customer";
 
 /** Product colour chips. Distinct from the theme palette — these describe garments. */
@@ -717,6 +717,23 @@ const LEGACY_SEED_VALUES = {
 };
 
 /**
+ * Appends seed products the saved store has never seen.
+ *
+ * Matching is by id, so a product the shop owner edited or archived keeps its
+ * saved state; only genuinely new ones are added.
+ */
+function mergeSeedProducts(savedProducts, seedIsStale) {
+  if (!Array.isArray(savedProducts) || !savedProducts.length) {
+    return initialStore.products;
+  }
+  if (!seedIsStale) return savedProducts;
+
+  const savedIds = new Set(savedProducts.map((p) => p.id));
+  const additions = SEED_PRODUCTS.filter((p) => !savedIds.has(p.id));
+  return additions.length ? [...savedProducts, ...additions] : savedProducts;
+}
+
+/**
  * Per-key merge: the seed wins only where the saved value was never edited.
  *
  * A value counts as untouched if it still equals the snapshot this payload was
@@ -745,7 +762,13 @@ export function normalizeStore(store) {
     ...initialStore,
     ...store,
     seedVersion: SEED_VERSION,
-    products: (store.products || initialStore.products).map((product) => {
+    // Products added to the seed after this payload was saved would otherwise
+    // never appear — the saved array simply shadows them. This is the same
+    // failure that hid updated copy and retired payment methods, so it is
+    // handled here rather than patched per field: new seed products are
+    // appended, existing ones are left exactly as saved because they may carry
+    // admin edits.
+    products: mergeSeedProducts(store.products, contentIsStale).map((product) => {
       const seed = SEED_PRODUCTS.find((p) => p.id === product.id);
       const saved = Array.isArray(product.images) ? product.images : [];
 
