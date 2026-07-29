@@ -22,7 +22,7 @@ export const STORAGE_KEY = "house-of-sirka-next-store";
  * Anything edited in the admin panel differs from that snapshot and is left
  * alone, so new seed copy lands without discarding real content work.
  */
-export const SEED_VERSION = 11;
+export const SEED_VERSION = 12;
 export const CUSTOMER_KEY = "house-of-sirka-customer";
 
 /** Product colour chips. Distinct from the theme palette — these describe garments. */
@@ -553,9 +553,10 @@ export const initialStore = {
     whatsappMessage: "Hi House of Sirka, I'd like to enquire about my order.",
     supportEmail: "support@houseofsirka.local",
     notificationEmail: "orders@houseofsirka.local",
-    instagramUrl: "",
-    facebookUrl: "",
-    tiktokUrl: "",
+    instagramUrl: "https://instagram.com/houseofsirka",
+    facebookUrl: "https://facebook.com/houseofsirka",
+    tiktokUrl: "https://tiktok.com/@houseofsirka",
+    whatsappChannelUrl: "",
     // email service
     emailProvider: "none",
     smtpHost: "",
@@ -679,6 +680,9 @@ const LEGACY_SEED_VALUES = {
     "Windhoek, Okahandja, Swakopmund, Walvis Bay, Otjiwarongo, Oshakati, Ongwediva, Rundu, Keetmanshoop",
   ],
   storeAddress: ["Windhoek, Namibia"],
+  instagramUrl: [""],
+  facebookUrl: [""],
+  tiktokUrl: [""],
   paymentGateway: ["stripe", "network-international", "paytoday"],
   ewalletProvider: ["FNB EWallet"],
   ewalletInstructions: [

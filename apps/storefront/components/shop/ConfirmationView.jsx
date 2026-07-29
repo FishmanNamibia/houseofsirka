@@ -32,7 +32,7 @@ function Confirmation() {
   const wa = String(cfg.whatsappNumber || "").replace(/[^0-9]/g, "");
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 md:px-8 xl:px-12 xl:px-12 md:py-16">
+    <div className="mx-auto max-w-3xl px-4 py-10 md:px-8 xl:px-12 md:py-16">
       <div className="flex items-center gap-3">
         <span className="grid h-12 w-12 place-items-center rounded-full bg-garden-700 text-white">
           <Check size={24} aria-hidden="true" />

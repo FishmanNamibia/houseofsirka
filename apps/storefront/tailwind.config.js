@@ -94,6 +94,15 @@ module.exports = {
        * 1440px+ displays most desktop shoppers use, and squeezed the product
        * grid to four columns when there was room for five.
        */
+      /**
+       * 52px. Tailwind jumps 48px (h-12) to 56px (h-14); the primary action on
+       * checkout and account wants the step between. `h-13` was already in use
+       * and compiling to nothing, so the button was sized by padding alone.
+       */
+      height: {
+        13: "3.25rem",
+      },
+
       maxWidth: {
         shell: "1600px",
         "shell-narrow": "1100px",

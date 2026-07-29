@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Facebook, Instagram, MessageCircle, Music2 } from "lucide-react";
 import { StoreProvider, useStore } from "@/components/store/StoreProvider";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { CartDrawer, OrderDetailModal } from "@/components/shop/parts";
@@ -12,9 +13,7 @@ import { Toast } from "@/components/ui";
 const SHOP_LINKS = [
   { label: "All pieces", href: "/shop" },
   { label: "Collections", href: "/collections" },
-  { label: "Dresses", href: "/collections/dresses" },
-  { label: "Outerwear", href: "/collections/outerwear" },
-  { label: "Tops", href: "/collections/tops" },
+  { label: "Wishlist", href: "/wishlist" },
 ];
 
 const HELP_LINKS = [
@@ -22,8 +21,6 @@ const HELP_LINKS = [
   { label: "Shipping & delivery", href: "/shipping" },
   { label: "Returns & exchanges", href: "/returns" },
   { label: "FAQ", href: "/faq" },
-  { label: "Track an order", href: "/account" },
-  { label: "Wishlist", href: "/wishlist" },
 ];
 
 const WORKROOM_LINKS = [
@@ -31,6 +28,16 @@ const WORKROOM_LINKS = [
   { label: "Contact & fittings", href: "/contact" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
+];
+
+/**
+ * Social accounts. Rendered only where the admin has set a URL, so an
+ * unconfigured channel leaves no dead icon behind.
+ */
+const SOCIALS = [
+  { key: "instagramUrl", label: "Instagram", Icon: Instagram },
+  { key: "facebookUrl", label: "Facebook", Icon: Facebook },
+  { key: "tiktokUrl", label: "TikTok", Icon: Music2 },
 ];
 
 function Shell({ children }) {
@@ -64,7 +71,7 @@ function Shell({ children }) {
       <main id="main" className="min-h-screen bg-ink-100 text-ink-900">{children}</main>
 
       <footer className="bg-wine-800 text-white">
-        <div className="border-b border-white/15 px-4 py-10 md:px-8 xl:px-12 xl:px-12">
+        <div className="border-b border-white/15 px-4 py-10 md:px-8 xl:px-12">
           <div className="mx-auto grid max-w-shell gap-6 md:grid-cols-[1.1fr_1fr] md:items-center">
             <div>
               <h2 className="font-display text-display-sm">First look at new pieces</h2>
@@ -103,13 +110,43 @@ function Shell({ children }) {
           </div>
         </div>
 
-        <div className="px-4 py-12 md:px-8 xl:px-12 xl:px-12">
+        <div className="px-4 py-12 md:px-8 xl:px-12">
           <div className="mx-auto grid max-w-shell gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
             <div>
               <div className="mb-4 w-44 rounded bg-ink-50 p-2">
                 <img src="/house-of-sirka-logo-final.png" alt="House of Sirka" className="h-auto w-full" />
               </div>
               <p className="max-w-[44ch] text-body-sm text-white/85">{store.content.footerTagline}</p>
+
+              <h2 className="mt-7 text-eyebrow uppercase text-white/70">Follow us</h2>
+              <ul className="mt-3 flex flex-wrap items-center gap-2">
+                {SOCIALS.filter(({ key }) => cfg[key]).map(({ key, label, Icon }) => (
+                  <li key={key}>
+                    <a
+                      href={cfg[key]}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={label}
+                      className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white/90 transition hover:border-white hover:bg-white/10 hover:text-white"
+                    >
+                      <Icon size={18} aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+                {cfg.whatsappNumber && (
+                  <li>
+                    <a
+                      href={`https://wa.me/${String(cfg.whatsappNumber).replace(/[^0-9]/g, "")}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="WhatsApp"
+                      className="grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white/90 transition hover:border-white hover:bg-white/10 hover:text-white"
+                    >
+                      <MessageCircle size={18} aria-hidden="true" />
+                    </a>
+                  </li>
+                )}
+              </ul>
             </div>
 
             <nav aria-label="Shop">
