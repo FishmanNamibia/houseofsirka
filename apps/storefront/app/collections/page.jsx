@@ -1,4 +1,5 @@
 import CollectionsIndex from "@/components/shop/CollectionsIndex";
+import { getProducts } from "@/lib/medusa/catalog";
 
 export const metadata = {
   title: "Collections",
@@ -7,6 +8,6 @@ export const metadata = {
   alternates: { canonical: "/collections" },
 };
 
-export default function CollectionsPage() {
-  return <CollectionsIndex />;
+export default async function CollectionsPage() {
+  return <CollectionsIndex products={await getProducts()} />;
 }

@@ -1,4 +1,5 @@
 import WishlistView from "@/components/shop/WishlistView";
+import { getProducts } from "@/lib/medusa/catalog";
 
 export const metadata = {
   title: "Wishlist",
@@ -7,6 +8,6 @@ export const metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function WishlistPage() {
-  return <WishlistView />;
+export default async function WishlistPage() {
+  return <WishlistView products={await getProducts()} />;
 }

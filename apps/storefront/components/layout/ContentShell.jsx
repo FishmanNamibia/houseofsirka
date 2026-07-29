@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import StorefrontShell from "@/components/layout/StorefrontShell";
+import { getProducts } from "@/lib/medusa/catalog";
 
 /**
  * Chrome for the static content pages.
@@ -13,9 +14,15 @@ import StorefrontShell from "@/components/layout/StorefrontShell";
  * Page bodies stay server components: children passed from a server parent are
  * still server-rendered, so the copy is real HTML with no client JS behind it.
  */
-export default function ContentShell({ title, intro, children }) {
+export default async function ContentShell({ title, intro, children }) {
+  // Fetched here rather than in each of the eight content pages. These pages
+  // show no products themselves, but they carry the same header — so the cart
+  // and the search overlay would otherwise be searching a different catalogue
+  // on /about than on /shop.
+  const products = await getProducts();
+
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <div className="mx-auto max-w-4xl px-4 py-10 md:px-8 md:py-16 xl:px-12">
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1 text-body-sm text-ink-600">
           <Link href="/" className="hover:text-wine-600">Home</Link>

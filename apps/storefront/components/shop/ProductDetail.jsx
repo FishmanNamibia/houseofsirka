@@ -167,9 +167,9 @@ function Detail({ slug, seedProduct }) {
   );
 }
 
-export default function ProductDetail(props) {
+export default function ProductDetail({ products, ...props }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Detail {...props} />
     </StorefrontShell>
   );

@@ -66,9 +66,9 @@ function Index() {
   );
 }
 
-export default function CollectionsIndex() {
+export default function CollectionsIndex({ products }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Index />
     </StorefrontShell>
   );

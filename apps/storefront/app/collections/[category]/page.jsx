@@ -1,21 +1,24 @@
 import { notFound } from "next/navigation";
-import { SEED_CATEGORIES, SEED_PRODUCTS } from "@/lib/catalog";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { getCategories, getProducts } from "@/lib/medusa/catalog";
 import CollectionView from "@/components/shop/CollectionView";
 
 export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return SEED_CATEGORIES.map((category) => ({ category: category.toLowerCase() }));
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({ category: category.toLowerCase() }));
 }
 
-function label(slug) {
-  return SEED_CATEGORIES.find((c) => c.toLowerCase() === slug) || null;
+/** URLs are lowercase; the display name comes from the catalogue itself. */
+async function label(slug) {
+  const categories = await getCategories();
+  return categories.find((c) => c.toLowerCase() === slug) || null;
 }
 
 export async function generateMetadata({ params }) {
   const { category } = await params;
-  const name = label(category);
+  const name = await label(category);
   if (!name) return { title: "Collection" };
 
   return {
@@ -27,10 +30,10 @@ export async function generateMetadata({ params }) {
 
 export default async function CollectionPage({ params }) {
   const { category } = await params;
-  const name = label(category);
+  const name = await label(category);
   if (!name) notFound();
 
-  const seedProducts = SEED_PRODUCTS.filter((p) => p.category === name);
+  const products = await getProducts();
 
   return (
     <>
@@ -40,7 +43,11 @@ export default async function CollectionPage({ params }) {
           { label: name, href: `/collections/${category}` },
         ]}
       />
-      <CollectionView category={name} seedProducts={seedProducts} />
+      <CollectionView
+        category={name}
+        seedProducts={products.filter((p) => p.category === name)}
+        products={products}
+      />
     </>
   );
 }

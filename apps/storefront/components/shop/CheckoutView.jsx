@@ -381,9 +381,9 @@ function Checkout() {
   );
 }
 
-export default function CheckoutView() {
+export default function CheckoutView({ products }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Checkout />
     </StorefrontShell>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { evaluatePromotion, incrementPromotionUsage } from "@/lib/promotions";
 import { CUSTOMER_KEY, STORAGE_KEY, initialStore, normalizeStore } from "@/lib/catalog";
 import { money, productPrice, splitLines, uid } from "@/lib/format";
@@ -15,32 +15,62 @@ const StoreContext = createContext(null);
  * its own writer for the same localStorage key, and two live writers in one tab
  * would clobber each other. Storefront routes opt in by wrapping themselves.
  */
-export function StoreProvider({ children }) {
-  const [store, setStore] = useState(initialStore);
+export function StoreProvider({ children, products }) {
+  const [store, setStore] = useState(
+    products ? { ...initialStore, products } : initialStore,
+  );
   const [hydrated, setHydrated] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [viewingOrder, setViewingOrder] = useState(null);
   const [customerEmail, setCustomerEmail] = useState("");
   const [notice, setNotice] = useState("");
+  const persistedProducts = useRef(initialStore.products);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        setStore(normalizeStore(JSON.parse(saved)));
+        const restored = normalizeStore(JSON.parse(saved));
+        persistedProducts.current = restored.products;
+        // The server's catalogue outranks whatever this browser saved.
+        //
+        // This is the fix for a bug that bit three times — content, then
+        // settings, then products — where a returning visitor kept seeing an
+        // old catalogue because their localStorage copy shadowed the new one.
+        // The root cause was making the visitor's browser the source of truth
+        // for data the shop owns. Now the shop owns it: prices, stock and
+        // copy come down with the page, and localStorage is demoted to what it
+        // is actually for — this person's cart and wishlist.
+        setStore(products ? { ...restored, products } : restored);
       } catch {
-        setStore(initialStore);
+        setStore(products ? { ...initialStore, products } : initialStore);
       }
     }
     const savedCustomer = window.localStorage.getItem(CUSTOMER_KEY);
     if (savedCustomer) setCustomerEmail(savedCustomer);
     setHydrated(true);
+    // Runs once. Product changes are handled by the effect below, so that
+    // navigating between routes does not re-read localStorage and stamp over
+    // a cart change made a moment ago.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Each route supplies its own server-rendered catalogue; adopt it on arrival.
+  useEffect(() => {
+    if (!products) return;
+    setStore((current) => (current.products === products ? current : { ...current, products }));
+  }, [products]);
 
   useEffect(() => {
     if (!hydrated) return;
-    const json = JSON.stringify(store);
+    // Persist everything except the catalogue. The catalogue now arrives with
+    // the page from Medusa, so writing it back would (a) grow this key with
+    // data we no longer read and (b) overwrite the separate catalogue the
+    // legacy /admin keeps under the same key, which is still the only way to
+    // edit copy, settings and orders. Whatever /admin saved is written back
+    // untouched.
+    const json = JSON.stringify({ ...store, products: persistedProducts.current });
     try {
       window.localStorage.setItem(STORAGE_KEY, json);
     } catch {
@@ -67,7 +97,12 @@ export function StoreProvider({ children }) {
     function onStorage(event) {
       if (event.key === STORAGE_KEY && event.newValue) {
         try {
-          setStore(normalizeStore(JSON.parse(event.newValue)));
+          const incoming = normalizeStore(JSON.parse(event.newValue));
+          persistedProducts.current = incoming.products;
+          // Another tab may still be running the legacy /admin, which writes
+          // its own catalogue to this key. Take its cart and wishlist, keep
+          // the catalogue this page was served with.
+          setStore((current) => ({ ...incoming, products: current.products }));
         } catch { /* ignore bad data */ }
       }
     }

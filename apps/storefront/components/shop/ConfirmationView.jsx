@@ -97,9 +97,9 @@ function Confirmation() {
   );
 }
 
-export default function ConfirmationView() {
+export default function ConfirmationView({ products }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Confirmation />
     </StorefrontShell>
   );

@@ -1,6 +1,21 @@
 import { display, body } from "./fonts";
 import "./globals.css";
 
+/**
+ * Every page is rebuilt in the background at most five minutes after it goes
+ * stale.
+ *
+ * Set once here rather than per route because the catalogue reaches even the
+ * pages that show no products: /about and the rest carry the same header, so
+ * their search overlay reads the same rail. Without it the whole site is frozen
+ * at whatever the catalogue was when it was last deployed — a price changed in
+ * the Medusa admin, or a piece selling out, would not reach the shop until
+ * somebody triggered a build. Five minutes keeps pages as fast as static files
+ * while making the admin feel connected to the shop; stock is re-checked at the
+ * cart in any case.
+ */
+export const revalidate = 300;
+
 export const metadata = {
   metadataBase: new URL("https://houseofsirka.com"),
   title: {

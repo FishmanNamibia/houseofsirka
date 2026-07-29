@@ -52,9 +52,9 @@ function View({ category, seedProducts }) {
   );
 }
 
-export default function CollectionView(props) {
+export default function CollectionView({ products, ...props }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <View {...props} />
     </StorefrontShell>
   );

@@ -1,19 +1,20 @@
-import { SEED_PRODUCTS, getSeedProduct, productSlug } from "@/lib/catalog";
+import { productSlug } from "@/lib/catalog";
+import { getProduct, getProducts } from "@/lib/medusa/catalog";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import ProductDetail from "@/components/shop/ProductDetail";
 
-// Products created in the admin panel exist only in localStorage, so their
-// slugs aren't known at build time. They still render — the shell hydrates and
-// finds them client-side.
+// A product added in the Medusa admin after this build was prerendered still
+// has to resolve, so unknown slugs are rendered on demand rather than 404ed.
 export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return SEED_PRODUCTS.map((product) => ({ slug: productSlug(product) }));
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((product) => ({ slug: productSlug(product) }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const product = getSeedProduct(slug);
+  const product = await getProduct(slug);
 
   if (!product) {
     return { title: "Product", description: "A piece from the House of Sirka workroom." };
@@ -35,23 +36,31 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductPage({ params }) {
   const { slug } = await params;
-  const seedProduct = getSeedProduct(slug);
+  const products = await getProducts();
+  const product = products.find((item) => productSlug(item) === slug) || null;
 
   return (
     <>
-      {seedProduct && (
+      {product && (
         <>
-          <ProductJsonLd product={seedProduct} slug={slug} />
+          <ProductJsonLd product={product} slug={slug} />
           <BreadcrumbJsonLd
             trail={[
               { label: "Home", href: "/" },
-              { label: seedProduct.category, href: `/collections/${seedProduct.category.toLowerCase()}` },
-              { label: seedProduct.name, href: `/products/${slug}` },
+              { label: product.category, href: `/collections/${product.category.toLowerCase()}` },
+              { label: product.name, href: `/products/${slug}` },
             ]}
           />
         </>
       )}
-      <ProductDetail slug={slug} seedProduct={seedProduct} />
+      {/*
+        The product is passed twice on purpose. `seedProduct` is what the server
+        renders and what the first client render must match exactly, so the
+        markup is real indexable HTML with no hydration mismatch; `products`
+        seeds the shared store so the cart, wishlist and related pieces all read
+        the same catalogue.
+      */}
+      <ProductDetail slug={slug} seedProduct={product} products={products} />
     </>
   );
 }

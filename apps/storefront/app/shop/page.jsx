@@ -1,4 +1,5 @@
 import ShopView from "@/components/shop/ShopView";
+import { getProducts } from "@/lib/medusa/catalog";
 
 export const metadata = {
   title: "Shop",
@@ -7,6 +8,6 @@ export const metadata = {
   alternates: { canonical: "/shop" },
 };
 
-export default function ShopPage() {
-  return <ShopView />;
+export default async function ShopPage() {
+  return <ShopView products={await getProducts()} />;
 }

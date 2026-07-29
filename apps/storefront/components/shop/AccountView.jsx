@@ -160,9 +160,9 @@ function Account() {
   );
 }
 
-export default function AccountView() {
+export default function AccountView({ products }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Account />
     </StorefrontShell>
   );

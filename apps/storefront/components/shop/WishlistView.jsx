@@ -63,9 +63,9 @@ function Wishlist() {
   );
 }
 
-export default function WishlistView() {
+export default function WishlistView({ products }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Wishlist />
     </StorefrontShell>
   );

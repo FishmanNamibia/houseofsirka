@@ -633,12 +633,13 @@ export function productSlug(product) {
   return product?.slug || slugify(product?.name);
 }
 
-export const SEED_CATEGORIES = [...new Set(SEED_PRODUCTS.map((p) => p.category))];
-export const SEED_COLLECTIONS = [...new Set(SEED_PRODUCTS.map((p) => p.collection))];
-
-export function getSeedProduct(slug) {
-  return SEED_PRODUCTS.find((p) => productSlug(p) === slug) || null;
-}
+/*
+  SEED_CATEGORIES, SEED_COLLECTIONS and getSeedProduct were exported here.
+  Every caller now goes through lib/medusa/catalog.js, which answers the same
+  questions from the backend and falls back to SEED_PRODUCTS when it cannot.
+  Removed rather than left in place: two ways to ask the same question is how
+  the storefront and the admin drifted apart in the first place.
+*/
 
 /**
  * Merges a persisted store over the seed defaults.

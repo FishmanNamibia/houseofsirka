@@ -1,4 +1,5 @@
 import CheckoutView from "@/components/shop/CheckoutView";
+import { getProducts } from "@/lib/medusa/catalog";
 
 export const metadata = {
   title: "Checkout",
@@ -7,6 +8,6 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CheckoutPage() {
-  return <CheckoutView />;
+export default async function CheckoutPage() {
+  return <CheckoutView products={await getProducts()} />;
 }

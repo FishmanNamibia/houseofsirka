@@ -226,9 +226,9 @@ function Shell({ children }) {
  * the order receipt. Wraps its own StoreProvider so /admin — which keeps a
  * separate writer for the same localStorage key — is never inside it.
  */
-export default function StorefrontShell({ children }) {
+export default function StorefrontShell({ children, products }) {
   return (
-    <StoreProvider>
+    <StoreProvider products={products}>
       <Shell>{children}</Shell>
     </StoreProvider>
   );

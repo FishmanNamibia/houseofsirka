@@ -1,4 +1,5 @@
 import AccountView from "@/components/shop/AccountView";
+import { getProducts } from "@/lib/medusa/catalog";
 
 export const metadata = {
   title: "Account",
@@ -7,6 +8,6 @@ export const metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function AccountPage() {
-  return <AccountView />;
+export default async function AccountPage() {
+  return <AccountView products={await getProducts()} />;
 }

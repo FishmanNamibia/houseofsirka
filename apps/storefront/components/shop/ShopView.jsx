@@ -231,9 +231,9 @@ function Catalogue() {
   );
 }
 
-export default function ShopView() {
+export default function ShopView({ products }) {
   return (
-    <StorefrontShell>
+    <StorefrontShell products={products}>
       <Catalogue />
     </StorefrontShell>
   );
