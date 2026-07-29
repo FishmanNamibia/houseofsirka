@@ -133,15 +133,22 @@ export default function ProductGallery({ images = [], alt }) {
 
       <div className="order-1 flex justify-center lg:order-2">
         {/*
-          Height leads, width follows. 42rem is a ceiling for very tall screens,
-          where a photograph that simply keeps growing starts to look like a
-          mistake rather than a decision.
+          Height leads, width follows: the photograph grows to whatever the
+          viewport can show in one go. 13rem is what sits above it — announcement
+          bar, header, breadcrumb, page padding — plus a little air beneath, so
+          the whole garment lands on screen without scrolling.
+
+          56rem is a ceiling for very tall monitors, where an image that simply
+          keeps growing stops reading as a decision. It is deliberately high
+          enough that on an ordinary laptop the viewport binds first, not the cap
+          — that was the flaw in the first attempt, where a 42rem ceiling held
+          the image well short of the space available and left cream beside it.
         */}
         <button
           type="button"
           onClick={() => setLightboxOpen(true)}
           aria-label={`Open ${alt} full screen`}
-          className="group relative aspect-[4/5] w-full cursor-zoom-in overflow-hidden border border-brass-200 bg-ink-200 lg:h-[min(calc(100svh-14rem),42rem)] lg:w-auto"
+          className="group relative aspect-[4/5] w-full cursor-zoom-in overflow-hidden border border-brass-200 bg-ink-200 lg:h-[min(calc(100svh-13rem),56rem)] lg:w-auto"
         >
           <SmartImage
             src={shots[active]}

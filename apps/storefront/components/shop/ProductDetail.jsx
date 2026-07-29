@@ -58,13 +58,31 @@ function Detail({ slug, seedProduct }) {
           <span aria-current="page" className="text-ink-800">{product.name}</span>
         </nav>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        {/*
+          The media column is sized by its content rather than handed half the
+          page. A portrait photograph bounded by the viewport does not need a
+          fixed share of the width, and an even split left a band of empty cream
+          beside it; `auto` gives whatever the image does not use to the
+          details, which can always spend it.
+        */}
+        <div className="grid gap-8 lg:grid-cols-[auto_minmax(22rem,1fr)] lg:gap-10 xl:gap-14">
           <ProductGallery
             images={product.images?.length ? product.images : [product.image]}
             alt={product.name}
           />
 
-          <div>
+          {/*
+            Sticky from lg up, so the price, size selector and Add to cart hold
+            their place while you scan down a photograph taller than they are.
+
+            Its reach is the grid row, not the page — a sticky element can only
+            travel inside its containing block, which here is the row the image
+            defines. Measured: 269px of hold before it releases and scrolls away
+            with the image. Worth having, but it is not a rail that follows you
+            into the sections below; making it one would mean moving those
+            sections inside this grid, which is a different change.
+          */}
+          <div className="lg:sticky lg:top-24 lg:self-start">
             <p className="text-eyebrow uppercase text-garden-700">{product.collection}</p>
             <h1 className="mt-2 font-display text-display-md text-wine-800 md:text-display-lg">{product.name}</h1>
 
