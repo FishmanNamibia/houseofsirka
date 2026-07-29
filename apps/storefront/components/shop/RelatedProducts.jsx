@@ -33,7 +33,7 @@ export default function RelatedProducts({ product }) {
           <li key={item.id}>
             <Link
               href={`/products/${productSlug(item)}`}
-              className="group block overflow-hidden rounded-md border border-brass-200 bg-ink-50 transition hover:border-brass-400 hover:shadow-soft"
+              className="group block overflow-hidden rounded-none border border-brass-200 bg-ink-50 transition hover:border-brass-400"
             >
               <div className="aspect-[4/5] overflow-hidden bg-ink-200">
                 <img

@@ -21,7 +21,7 @@ function Confirmation() {
         <p className="mt-3 text-body text-ink-700">
           If you have placed one before, find it under your account.
         </p>
-        <Link href="/account" className="mt-8 inline-flex h-12 items-center rounded-md bg-wine-600 px-6 font-semibold text-white">
+        <Link href="/account" className="mt-8 inline-flex h-12 items-center rounded-none bg-wine-600 px-6 font-semibold text-white">
           Go to account
         </Link>
       </div>
@@ -49,7 +49,7 @@ function Confirmation() {
       </p>
 
       {proofNeeded && (
-        <div className="mt-6 rounded-md border-2 border-brass-600 bg-brass-50 p-4">
+        <div className="mt-6 rounded-none border-2 border-brass-600 bg-brass-50 p-4">
           <h2 className="font-semibold text-ink-900">One step left</h2>
           <p className="mt-1 text-body-sm text-ink-700">
             {order.payment} needs your proof of payment before we pack. Send it on WhatsApp with your
@@ -60,7 +60,7 @@ function Confirmation() {
               href={`https://wa.me/${wa}?text=${encodeURIComponent(`Proof of payment for ${order.orderNumber}`)}`}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex h-11 items-center gap-2 rounded-md bg-garden-700 px-4 font-semibold text-white transition hover:bg-garden-800"
+              className="mt-3 inline-flex h-11 items-center gap-2 rounded-none bg-garden-700 px-4 font-semibold text-white transition hover:bg-garden-800"
             >
               <MessageCircle size={16} aria-hidden="true" /> Send proof on WhatsApp
             </a>
@@ -68,7 +68,7 @@ function Confirmation() {
         </div>
       )}
 
-      <dl className="mt-8 grid gap-3 rounded-md border border-brass-200 bg-ink-50 p-5 text-body-sm">
+      <dl className="mt-8 grid gap-3 rounded-none border border-brass-200 bg-ink-50 p-5 text-body-sm">
         <div className="flex flex-wrap justify-between gap-2"><dt className="text-ink-600">Payment</dt><dd className="font-semibold">{order.payment}</dd></div>
         <div className="flex flex-wrap justify-between gap-2"><dt className="text-ink-600">Status</dt><dd className="font-semibold">{order.paymentStatus}</dd></div>
         <div className="flex flex-wrap justify-between gap-2"><dt className="text-ink-600">Delivery</dt><dd className="font-semibold">{order.delivery}</dd></div>
@@ -86,10 +86,10 @@ function Confirmation() {
       </ol>
 
       <div className="mt-10 flex flex-wrap gap-3">
-        <Link href="/account" className="inline-flex h-12 items-center gap-2 rounded-md bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700">
+        <Link href="/account" className="inline-flex h-12 items-center gap-2 rounded-none bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700">
           Track this order <ChevronRight size={18} aria-hidden="true" />
         </Link>
-        <Link href="/shop" className="inline-flex h-12 items-center gap-2 rounded-md border border-brass-600 px-6 font-semibold text-garden-700 transition hover:border-wine-600 hover:text-wine-600">
+        <Link href="/shop" className="inline-flex h-12 items-center gap-2 rounded-none border border-brass-600 px-6 font-semibold text-garden-700 transition hover:border-wine-600 hover:text-wine-600">
           <Truck size={18} aria-hidden="true" /> Keep shopping
         </Link>
       </div>

@@ -87,7 +87,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
         </div>
       </div>
 
-      <header className="sticky top-0 z-30 border-b border-brass-200 bg-ink-50/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-brass-200 bg-ink-50">
         <div className="mx-auto grid h-14 max-w-shell grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:h-20 md:gap-6 md:px-8 xl:px-12">
           <div className="flex items-center gap-2">
             <button
@@ -96,7 +96,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
               aria-label="Open menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
-              className="grid h-11 w-11 place-items-center rounded-md text-ink-800 transition hover:bg-wine-50 hover:text-wine-600 md:hidden"
+              className="grid h-11 w-11 place-items-center rounded-none text-ink-800 transition hover:bg-wine-50 hover:text-wine-600 md:hidden"
             >
               <Menu size={22} />
             </button>
@@ -117,7 +117,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={classNames(
-                  "rounded-md px-4 py-2 transition",
+                  "rounded-none px-4 py-2 transition",
                   isActive(item.href)
                     ? "bg-wine-50 text-wine-700"
                     : "text-ink-800 hover:bg-wine-50 hover:text-wine-600",
@@ -137,14 +137,14 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
               type="button"
               onClick={onSearchOpen}
               aria-label="Search"
-              className="grid h-11 w-11 place-items-center rounded-md text-ink-800 transition hover:bg-wine-50 hover:text-wine-600"
+              className="grid h-11 w-11 place-items-center rounded-none text-ink-800 transition hover:bg-wine-50 hover:text-wine-600"
             >
               <Search size={20} />
             </button>
             <Link
               href="/wishlist"
               aria-label="Wishlist"
-              className="hidden h-11 w-11 place-items-center rounded-md text-ink-800 transition hover:bg-wine-50 hover:text-wine-600 md:grid"
+              className="hidden h-11 w-11 place-items-center rounded-none text-ink-800 transition hover:bg-wine-50 hover:text-wine-600 md:grid"
             >
               <Heart size={20} />
             </Link>
@@ -152,7 +152,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
               type="button"
               onClick={onCartOpen}
               aria-label={`Cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
-              className="relative grid h-11 w-11 place-items-center rounded-md text-ink-800 transition hover:bg-wine-50 hover:text-wine-600"
+              className="relative grid h-11 w-11 place-items-center rounded-none text-ink-800 transition hover:bg-wine-50 hover:text-wine-600"
             >
               <ShoppingBag size={20} />
               {cartCount > 0 && (
@@ -174,7 +174,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={classNames(
-                    "block rounded-md px-3 py-3 text-body font-semibold transition",
+                    "block rounded-none px-3 py-3 text-body font-semibold transition",
                     isActive(item.href) ? "bg-wine-50 text-wine-700" : "text-ink-800 hover:bg-wine-50 hover:text-wine-600",
                   )}
                 >
@@ -190,7 +190,7 @@ export default function SiteHeader({ announcement, settings = {}, cartCount = 0,
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-md px-3 py-2.5 text-body-sm text-ink-700 transition hover:bg-wine-50 hover:text-wine-600"
+                  className="block rounded-none px-3 py-2.5 text-body-sm text-ink-700 transition hover:bg-wine-50 hover:text-wine-600"
                 >
                   {item.label}
                 </Link>

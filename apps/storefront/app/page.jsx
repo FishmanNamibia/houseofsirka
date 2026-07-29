@@ -44,7 +44,7 @@ function Landing() {
             <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 rounded-md bg-wine-600 px-8 py-3.5 text-body font-semibold text-white transition hover:bg-wine-700"
+                className="inline-flex items-center gap-2 rounded-none bg-wine-600 px-8 py-3.5 text-body font-semibold text-white transition hover:bg-wine-700"
               >
                 {content.heroCtaPrimary} <ChevronRight size={18} aria-hidden="true" />
               </Link>
@@ -61,7 +61,7 @@ function Landing() {
             </p>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-ink-200">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-none bg-ink-200">
             <img src={content.heroImage} alt="" className="h-full w-full object-cover" />
           </div>
         </div>
@@ -79,7 +79,7 @@ function Landing() {
             </div>
             <Link
               href="/collections"
-              className="inline-flex h-11 items-center gap-2 rounded-md border border-brass-600 px-4 font-semibold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
+              className="inline-flex h-11 items-center gap-2 rounded-none border border-brass-600 px-4 font-semibold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
             >
               All collections <ChevronRight size={16} aria-hidden="true" />
             </Link>
@@ -90,7 +90,7 @@ function Landing() {
               <Link
                 key={entry.title}
                 href={`/collections/${String(entry.category).toLowerCase()}`}
-                className="group relative min-h-72 overflow-hidden rounded-md border border-brass-200 bg-ink-200 text-left shadow-sm"
+                className="group relative min-h-72 overflow-hidden rounded-none border border-brass-200 bg-ink-200 text-left"
               >
                 <img
                   src={entry.image}
@@ -122,7 +122,7 @@ function Landing() {
             </div>
             <Link
               href="/shop"
-              className="inline-flex h-11 items-center gap-2 rounded-md bg-wine-600 px-4 font-semibold text-white transition hover:bg-wine-700"
+              className="inline-flex h-11 items-center gap-2 rounded-none bg-wine-600 px-4 font-semibold text-white transition hover:bg-wine-700"
             >
               Shop everything <ChevronRight size={16} aria-hidden="true" />
             </Link>
@@ -156,13 +156,13 @@ function Landing() {
           <div className="flex flex-wrap gap-3 md:justify-end">
             <Link
               href="/account"
-              className="inline-flex h-12 items-center gap-2 rounded-md bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
+              className="inline-flex h-12 items-center gap-2 rounded-none bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
             >
               Track an order
             </Link>
             <Link
               href="/size-guide"
-              className="inline-flex h-12 items-center gap-2 rounded-md border border-brass-600 px-6 font-semibold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
+              className="inline-flex h-12 items-center gap-2 rounded-none border border-brass-600 px-6 font-semibold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
             >
               Size guide
             </Link>

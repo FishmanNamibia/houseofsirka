@@ -46,14 +46,14 @@ function Wishlist() {
         </div>
         </>
       ) : (
-        <div className="mt-10 rounded-md border border-brass-200 bg-ink-50 p-10 text-center">
+        <div className="mt-10 rounded-none border border-brass-200 bg-ink-50 p-10 text-center">
           <Heart size={28} className="mx-auto text-wine-600" aria-hidden="true" />
           <p className="mt-4 text-body text-ink-700">
             Nothing saved yet. Tap the heart on any piece to keep it here.
           </p>
           <Link
             href="/shop"
-            className="mt-6 inline-flex h-12 items-center gap-2 rounded-md bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
+            className="mt-6 inline-flex h-12 items-center gap-2 rounded-none bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
           >
             Browse the rail <ChevronRight size={18} aria-hidden="true" />
           </Link>

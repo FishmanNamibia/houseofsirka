@@ -35,7 +35,7 @@ function Index() {
           <Link
             key={entry.title}
             href={`/collections/${String(entry.category).toLowerCase()}`}
-            className="group relative min-h-72 overflow-hidden rounded-md border border-brass-200 bg-ink-200 shadow-sm transition hover:border-brass-400 hover:shadow-soft"
+            className="group relative min-h-72 overflow-hidden rounded-none border border-brass-200 bg-ink-200 transition hover:border-brass-400"
           >
             <img
               src={entry.image}
@@ -53,11 +53,11 @@ function Index() {
         ))}
       </div>
 
-      <div className="mt-12 rounded-md border border-brass-200 bg-ink-50 p-6 text-center shadow-sm">
+      <div className="mt-12 rounded-none border border-brass-200 bg-ink-50 p-6 text-center">
         <p className="text-body text-ink-700">Looking for something specific?</p>
         <Link
           href="/shop"
-          className="mt-4 inline-flex h-12 items-center gap-2 rounded-md bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
+          className="mt-4 inline-flex h-12 items-center gap-2 rounded-none bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
         >
           Browse the full rail <ChevronRight size={18} aria-hidden="true" />
         </Link>

@@ -16,7 +16,7 @@ export default function Toast({ message }) {
       className="pointer-events-none fixed bottom-4 right-4 z-[60]"
     >
       {message ? (
-        <div className="rounded-md bg-ink-900 px-4 py-3 text-body-sm font-semibold text-white shadow-soft">
+        <div className="rounded-none bg-ink-900 px-4 py-3 text-body-sm font-semibold text-white shadow-soft">
           {message}
         </div>
       ) : null}

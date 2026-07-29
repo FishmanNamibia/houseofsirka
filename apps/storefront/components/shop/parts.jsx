@@ -22,6 +22,7 @@ import { COLOR_SWATCHES as swatches, productSlug } from "@/lib/catalog";
 import { classNames, productPrice, splitLines, totalStock, unique } from "@/lib/format";
 import { fileToDataUrl } from "@/lib/media";
 import { Modal, Sheet } from "@/components/ui";
+import SmartImage from "@/components/ui/SmartImage";
 
 export function SectionTitle({ eyebrow, title, copy }) {
   return (
@@ -40,7 +41,7 @@ export function SelectFilter({ label, value, options, onChange }) {
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+        className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
       >
         {options.map((option) => (
           <option key={option}>{option}</option>
@@ -55,38 +56,65 @@ export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
   const colors = unique(product.variants.map((variant) => variant.color));
   const onSale = Boolean(product.salePrice);
   const lowStock = stock > 0 && stock <= 3;
+  const secondImage = product.images?.[1];
 
   return (
-    <article className="group">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-ink-200">
-        {/*
-          Presentational for assistive tech: the title link below already names
-          this product, so exposing the image as a second tab stop to the same
-          place is noise. Still clickable with a mouse.
-        */}
+    /*
+      A contained card, deliberately.
+
+      Five luxury retailers measured — Aesop, SSENSE, Khaite, Totem̈e, Jacquemus
+      — all use borderless tiles with the photograph directly on the page. The
+      containment here is a considered exception: several product photographs
+      have white or near-white backgrounds and would dissolve into the cream
+      surface without a boundary.
+
+      What makes it read as a boutique rather than a dashboard is the treatment:
+      square corners, a hairline border, and no elevation. Radius and shadow are
+      the tells; a border is not.
+    */
+    <article className="group relative border border-brass-200 bg-ink-50 transition-colors duration-150 hover:border-brass-400">
+      <div className="relative aspect-[4/5] overflow-hidden bg-ink-200">
         <Link
           href={`/products/${productSlug(product)}`}
           tabIndex={-1}
           aria-hidden="true"
           className="block h-full w-full"
         >
-          <img
+          {/*
+            SmartImage rather than a raw <img>: this grid renders sixteen
+            photographs, and next/image gives AVIF/WebP, a responsive srcset and
+            lazy loading. On Namibian mobile data the bytes matter more than
+            anything on screen.
+          */}
+          <SmartImage
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
+
+          {/*
+            Second photograph on hover instead of a scale-zoom. None of the
+            benchmark sites zoom on hover — it reads as a marketplace — and a
+            crossfade shows the shopper something new rather than the same
+            image larger.
+          */}
+          {secondImage && (
+            <SmartImage
+              src={secondImage}
+              alt=""
+              className="object-cover opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
+          )}
         </Link>
 
-        {/*
-          Only shown when it means something. A badge on every card is wallpaper;
-          "2 left" is a reason to decide now. Solid background rather than a
-          translucent one, because contrast over a photograph is otherwise
-          whatever the photograph happens to be.
-        */}
+        {/* Only shown when it carries information. A badge on every card is
+            wallpaper; "Only 2 left" is a reason to decide now. */}
         {(lowStock || !stock) && (
           <span
             className={classNames(
-              "absolute left-3 top-3 rounded-full px-3 py-1 text-micro uppercase tracking-wider shadow-sm",
+              "absolute left-0 top-0 px-3 py-1.5 text-micro uppercase tracking-wider",
               stock ? "bg-clay-700 text-white" : "bg-ink-900 text-white",
             )}
           >
@@ -95,7 +123,7 @@ export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
         )}
 
         {onSale && stock > 0 && !lowStock && (
-          <span className="absolute left-3 top-3 rounded-full bg-wine-600 px-3 py-1 text-micro uppercase tracking-wider text-white shadow-sm">
+          <span className="absolute left-0 top-0 bg-wine-600 px-3 py-1.5 text-micro uppercase tracking-wider text-white">
             Sale
           </span>
         )}
@@ -105,35 +133,34 @@ export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
           onClick={onWish}
           aria-pressed={wished}
           aria-label={wished ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
-          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-ink-50 text-wine-600 shadow-sm transition hover:bg-white"
+          className="absolute right-0 top-0 grid h-11 w-11 place-items-center bg-ink-50/95 text-wine-600 transition-colors duration-150 hover:bg-ink-50 hover:text-wine-700"
         >
           <Heart size={17} fill={wished ? "currentColor" : "none"} />
         </button>
 
-        {/*
-          The add control rides on the image and only appears on hover, so the
-          card below stays quiet. Always present for keyboard users, who cannot
-          hover.
-        */}
-        <div className="absolute inset-x-3 bottom-3 opacity-0 transition group-hover:opacity-100 focus-within:opacity-100">
+        {/* Present for keyboard users, who cannot hover. */}
+        <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 focus-within:translate-y-0 focus-within:opacity-100">
           <button
             type="button"
             disabled={!stock}
             onClick={onQuickAdd}
-            className="h-11 w-full rounded-md bg-ink-950/90 text-body-sm font-semibold text-white backdrop-blur transition hover:bg-ink-950 disabled:opacity-60"
+            className="h-12 w-full bg-ink-950 text-body-sm font-semibold text-white transition-colors duration-150 hover:bg-wine-800 disabled:opacity-60"
           >
             {stock ? "Add to cart" : "Sold out"}
           </button>
         </div>
       </div>
 
-      <div className="mt-4 grid gap-1.5">
-        <p className="text-eyebrow uppercase text-garden-700">{product.category}</p>
-
+      {/*
+        Name and price, matching the benchmark set. Category is redundant inside
+        a category listing, and swatches only earn their place when there is
+        more than one colour to choose between.
+      */}
+      <div className="grid gap-1.5 border-t border-brass-200 p-4">
         <h3 className="font-display text-display-xs leading-snug text-wine-800">
           <Link
             href={`/products/${productSlug(product)}`}
-            className="transition hover:text-wine-600"
+            className="transition-colors duration-150 hover:text-wine-600"
           >
             {product.name}
           </Link>
@@ -148,18 +175,20 @@ export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
           )}
         </div>
 
-        <div className="mt-1 flex items-center gap-2">
-          {colors.map((color) => (
-            <span
-              key={color}
-              title={color}
-              className="h-4 w-4 rounded-full ring-1 ring-inset ring-ink-900/15"
-              style={{ backgroundColor: swatches[color] || "#ddd" }}
-            >
-              <span className="sr-only">{color}</span>
-            </span>
-          ))}
-        </div>
+        {colors.length > 1 && (
+          <div className="mt-1 flex items-center gap-1.5">
+            {colors.map((color) => (
+              <span
+                key={color}
+                title={color}
+                className="h-3.5 w-3.5 rounded-full ring-1 ring-inset ring-ink-900/20"
+                style={{ backgroundColor: swatches[color] || "#ddd" }}
+              >
+                <span className="sr-only">{color}</span>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );
@@ -214,13 +243,13 @@ export function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQu
               value={couponCode}
               onChange={(event) => onCoupon(event.target.value)}
               placeholder="SIRKA10 or FREESHIP"
-              className="h-11 rounded-md border border-brass-600 px-3"
+              className="h-11 rounded-none border border-brass-600 px-3"
             />
           </label>
           {summary.couponMessage && (
             <div
               className={classNames(
-                "mt-3 rounded-md px-3 py-2 text-sm font-semibold",
+                "mt-3 rounded-none px-3 py-2 text-sm font-semibold",
                 summary.couponValid
                   ? "bg-garden-50 text-garden-700"
                   : "bg-wine-50 text-wine-600",
@@ -234,7 +263,7 @@ export function CartDrawer({ open, cart, summary, couponCode, fmt, onClose, onQu
             type="button"
             disabled={!cart.length}
             onClick={onCheckout}
-            className="mt-4 h-12 w-full rounded-md bg-wine-600 font-bold text-white transition hover:bg-wine-700"
+            className="mt-4 h-12 w-full rounded-none bg-wine-600 font-bold text-white transition hover:bg-wine-700"
           >
             Checkout
           </button>
@@ -264,7 +293,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
             <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">Order confirmation</p>
             <h2 className="mt-2 font-display text-display-md text-wine-800">{order.orderNumber}</h2>
           </div>
-          <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-md border border-brass-200">
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="grid h-10 w-10 place-items-center rounded-none border border-brass-200">
             <X size={18} />
           </button>
         </div>
@@ -299,7 +328,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
 
         <div className="mt-6 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
           <div className="grid gap-5">
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-4">
               <h3 className="font-bold text-wine-800">Order items</h3>
               <div className="mt-3 grid gap-3">
                 {(order.items || []).map((item) => (
@@ -316,14 +345,14 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
             </div>
 
             {!isPaid && (
-              <div className="rounded-md border border-wine/20 bg-wine-50 p-4">
+              <div className="rounded-none border border-wine/20 bg-wine-50 p-4">
                 <h3 className="font-bold text-wine-600">Payment required</h3>
                 <p className="mt-1 text-sm text-ink-700">
                   Your order is confirmed but awaiting payment via <strong>{order.payment}</strong>.
                 </p>
 
                 {order.payment === "EFT bank transfer" || (proofMethods.includes(order.payment) && order.payment.toLowerCase().includes("eft")) ? (
-                  <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                  <div className="mt-3 rounded-none border border-brass-200 bg-white p-3 text-sm">
                     <h4 className="font-bold">Bank / EFT details</h4>
                     <div className="mt-2 grid gap-1">
                       {settings.bankName && <InfoRow label="Bank" value={settings.bankName} />}
@@ -339,7 +368,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
                 ) : null}
 
                 {order.payment === "EWallet transfer" || (proofMethods.includes(order.payment) && order.payment.toLowerCase().includes("wallet")) ? (
-                  <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                  <div className="mt-3 rounded-none border border-brass-200 bg-white p-3 text-sm">
                     <h4 className="font-bold">EWallet details</h4>
                     <div className="mt-2 grid gap-1">
                       {settings.ewalletProvider && <InfoRow label="Provider" value={settings.ewalletProvider} />}
@@ -353,7 +382,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
                 ) : null}
 
                 {order.payment?.toLowerCase().includes("delivery") && (
-                  <div className="mt-3 rounded-md border border-brass-200 bg-white p-3 text-sm">
+                  <div className="mt-3 rounded-none border border-brass-200 bg-white p-3 text-sm">
                     <p className="text-ink-700">
                       Payment will be collected upon delivery. Please have <strong>{fmt(order.total)}</strong> ready.
                     </p>
@@ -367,7 +396,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
                 )}
 
                 {order.proofOfPayment && (
-                  <div className="mt-3 flex items-center gap-2 rounded-md bg-garden/10 px-3 py-2 text-sm font-bold text-garden-700">
+                  <div className="mt-3 flex items-center gap-2 rounded-none bg-garden/10 px-3 py-2 text-sm font-bold text-garden-700">
                     <Check size={16} />
                     Proof of payment uploaded — awaiting verification.
                   </div>
@@ -376,7 +405,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
             )}
 
             {isPaid && (
-              <div className="flex items-center gap-2 rounded-md bg-garden/10 px-4 py-3 text-sm font-bold text-garden-700">
+              <div className="flex items-center gap-2 rounded-none bg-garden/10 px-4 py-3 text-sm font-bold text-garden-700">
                 <Check size={18} />
                 Payment confirmed — your order is being processed.
               </div>
@@ -384,7 +413,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
           </div>
 
           <div className="grid content-start gap-4">
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-4">
               <h3 className="font-bold text-wine-800">Order summary</h3>
               <div className="mt-3 grid gap-2 text-sm">
                 <InfoRow label="Subtotal" value={fmt(order.items?.reduce((s, i) => s + i.price * i.quantity, 0) || 0)} />
@@ -393,7 +422,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-4">
               <h3 className="font-bold text-wine-800">Details</h3>
               <div className="mt-3 grid gap-2 text-sm">
                 <InfoRow label="Customer" value={order.customer} />
@@ -410,7 +439,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
                 href={`https://wa.me/${settings.whatsappNumber.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(`Hi, I have a question about order ${order.orderNumber}`)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-garden-700 px-4 font-bold text-white transition hover:bg-garden/90"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-none bg-garden-700 px-4 font-bold text-white transition hover:bg-garden/90"
               >
                 <MessageCircle size={18} /> Contact via WhatsApp
               </a>
@@ -419,7 +448,7 @@ export function OrderDetailModal({ order, settings, fmt, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-brass-200 px-4 font-bold text-ink-700 transition hover:border-wine-600 hover:text-wine-600"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-none border border-brass-200 px-4 font-bold text-ink-700 transition hover:border-wine-600 hover:text-wine-600"
             >
               Close
             </button>
@@ -438,7 +467,7 @@ export function OrderMini({ order, fmt, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="rounded-md border border-brass-200 bg-ink-100 p-4 text-left transition hover:border-wine-600 hover:shadow-sm"
+      className="rounded-none border border-brass-200 bg-ink-100 p-4 text-left transition hover:border-wine-600 hover:shadow-sm"
     >
       <div className="flex justify-between gap-4">
         <strong>{order.orderNumber}</strong>
@@ -480,7 +509,7 @@ export function CustomerAccountView({ store, customerEmail, fmt, onViewOrder, on
 
   return (
     <div className="mt-8 grid gap-5 lg:grid-cols-[.85fr_1.15fr_1fr]">
-      <div className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm">
+      <div className="rounded-none border border-brass-200 bg-ink-50 p-5">
         <User className="mb-4 text-wine-600" size={24} />
         <h3 className="font-display text-display-sm text-wine-800">My account</h3>
         <div className="mt-3 grid gap-2 text-sm">
@@ -498,13 +527,13 @@ export function CustomerAccountView({ store, customerEmail, fmt, onViewOrder, on
         <button
           type="button"
           onClick={onLogout}
-          className="mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md border border-brass-200 text-sm font-bold text-ink-600 transition hover:border-wine-600 hover:text-wine-600"
+          className="mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-none border border-brass-200 text-sm font-bold text-ink-600 transition hover:border-wine-600 hover:text-wine-600"
         >
           <LogOut size={16} /> Sign out
         </button>
       </div>
 
-      <div className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm">
+      <div className="rounded-none border border-brass-200 bg-ink-50 p-5">
         <h3 className="font-display text-display-sm text-wine-800">My orders</h3>
         <div className="mt-4 grid gap-3 max-h-[460px] overflow-y-auto pr-1">
           {myOrders.length ? (
@@ -517,14 +546,14 @@ export function CustomerAccountView({ store, customerEmail, fmt, onViewOrder, on
               />
             ))
           ) : (
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-4 text-center text-sm text-ink-600">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-4 text-center text-sm text-ink-600">
               No orders found for {customerEmail}. Place an order to see it here.
             </div>
           )}
         </div>
       </div>
 
-      <div className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm">
+      <div className="rounded-none border border-brass-200 bg-ink-50 p-5">
         <h3 className="font-display text-display-sm text-wine-800">Wishlist</h3>
         <div className="mt-4 grid gap-3">
           {store.wishlist.length ? (
@@ -535,7 +564,7 @@ export function CustomerAccountView({ store, customerEmail, fmt, onViewOrder, on
                 <Link
                   key={product.id}
                   href={`/products/${productSlug(product)}`}
-                  className="flex items-center gap-3 rounded-md border border-brass-200 bg-white p-2 text-left transition hover:border-wine-600"
+                  className="flex items-center gap-3 rounded-none border border-brass-200 bg-white p-2 text-left transition hover:border-wine-600"
                 >
                   <img src={product.image} alt={product.name} className="h-16 w-12 rounded object-cover" />
                   <span>
@@ -586,7 +615,7 @@ export function TextInput({ label, name, type = "text", defaultValue = "", requi
         type={type}
         required={required}
         defaultValue={defaultValue}
-        className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+        className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
       />
     </label>
   );
@@ -594,7 +623,7 @@ export function TextInput({ label, name, type = "text", defaultValue = "", requi
 
 export function EmptyState({ text }) {
   return (
-    <div className="rounded-md border border-dashed border-brass-200 bg-ink-100 p-6 text-center text-sm text-ink-600">
+    <div className="rounded-none border border-dashed border-brass-200 bg-ink-100 p-6 text-center text-sm text-ink-600">
       {text}
     </div>
   );

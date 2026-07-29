@@ -103,7 +103,7 @@ function Account() {
           </p>
         </div>
 
-        <div className="rounded-md border border-brass-200 bg-ink-50 p-6 shadow-raised md:p-8 lg:sticky lg:top-28">
+        <div className="rounded-none border border-brass-200 bg-ink-50 p-6 md:p-8 lg:sticky lg:top-28">
           <h2 className="font-display text-display-sm text-wine-800">Find your order</h2>
           <p className="mt-2 text-body-sm text-ink-600">
             Enter the email address you used when placing your order.
@@ -123,7 +123,7 @@ function Account() {
             <TextInput name="loginEmail" type="email" label="Email address" required />
             <button
               type="submit"
-              className="h-13 rounded-md bg-wine-600 px-6 py-3.5 text-body font-semibold text-white transition hover:bg-wine-700"
+              className="h-13 rounded-none bg-wine-600 px-6 py-3.5 text-body font-semibold text-white transition hover:bg-wine-700"
             >
               Find my orders
             </button>

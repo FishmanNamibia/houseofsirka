@@ -98,11 +98,11 @@ function Shell({ children }) {
                 type="email"
                 required
                 placeholder="you@example.na"
-                className="h-12 flex-1 rounded-md border border-white/30 bg-white/10 px-4 text-body text-white placeholder:text-white/60"
+                className="h-12 flex-1 rounded-none border border-white/30 bg-white/10 px-4 text-body text-white placeholder:text-white/60"
               />
               <button
                 type="submit"
-                className="h-12 shrink-0 rounded-md bg-brass-300 px-6 font-semibold text-ink-900 transition hover:bg-brass-400"
+                className="h-12 shrink-0 rounded-none bg-brass-300 px-6 font-semibold text-ink-900 transition hover:bg-brass-400"
               >
                 Keep me posted
               </button>

@@ -3,7 +3,7 @@
 import { classNames } from "@/lib/format";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-md font-semibold transition " +
+  "inline-flex items-center justify-center gap-2 rounded-none font-semibold transition " +
   "disabled:cursor-not-allowed disabled:opacity-55";
 
 const VARIANTS = {

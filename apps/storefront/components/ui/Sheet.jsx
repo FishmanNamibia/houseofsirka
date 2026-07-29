@@ -8,7 +8,7 @@ import { useFocusTrap } from "./useFocusTrap";
 const SIDES = {
   right: "right-0 top-0 h-screen w-[min(430px,100vw)]",
   left: "left-0 top-0 h-screen w-[min(360px,85vw)]",
-  bottom: "bottom-0 left-0 max-h-[85vh] w-full rounded-t-xl",
+  bottom: "bottom-0 left-0 max-h-[85vh] w-full rounded-none",
 };
 
 /**
@@ -54,7 +54,7 @@ export default function Sheet({
             type="button"
             onClick={onClose}
             aria-label={`Close ${String(title || "panel").toLowerCase()}`}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-brass-200 text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-none border border-brass-200 text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
           >
             <X size={18} />
           </button>

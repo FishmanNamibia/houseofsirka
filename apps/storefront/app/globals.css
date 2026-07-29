@@ -10,6 +10,13 @@
 :root {
   color-scheme: light;
 
+  /* Motion. Nothing above 400ms; only opacity and transform are animated,
+     since anything else forces layout or paint on every frame. */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+
   --surface: #fff9f1; /* ink-100 */
   --surface-raised: #fffdf8; /* ink-50  */
   --surface-sunken: #f7ead8; /* ink-200 */
@@ -40,13 +47,28 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Motion is a courtesy, not a feature. Anyone who has asked the operating
+   system to reduce it gets essentially none. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-raised) 46%, var(--surface-sunken) 100%);
+  background: var(--surface);
   color: var(--content);
 }
 

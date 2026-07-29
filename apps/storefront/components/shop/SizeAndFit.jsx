@@ -52,7 +52,7 @@ export default function SizeAndFit({ product }) {
         aria-expanded={open}
         aria-controls="measurements"
         className={classNames(
-          "mt-5 inline-flex h-11 items-center rounded-md border border-brass-600 px-4 text-body-sm font-semibold transition",
+          "mt-5 inline-flex h-11 items-center rounded-none border border-brass-600 px-4 text-body-sm font-semibold transition",
           "text-ink-800 hover:border-wine-600 hover:text-wine-600",
         )}
       >

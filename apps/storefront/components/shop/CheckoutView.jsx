@@ -56,7 +56,7 @@ function Field({ label, name, type = "text", required, defaultValue, placeholder
         placeholder={placeholder}
         autoComplete={autoComplete}
         aria-describedby={hint ? `${id}-hint` : undefined}
-        className="h-12 rounded-md border border-brass-600 bg-white px-3 text-body text-ink-900"
+        className="h-12 rounded-none border border-brass-600 bg-white px-3 text-body text-ink-900"
       />
       {hint && <span id={`${id}-hint`} className="text-caption text-ink-600">{hint}</span>}
     </label>
@@ -102,7 +102,7 @@ function Checkout() {
         <p className="mt-3 text-body text-ink-700">Add a piece from the rail and it will appear here.</p>
         <Link
           href="/shop"
-          className="mt-8 inline-flex h-12 items-center gap-2 rounded-md bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
+          className="mt-8 inline-flex h-12 items-center gap-2 rounded-none bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700"
         >
           Browse the rail <ChevronRight size={18} aria-hidden="true" />
         </Link>
@@ -188,7 +188,7 @@ function Checkout() {
                   <label
                     key={option}
                     className={classNames(
-                      "flex cursor-pointer items-center gap-3 rounded-md border p-3 text-body-sm transition",
+                      "flex cursor-pointer items-center gap-3 rounded-none border p-3 text-body-sm transition",
                       delivery === option ? "border-wine-600 bg-wine-50" : "border-brass-400 hover:border-brass-600",
                     )}
                   >
@@ -214,7 +214,7 @@ function Checkout() {
           */}
           <section
             aria-labelledby="h-payment"
-            className="rounded-md border-2 border-brass-600 bg-ink-50 p-5 shadow-raised"
+            className="rounded-none border-2 border-brass-600 bg-ink-50 p-5"
           >
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 id="h-payment" className="font-display text-display-sm text-wine-800">How you pay</h2>
@@ -230,7 +230,7 @@ function Checkout() {
                   <label
                     key={method}
                     className={classNames(
-                      "flex cursor-pointer items-start gap-3 rounded-md border p-3 transition",
+                      "flex cursor-pointer items-start gap-3 rounded-none border p-3 transition",
                       payment === method ? "border-wine-600 bg-wine-50" : "border-brass-400 hover:border-brass-600",
                     )}
                   >
@@ -254,7 +254,7 @@ function Checkout() {
             </fieldset>
 
             {payment === "EFT bank transfer" && bankDetails.length > 0 && (
-              <dl className="mt-4 grid gap-1 rounded-md bg-ink-100 p-4 text-body-sm">
+              <dl className="mt-4 grid gap-1 rounded-none bg-ink-100 p-4 text-body-sm">
                 {bankDetails.map(([k, v]) => (
                   <div key={k} className="flex flex-wrap justify-between gap-2">
                     <dt className="text-ink-600">{k}</dt>
@@ -265,7 +265,7 @@ function Checkout() {
             )}
 
             {WALLET_METHODS.includes(payment) && (
-              <p className="mt-4 rounded-md bg-ink-100 p-4 text-body-sm text-ink-700">
+              <p className="mt-4 rounded-none bg-ink-100 p-4 text-body-sm text-ink-700">
                 Send to <strong className="tabular">{cfg.ewalletNumber}</strong>, then upload the
                 confirmation below. Use your order number as the reference where the app allows one.
               </p>
@@ -276,7 +276,7 @@ function Checkout() {
                 <span className="text-label text-ink-800">
                   Proof of payment <span className="text-wine-600" aria-hidden="true">*</span>
                 </span>
-                <span className="flex items-center gap-3 rounded-md border border-dashed border-brass-600 bg-white p-3">
+                <span className="flex items-center gap-3 rounded-none border border-dashed border-brass-600 bg-white p-3">
                   <Upload size={18} className="text-garden-700" aria-hidden="true" />
                   <input
                     type="file"
@@ -309,7 +309,7 @@ function Checkout() {
           </section>
 
           {error && (
-            <p role="alert" className="rounded-md border border-wine-600 bg-wine-50 p-3 text-body-sm font-semibold text-wine-700">
+            <p role="alert" className="rounded-none border border-wine-600 bg-wine-50 p-3 text-body-sm font-semibold text-wine-700">
               {error}
             </p>
           )}
@@ -318,7 +318,7 @@ function Checkout() {
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex h-13 items-center justify-center gap-2 rounded-md bg-wine-600 px-8 py-3 text-body font-semibold text-white transition hover:bg-wine-700 disabled:opacity-60"
+              className="inline-flex h-13 items-center justify-center gap-2 rounded-none bg-wine-600 px-8 py-3 text-body font-semibold text-white transition hover:bg-wine-700 disabled:opacity-60"
             >
               {submitting ? "Placing order…" : `Place order · ${fmt(cartSummary.total)}`}
             </button>
@@ -328,7 +328,7 @@ function Checkout() {
           </div>
         </div>
 
-        <aside className="rounded-md border border-brass-200 bg-ink-50 p-5 shadow-sm lg:sticky lg:top-24">
+        <aside className="rounded-none border border-brass-200 bg-ink-50 p-5 lg:sticky lg:top-24">
           <h2 className="font-display text-display-sm text-wine-800">Your order</h2>
 
           <ul className="mt-4 grid gap-3">
@@ -362,7 +362,7 @@ function Checkout() {
           </dl>
 
           {away > 0 && (
-            <p className="mt-4 rounded-md bg-brass-50 p-3 text-body-sm text-ink-700">
+            <p className="mt-4 rounded-none bg-brass-50 p-3 text-body-sm text-ink-700">
               Add <strong className="tabular">{fmt(away)}</strong> more for free Windhoek delivery.
             </p>
           )}

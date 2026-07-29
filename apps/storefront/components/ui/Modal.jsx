@@ -54,7 +54,7 @@ export default function Modal({
         tabIndex={-1}
         style={{ width }}
         className={classNames(
-          "relative max-h-[calc(100vh-2rem)] rounded-md shadow-soft outline-none",
+          "relative max-h-[calc(100vh-2rem)] rounded-none shadow-soft outline-none",
           TONES[tone],
           className,
         )}
@@ -70,7 +70,7 @@ export default function Modal({
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-md border border-brass-200 bg-ink-50/90 text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
+            className="absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-none border border-brass-200 bg-ink-50 text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
           >
             <X size={18} />
           </button>

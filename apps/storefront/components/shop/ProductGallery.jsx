@@ -28,7 +28,7 @@ export default function ProductGallery({ images = [], alt }) {
     setActive(0);
   }, [images]);
 
-  if (!shots.length) return <div className="aspect-[4/5] rounded-md bg-ink-200" />;
+  if (!shots.length) return <div className="aspect-[4/5] rounded-none bg-ink-200" />;
 
   function onRailKeyDown(event) {
     if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
@@ -43,13 +43,13 @@ export default function ProductGallery({ images = [], alt }) {
 
   return (
     <div className="grid gap-3">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-brass-200 bg-ink-200">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-none border border-brass-200 bg-ink-200">
         <img src={shots[active]} alt={alt} className="h-full w-full object-cover" />
         <button
           type="button"
           onClick={() => setZoomOpen(true)}
           aria-label={`Zoom ${alt}`}
-          className="absolute bottom-3 right-3 inline-flex h-11 items-center gap-2 rounded-full border border-brass-200 bg-ink-50/95 px-4 text-body-sm font-semibold text-ink-800 shadow-sm transition hover:border-wine-600 hover:text-wine-600"
+          className="absolute bottom-3 right-3 inline-flex h-11 items-center gap-2 rounded-full border border-brass-200 bg-ink-50 px-4 text-body-sm font-semibold text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
         >
           <Maximize2 size={16} aria-hidden="true" /> Zoom
         </button>
@@ -71,7 +71,7 @@ export default function ProductGallery({ images = [], alt }) {
               aria-pressed={active === index}
               aria-label={SHOT_LABELS[index] || `Image ${index + 1}`}
               className={classNames(
-                "overflow-hidden rounded-md border-2 bg-ink-200 transition",
+                "overflow-hidden rounded-none border-2 bg-ink-200 transition",
                 active === index ? "border-wine-600" : "border-transparent hover:border-brass-400",
               )}
             >
@@ -82,7 +82,7 @@ export default function ProductGallery({ images = [], alt }) {
       )}
 
       {zoomOpen && (
-        <div className="fixed inset-0 z-50 bg-ink-950/90" onClick={() => setZoomOpen(false)}>
+        <div className="fixed inset-0 z-50 bg-ink-950" onClick={() => setZoomOpen(false)}>
           <div
             ref={zoomRef}
             role="dialog"
@@ -96,7 +96,7 @@ export default function ProductGallery({ images = [], alt }) {
               type="button"
               onClick={() => setZoomOpen(false)}
               aria-label="Close zoom"
-              className="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-ink-50/95 text-ink-900 shadow-soft transition hover:bg-white"
+              className="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-ink-50 text-ink-900 shadow-soft transition hover:bg-white"
             >
               <X size={20} />
             </button>

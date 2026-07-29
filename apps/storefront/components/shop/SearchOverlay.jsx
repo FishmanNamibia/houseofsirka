@@ -69,13 +69,13 @@ export default function SearchOverlay({ open, onClose, products, fmt }) {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search dresses, blazers, linen…"
-              className="h-12 flex-1 rounded-md border border-brass-600 bg-white px-3 text-body text-ink-900"
+              className="h-12 flex-1 rounded-none border border-brass-600 bg-white px-3 text-body text-ink-900"
             />
             <button
               type="button"
               onClick={onClose}
               aria-label="Close search"
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-md border border-brass-200 text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-none border border-brass-200 text-ink-800 transition hover:border-wine-600 hover:text-wine-600"
             >
               <X size={18} />
             </button>
@@ -94,7 +94,7 @@ export default function SearchOverlay({ open, onClose, products, fmt }) {
                   <Link
                     href={`/products/${productSlug(product)}`}
                     onClick={onClose}
-                    className="flex items-center gap-3 rounded-md border border-brass-200 bg-white p-2 transition hover:border-wine-600"
+                    className="flex items-center gap-3 rounded-none border border-brass-200 bg-white p-2 transition hover:border-wine-600"
                   >
                     <img src={product.image} alt="" className="h-16 w-12 shrink-0 rounded object-cover" />
                     <span className="min-w-0 flex-1">
@@ -109,7 +109,7 @@ export default function SearchOverlay({ open, onClose, products, fmt }) {
           )}
 
           {query.trim() && !results.length && (
-            <p className="mt-4 rounded-md border border-brass-200 bg-white p-4 text-body-sm text-ink-700">
+            <p className="mt-4 rounded-none border border-brass-200 bg-white p-4 text-body-sm text-ink-700">
               Nothing matches that. Try a fabric or an occasion — “linen”, “satin”, “evening” — or{" "}
               <Link href="/shop" onClick={onClose} className="text-wine-600 underline">
                 browse the whole rail

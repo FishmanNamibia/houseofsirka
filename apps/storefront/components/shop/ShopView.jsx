@@ -74,14 +74,14 @@ function Catalogue() {
       </h1>
       <p className="mt-3 max-w-[68ch] text-body text-ink-700">{store.content.catalogCopy}</p>
 
-      <div className="mt-8 grid gap-3 rounded-md border border-brass-200 bg-ink-50 p-4 shadow-sm sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.3fr_repeat(5,1fr)]">
+      <div className="mt-8 grid gap-3 rounded-none border border-brass-200 bg-ink-50 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.3fr_repeat(5,1fr)]">
         <label className="grid gap-2 text-body-sm font-bold text-ink-700 sm:col-span-2 md:col-span-3 lg:col-span-1">
           <span className="inline-flex items-center gap-2"><Search size={16} aria-hidden="true" /> Search</span>
           <input
             value={filters.search}
             onChange={(e) => setFilters({ ...filters, search: e.target.value })}
             placeholder="Dress, blazer, silk"
-            className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900"
+            className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900"
           />
         </label>
         <SelectFilter label="Category" value={filters.category} options={categories} onChange={(v) => setFilters({ ...filters, category: v })} />

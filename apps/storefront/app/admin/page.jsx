@@ -498,7 +498,7 @@ export default function AdminPage() {
             </a>
 
             <div className="grid gap-4">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brass-200 bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-clay-700">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brass-200 bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-clay-700">
                 <ShieldCheck size={14} /> House of Sirka admin
               </span>
               <div className="max-w-2xl">
@@ -521,7 +521,7 @@ export default function AdminPage() {
               ].map(([Icon, label]) => (
                 <span
                   key={label}
-                  className="inline-flex h-10 items-center gap-2 rounded-md border border-brass-200 bg-white/70 px-4 backdrop-blur-sm"
+                  className="inline-flex h-10 items-center gap-2 rounded-none border border-brass-200 bg-white px-4"
                 >
                   <Icon size={16} className="text-wine-600" /> {label}
                 </span>
@@ -529,7 +529,7 @@ export default function AdminPage() {
             </div>
 
             <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-              <div className="relative min-h-[360px] overflow-hidden rounded-md border border-brass-200 bg-ink-100 shadow-soft">
+              <div className="relative min-h-[360px] overflow-hidden rounded-none border border-brass-200 bg-ink-100 shadow-soft">
                 <img
                   src={store.content.heroImage}
                   alt="House of Sirka workroom mood"
@@ -558,13 +558,13 @@ export default function AdminPage() {
                   ["Active promotions", store.promotions.filter((promotion) => promotion.status === "active").length],
                   ["Saved clients", store.customers.length],
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-md border border-brass-200 bg-white/75 p-4 backdrop-blur-sm">
+                  <div key={label} className="rounded-none border border-brass-200 bg-white p-4">
                     <p className="text-xs font-black uppercase tracking-[0.16em] text-clay-700">{label}</p>
                     <strong className="mt-2 block text-3xl text-wine-800">{value}</strong>
                   </div>
                 ))}
 
-                <div className="rounded-md border border-brass-200 bg-ink-100/90 p-4">
+                <div className="rounded-none border border-brass-200 bg-ink-100/90 p-4">
                   <p className="text-xs font-black uppercase tracking-[0.16em] text-clay-700">What you can do here</p>
                   <div className="mt-3 grid gap-2 text-sm leading-6 text-ink-700">
                     <span>Update catalog and upload product images</span>
@@ -576,7 +576,7 @@ export default function AdminPage() {
             </div>
           </section>
 
-          <section className="rounded-md border border-brass-200 bg-white/80 p-6 shadow-soft backdrop-blur-sm md:p-8">
+          <section className="rounded-none border border-brass-200 bg-white p-6 shadow-soft md:p-8">
             <div className="w-full max-w-xs">
               <img src="/house-of-sirka-logo-final.png" alt="House of Sirka" className="h-auto w-full" />
             </div>
@@ -598,7 +598,7 @@ export default function AdminPage() {
                   type="email"
                   autoComplete="username"
                   defaultValue={ADMIN_EMAIL}
-                  className="h-12 rounded-md border border-brass-600 bg-ink-100 px-4 text-ink-900 outline-none transition focus:border-wine focus:bg-white"
+                  className="h-12 rounded-none border border-brass-600 bg-ink-100 px-4 text-ink-900 outline-none transition focus:border-wine focus:bg-white"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -608,22 +608,22 @@ export default function AdminPage() {
                   type="password"
                   autoComplete="current-password"
                   placeholder="Enter admin password"
-                  className="h-12 rounded-md border border-brass-600 bg-ink-100 px-4 text-ink-900 outline-none transition focus:border-wine focus:bg-white"
+                  className="h-12 rounded-none border border-brass-600 bg-ink-100 px-4 text-ink-900 outline-none transition focus:border-wine focus:bg-white"
                 />
               </label>
 
               {error && (
-                <div className="rounded-md border border-wine/20 bg-wine-50 px-4 py-3 text-sm font-semibold text-wine-600">
+                <div className="rounded-none border border-wine/20 bg-wine-50 px-4 py-3 text-sm font-semibold text-wine-600">
                   {error}
                 </div>
               )}
 
-              <button className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-wine-600 px-5 font-bold text-white transition hover:bg-wine-700">
+              <button className="inline-flex h-12 items-center justify-center gap-2 rounded-none bg-wine-600 px-5 font-bold text-white transition hover:bg-wine-700">
                 <LogIn size={18} /> Login to admin
               </button>
             </form>
 
-            <div className="mt-6 rounded-md border border-brass-200 bg-ink-100 px-4 py-4 text-sm text-ink-700">
+            <div className="mt-6 rounded-none border border-brass-200 bg-ink-100 px-4 py-4 text-sm text-ink-700">
               <p className="text-xs font-black uppercase tracking-[0.16em] text-clay-700">Demo credentials</p>
               <div className="mt-3 grid gap-2">
                 <span>
@@ -651,7 +651,7 @@ export default function AdminPage() {
             >
               <ArrowLeft size={17} /> Back to storefront
             </a>
-            <div className="mb-4 w-56 border border-brass-200 bg-ink-100 p-2 shadow-sm">
+            <div className="mb-4 w-56 border border-brass-200 bg-ink-100 p-2">
               <img src="/house-of-sirka-logo-final.png" alt="House of Sirka" className="h-auto w-full" />
             </div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-clay-700">CMS and operations</p>
@@ -672,7 +672,7 @@ export default function AdminPage() {
                     setActiveAdminTab("dashboard");
                   }
                 }}
-                className="h-11 rounded-md border border-garden/25 bg-ink-50 px-3 text-ink-900"
+                className="h-11 rounded-none border border-garden/25 bg-ink-50 px-3 text-ink-900"
               >
                 {roles.map((role) => (
                   <option key={role}>{role}</option>
@@ -682,7 +682,7 @@ export default function AdminPage() {
             <button
               type="button"
               onClick={logout}
-              className="h-11 rounded-md border border-garden/25 bg-ink-50 px-4 text-sm font-bold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
+              className="h-11 rounded-none border border-garden/25 bg-ink-50 px-4 text-sm font-bold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
             >
               Logout
             </button>
@@ -707,7 +707,7 @@ export default function AdminPage() {
                   disabled={!allowed}
                   onClick={() => setActiveAdminTab(tab.id)}
                   className={[
-                    "flex h-12 shrink-0 items-center gap-3 rounded-md border px-4 text-left text-sm font-bold transition",
+                    "flex h-12 shrink-0 items-center gap-3 rounded-none border px-4 text-left text-sm font-bold transition",
                     active
                       ? "border-garden bg-garden-700 text-white"
                       : "border-garden/20 bg-ink-50 text-ink-800 hover:border-wine-600 hover:text-wine-600",
@@ -754,7 +754,7 @@ export default function AdminPage() {
       </div>
 
       {notice && (
-        <div className="fixed bottom-4 right-4 z-50 rounded-md bg-ink px-4 py-3 text-sm font-semibold text-white shadow-soft">
+        <div className="fixed bottom-4 right-4 z-50 rounded-none bg-ink px-4 py-3 text-sm font-semibold text-white shadow-soft">
           {notice}
         </div>
       )}
@@ -781,7 +781,7 @@ function ImageUpload({ name, label, value, maxWidth = 800 }) {
       {label}
       <input type="hidden" name={name} ref={hiddenRef} defaultValue={value || ""} />
       <div
-        className="relative flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-brass-200 bg-white p-3 transition hover:border-wine/50"
+        className="relative flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-none border-2 border-dashed border-brass-200 bg-white p-3 transition hover:border-wine/50"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add("border-wine-600"); }}
         onDragLeave={(e) => { e.currentTarget.classList.remove("border-wine-600"); }}
@@ -845,7 +845,7 @@ function AdminPanel({
   );
 
   return (
-    <div className="min-h-[560px] rounded-md border border-garden/20 bg-ink-50 p-5 shadow-soft">
+    <div className="min-h-[560px] rounded-none border border-garden/20 bg-ink-50 p-5 shadow-soft">
       {activeTab === "dashboard" && (
         <div className="grid gap-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -875,7 +875,7 @@ function AdminPanel({
       {activeTab === "products" && (
         <div className="grid gap-6">
           <h3 className="font-display text-display-sm text-wine-800">Product CMS</h3>
-          <form onSubmit={onProductAdd} className="grid gap-3 rounded-md border border-brass-200 bg-ink-100 p-4">
+          <form onSubmit={onProductAdd} className="grid gap-3 rounded-none border border-brass-200 bg-ink-100 p-4">
             <div className="grid gap-3 md:grid-cols-3">
               <TextInput name="name" label="Product name" required />
               <TextInput name="sku" label="SKU" required />
@@ -892,7 +892,7 @@ function AdminPanel({
                   name="imageFile"
                   type="file"
                   accept="image/*"
-                  className="rounded-md border border-brass-600 bg-white px-3 py-2 file:mr-3 file:rounded-md file:border-0 file:bg-petal file:px-3 file:py-2 file:text-sm file:font-bold file:text-wine"
+                  className="rounded-none border border-brass-600 bg-white px-3 py-2 file:mr-3 file:rounded-none file:border-0 file:bg-petal file:px-3 file:py-2 file:text-sm file:font-bold file:text-wine"
                 />
               </label>
               <label className="flex items-center gap-2 pt-7 text-sm font-bold text-ink-700">
@@ -900,10 +900,10 @@ function AdminPanel({
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700 md:col-span-3">
                 Description
-                <textarea name="description" required className="min-h-24 rounded-md border border-brass-600 bg-white p-3" />
+                <textarea name="description" required className="min-h-24 rounded-none border border-brass-600 bg-white p-3" />
               </label>
             </div>
-            <button className="inline-flex h-11 w-fit items-center gap-2 rounded-md bg-wine-600 px-4 font-bold text-white">
+            <button className="inline-flex h-11 w-fit items-center gap-2 rounded-none bg-wine-600 px-4 font-bold text-white">
               <Plus size={18} /> Add product
             </button>
           </form>
@@ -919,7 +919,7 @@ function AdminPanel({
                 key="archive"
                 type="button"
                 onClick={() => onArchive(product.id)}
-                className="inline-flex h-9 items-center gap-2 rounded-md border border-brass-200 px-3 text-sm font-bold text-garden-700"
+                className="inline-flex h-9 items-center gap-2 rounded-none border border-brass-200 px-3 text-sm font-bold text-garden-700"
               >
                 <Archive size={15} /> {product.status === "Published" ? "Archive" : "Restore"}
               </button>,
@@ -937,7 +937,7 @@ function AdminPanel({
           <form onSubmit={onContentSave} className="grid gap-6">
 
             {/* ── 1. ANNOUNCEMENT BAR ──────────────────────────────── */}
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <div className="mb-1 flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded bg-garden-700 text-xs font-black text-white">1</span>
                 <h4 className="font-bold text-wine-800">Announcement bar</h4>
@@ -947,7 +947,7 @@ function AdminPanel({
             </div>
 
             {/* ── 2. HERO SECTION ──────────────────────────────────── */}
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <div className="mb-1 flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded bg-garden-700 text-xs font-black text-white">2</span>
                 <h4 className="font-bold text-wine-800">Hero section</h4>
@@ -958,7 +958,7 @@ function AdminPanel({
                 <TextInput name="heroBadge" label="Badge text (small label above the logo)" defaultValue={store.content.heroBadge || ""} />
                 <label className="grid gap-2 text-sm font-bold text-ink-700 md:col-span-2">
                   Subtitle (paragraph below the logo)
-                  <textarea name="heroSubtitle" defaultValue={store.content.heroSubtitle} className="min-h-20 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
+                  <textarea name="heroSubtitle" defaultValue={store.content.heroSubtitle} className="min-h-20 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
                 </label>
                 <TextInput name="heroCtaPrimary" label="Primary button label" defaultValue={store.content.heroCtaPrimary || "Shop the salon"} />
                 <TextInput name="heroCtaSecondary" label="Secondary button label" defaultValue={store.content.heroCtaSecondary || "View collections"} />
@@ -987,7 +987,7 @@ function AdminPanel({
             </div>
 
             {/* ── 3. COLLECTIONS ───────────────────────────────────── */}
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <div className="mb-1 flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded bg-garden-700 text-xs font-black text-white">3</span>
                 <h4 className="font-bold text-wine-800">Collections section</h4>
@@ -998,14 +998,14 @@ function AdminPanel({
                 <TextInput name="campaignTitle" label="Section headline" defaultValue={store.content.campaignTitle} />
                 <label className="grid gap-2 text-sm font-bold text-ink-700 md:col-span-2">
                   Section description
-                  <textarea name="campaignCopy" defaultValue={store.content.campaignCopy} className="min-h-16 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
+                  <textarea name="campaignCopy" defaultValue={store.content.campaignCopy} className="min-h-16 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
                 </label>
               </div>
 
               <h5 className="mt-5 mb-3 text-sm font-bold text-wine-800">Collection cards (up to 4)</h5>
               <div className="grid gap-4">
                 {[1, 2, 3, 4].map((n) => (
-                  <div key={n} className="grid gap-3 rounded-md border border-brass-200 bg-ink-50 p-4 md:grid-cols-[140px_1fr]">
+                  <div key={n} className="grid gap-3 rounded-none border border-brass-200 bg-ink-50 p-4 md:grid-cols-[140px_1fr]">
                     <ImageUpload name={`collection${n}Image`} label={`Card ${n} image`} value={store.content[`collection${n}Image`] || ""} maxWidth={600} />
                     <div className="grid gap-2 content-start">
                       <TextInput name={`collection${n}Title`} label={`Card ${n} title`} defaultValue={store.content[`collection${n}Title`] || ""} />
@@ -1017,7 +1017,7 @@ function AdminPanel({
             </div>
 
             {/* ── 4. PRODUCT CATALOG ───────────────────────────────── */}
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <div className="mb-1 flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded bg-garden-700 text-xs font-black text-white">4</span>
                 <h4 className="font-bold text-wine-800">Product catalog section</h4>
@@ -1028,13 +1028,13 @@ function AdminPanel({
                 <TextInput name="catalogTitle" label="Section headline" defaultValue={store.content.catalogTitle || "Pieces with presence"} />
                 <label className="grid gap-2 text-sm font-bold text-ink-700 md:col-span-2">
                   Section description
-                  <textarea name="catalogCopy" defaultValue={store.content.catalogCopy || ""} className="min-h-16 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
+                  <textarea name="catalogCopy" defaultValue={store.content.catalogCopy || ""} className="min-h-16 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
                 </label>
               </div>
             </div>
 
             {/* ── 5. ACCOUNT SECTION ───────────────────────────────── */}
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <div className="mb-1 flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded bg-garden-700 text-xs font-black text-white">5</span>
                 <h4 className="font-bold text-wine-800">Account section</h4>
@@ -1045,13 +1045,13 @@ function AdminPanel({
                 <TextInput name="accountTitle" label="Section headline" defaultValue={store.content.accountTitle || "Account and order tracking"} />
                 <label className="grid gap-2 text-sm font-bold text-ink-700 md:col-span-2">
                   Section description
-                  <textarea name="accountCopy" defaultValue={store.content.accountCopy || ""} className="min-h-16 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
+                  <textarea name="accountCopy" defaultValue={store.content.accountCopy || ""} className="min-h-16 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine" />
                 </label>
               </div>
             </div>
 
             {/* ── 6. FOOTER ────────────────────────────────────────── */}
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <div className="mb-1 flex items-center gap-2">
                 <span className="grid h-7 w-7 place-items-center rounded bg-garden-700 text-xs font-black text-white">6</span>
                 <h4 className="font-bold text-wine-800">Footer</h4>
@@ -1061,7 +1061,7 @@ function AdminPanel({
             </div>
 
             <div className="sticky bottom-4 z-10 flex justify-end">
-              <button className="inline-flex h-12 items-center gap-2 rounded-md bg-wine-600 px-6 font-bold text-white shadow-lg transition hover:bg-wine-700">
+              <button className="inline-flex h-12 items-center gap-2 rounded-none bg-wine-600 px-6 font-bold text-white transition hover:bg-wine-700">
                 <Check size={18} /> Save all content
               </button>
             </div>
@@ -1116,7 +1116,7 @@ function AdminPanel({
                       key="status"
                       value={order.status}
                       onChange={(event) => onOrderUpdate(order.id, event.target.value)}
-                      className="h-10 rounded-md border border-brass-600 px-2"
+                      className="h-10 rounded-none border border-brass-600 px-2"
                     >
                       {(store.settings.orderStatuses || "").split("\n").map((s) => s.trim()).filter(Boolean).map((status) => (
                         <option key={status}>{status}</option>
@@ -1250,7 +1250,7 @@ function AdminPanel({
             />
           </div>
 
-          <form onSubmit={onSavePromotion} className="grid gap-4 rounded-md border border-brass-200 bg-ink-100 p-4">
+          <form onSubmit={onSavePromotion} className="grid gap-4 rounded-none border border-brass-200 bg-ink-100 p-4">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h4 className="font-display text-display-sm text-wine-800">
@@ -1264,7 +1264,7 @@ function AdminPanel({
                 <button
                   type="button"
                   onClick={() => setPromotionDraft(createPromotionDraft())}
-                  className="h-10 rounded-md border border-brass-200 px-3 text-sm font-bold text-garden-700"
+                  className="h-10 rounded-none border border-brass-200 px-3 text-sm font-bold text-garden-700"
                 >
                   Clear form
                 </button>
@@ -1277,7 +1277,7 @@ function AdminPanel({
                 <input
                   value={promotionDraft.name}
                   onChange={(event) => setPromotionDraft((current) => ({ ...current, name: event.target.value }))}
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1287,7 +1287,7 @@ function AdminPanel({
                   onChange={(event) =>
                     setPromotionDraft((current) => ({ ...current, code: event.target.value.toUpperCase() }))
                   }
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1301,7 +1301,7 @@ function AdminPanel({
                       value: event.target.value === "free-shipping" ? "0" : current.value,
                     }))
                   }
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 >
                   {PROMOTION_TYPES.map((type) => (
                     <option key={type} value={type}>
@@ -1318,7 +1318,7 @@ function AdminPanel({
                   value={promotionDraft.value}
                   disabled={promotionDraft.type === "free-shipping"}
                   onChange={(event) => setPromotionDraft((current) => ({ ...current, value: event.target.value }))}
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3 disabled:bg-ink-100"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3 disabled:bg-ink-100"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1330,7 +1330,7 @@ function AdminPanel({
                   onChange={(event) =>
                     setPromotionDraft((current) => ({ ...current, minSubtotal: event.target.value }))
                   }
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1338,7 +1338,7 @@ function AdminPanel({
                 <select
                   value={promotionDraft.status}
                   onChange={(event) => setPromotionDraft((current) => ({ ...current, status: event.target.value }))}
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 >
                   <option value="active">active</option>
                   <option value="inactive">inactive</option>
@@ -1355,7 +1355,7 @@ function AdminPanel({
                       scopeValue: event.target.value === "all" ? "" : current.scopeValue,
                     }))
                   }
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 >
                   {PROMOTION_SCOPES.map((scope) => (
                     <option key={scope} value={scope}>
@@ -1379,7 +1379,7 @@ function AdminPanel({
                         ? "Applies to all products"
                         : `Target ${promotionDraft.scope}`
                   }
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3 disabled:bg-ink-100"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3 disabled:bg-ink-100"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1391,7 +1391,7 @@ function AdminPanel({
                   onChange={(event) =>
                     setPromotionDraft((current) => ({ ...current, usageLimit: event.target.value }))
                   }
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1400,7 +1400,7 @@ function AdminPanel({
                   type="date"
                   value={promotionDraft.startsAt}
                   onChange={(event) => setPromotionDraft((current) => ({ ...current, startsAt: event.target.value }))}
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 />
               </label>
               <label className="grid gap-2 text-sm font-bold text-ink-700">
@@ -1409,12 +1409,12 @@ function AdminPanel({
                   type="date"
                   value={promotionDraft.endsAt}
                   onChange={(event) => setPromotionDraft((current) => ({ ...current, endsAt: event.target.value }))}
-                  className="h-11 rounded-md border border-brass-600 bg-white px-3"
+                  className="h-11 rounded-none border border-brass-600 bg-white px-3"
                 />
               </label>
             </div>
 
-            <button className="inline-flex h-11 w-fit items-center gap-2 rounded-md bg-wine-600 px-4 font-bold text-white">
+            <button className="inline-flex h-11 w-fit items-center gap-2 rounded-none bg-wine-600 px-4 font-bold text-white">
               <Check size={18} /> {promotionDraft.id ? "Update promotion" : "Save promotion"}
             </button>
           </form>
@@ -1447,21 +1447,21 @@ function AdminPanel({
                 <button
                   type="button"
                   onClick={() => onEditPromotion(promotion)}
-                  className="h-9 rounded-md border border-brass-200 px-3 text-sm font-bold text-garden-700"
+                  className="h-9 rounded-none border border-brass-200 px-3 text-sm font-bold text-garden-700"
                 >
                   Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => onTogglePromotionStatus(promotion.id)}
-                  className="h-9 rounded-md border border-brass-200 px-3 text-sm font-bold text-garden-700"
+                  className="h-9 rounded-none border border-brass-200 px-3 text-sm font-bold text-garden-700"
                 >
                   {promotion.status === "active" ? "Deactivate" : "Activate"}
                 </button>
                 <button
                   type="button"
                   onClick={() => onDeletePromotion(promotion.id)}
-                  className="h-9 rounded-md border border-petal px-3 text-sm font-bold text-wine-600"
+                  className="h-9 rounded-none border border-petal px-3 text-sm font-bold text-wine-600"
                 >
                   Delete
                 </button>
@@ -1490,7 +1490,7 @@ function AdminPanel({
               ]),
             )}
           />
-          <div className="rounded-md border border-brass-200 bg-ink-100 p-4">
+          <div className="rounded-none border border-brass-200 bg-ink-100 p-4">
             <h4 className="font-bold">Recent stock logs</h4>
             <div className="mt-3 grid gap-2">
               {store.inventoryLogs.length ? (
@@ -1554,7 +1554,7 @@ function AdminPanel({
           </div>
 
           <form onSubmit={onSettingsSave} className="grid gap-6">
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Store information</h4>
               <p className="mb-4 text-sm text-ink-600">General store identity and contact details.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1567,7 +1567,7 @@ function AdminPanel({
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Shipping & delivery</h4>
               <p className="mb-4 text-sm text-ink-600">Delivery fees, options, and coverage areas used by the storefront and checkout.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1579,7 +1579,7 @@ function AdminPanel({
                   <textarea
                     name="deliveryAreas"
                     defaultValue={store.settings.deliveryAreas}
-                    className="min-h-20 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-20 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                     placeholder="Comma-separated list of delivery areas"
                   />
                 </label>
@@ -1588,7 +1588,7 @@ function AdminPanel({
                   <textarea
                     name="deliveryOptions"
                     defaultValue={store.settings.deliveryOptions}
-                    className="min-h-24 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-24 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                     placeholder={"Windhoek delivery\nCourier delivery\nPickup arrangement"}
                   />
                   <span className="text-xs font-medium text-ink-600">These appear as dropdown options at checkout.</span>
@@ -1596,7 +1596,7 @@ function AdminPanel({
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Payment methods</h4>
               <p className="mb-4 text-sm text-ink-600">Configure which payment methods appear at checkout and which require proof of payment.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1605,7 +1605,7 @@ function AdminPanel({
                   <textarea
                     name="paymentMethods"
                     defaultValue={store.settings.paymentMethods}
-                    className="min-h-28 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-28 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                     placeholder={"Online card payment\nEWallet transfer\nEFT bank transfer\nPay upon delivery"}
                   />
                 </label>
@@ -1614,7 +1614,7 @@ function AdminPanel({
                   <textarea
                     name="proofRequiredMethods"
                     defaultValue={store.settings.proofRequiredMethods}
-                    className="min-h-28 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-28 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                     placeholder={"EWallet transfer\nEFT bank transfer"}
                   />
                   <span className="text-xs font-medium text-ink-600">Customer must upload proof of payment for these methods.</span>
@@ -1624,7 +1624,7 @@ function AdminPanel({
                   <textarea
                     name="autoConfirmMethods"
                     defaultValue={store.settings.autoConfirmMethods}
-                    className="min-h-16 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-16 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                     placeholder="Online card payment"
                   />
                   <span className="text-xs font-medium text-ink-600">Orders with these methods are marked as &quot;Paid&quot; automatically.</span>
@@ -1632,7 +1632,7 @@ function AdminPanel({
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Payment gateway — Bank / EFT</h4>
               <p className="mb-4 text-sm text-ink-600">Bank account details shown to customers who select EFT bank transfer.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1645,13 +1645,13 @@ function AdminPanel({
                   <input
                     name="bankReference"
                     defaultValue={store.settings.bankReference}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                   />
                 </label>
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Payment gateway — EWallet</h4>
               <p className="mb-4 text-sm text-ink-600">EWallet details shown to customers who select EWallet transfer.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1662,13 +1662,13 @@ function AdminPanel({
                   <textarea
                     name="ewalletInstructions"
                     defaultValue={store.settings.ewalletInstructions}
-                    className="min-h-20 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-20 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                   />
                 </label>
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Communication</h4>
               <p className="mb-4 text-sm text-ink-600">WhatsApp, email, and social media configuration.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1680,7 +1680,7 @@ function AdminPanel({
                   <textarea
                     name="whatsappMessage"
                     defaultValue={store.settings.whatsappMessage}
-                    className="min-h-20 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-20 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                   />
                 </label>
                 <TextInput name="instagramUrl" label="Instagram URL" defaultValue={store.settings.instagramUrl} />
@@ -1699,7 +1699,7 @@ function AdminPanel({
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Email service</h4>
               <p className="mb-4 text-sm text-ink-600">
                 Configure transactional email delivery for order confirmations, shipping updates, and notifications.
@@ -1710,7 +1710,7 @@ function AdminPanel({
                   <select
                     name="emailProvider"
                     defaultValue={store.settings.emailProvider}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                   >
                     <option value="none">None (disabled)</option>
                     <option value="smtp">SMTP</option>
@@ -1726,7 +1726,7 @@ function AdminPanel({
                   <select
                     name="smtpEncryption"
                     defaultValue={store.settings.smtpEncryption}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                   >
                     <option value="tls">TLS (port 587)</option>
                     <option value="ssl">SSL (port 465)</option>
@@ -1744,7 +1744,7 @@ function AdminPanel({
                     name="emailApiKey"
                     type="password"
                     defaultValue={store.settings.emailApiKey}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                     placeholder="Used by SendGrid, Mailgun, Resend, Postmark, SES"
                   />
                   <span className="text-xs font-medium text-ink-600">Required for API-based providers. Leave blank if using SMTP.</span>
@@ -1765,7 +1765,7 @@ function AdminPanel({
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Online payment gateway</h4>
               <p className="mb-4 text-sm text-ink-600">
                 Connect a payment processor for online card and wallet payments. API keys are stored locally and should be moved to environment variables in production.
@@ -1776,7 +1776,7 @@ function AdminPanel({
                   <select
                     name="paymentGateway"
                     defaultValue={store.settings.paymentGateway}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                   >
                     <option value="none">None (manual payments only)</option>
                     <option value="stripe">Stripe</option>
@@ -1794,7 +1794,7 @@ function AdminPanel({
                   <select
                     name="gatewayMode"
                     defaultValue={store.settings.gatewayMode}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                   >
                     <option value="sandbox">Sandbox / Test</option>
                     <option value="live">Live / Production</option>
@@ -1806,7 +1806,7 @@ function AdminPanel({
                     name="gatewayPublicKey"
                     type="password"
                     defaultValue={store.settings.gatewayPublicKey}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                     placeholder="pk_test_... or client ID"
                   />
                 </label>
@@ -1816,7 +1816,7 @@ function AdminPanel({
                     name="gatewaySecretKey"
                     type="password"
                     defaultValue={store.settings.gatewaySecretKey}
-                    className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+                    className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
                     placeholder="sk_test_... or client secret"
                   />
                 </label>
@@ -1827,18 +1827,18 @@ function AdminPanel({
                   <textarea
                     name="gatewayExtraConfig"
                     defaultValue={store.settings.gatewayExtraConfig}
-                    className="min-h-20 rounded-md border border-brass-600 bg-white p-3 font-mono text-sm text-ink-900 outline-none focus:border-wine"
+                    className="min-h-20 rounded-none border border-brass-600 bg-white p-3 font-mono text-sm text-ink-900 outline-none focus:border-wine"
                     placeholder={'{"serviceType": "...", "region": "..."}'}
                   />
                   <span className="text-xs font-medium text-ink-600">Optional JSON for provider-specific settings (DPO service type, Peach entity ID, etc.).</span>
                 </label>
               </div>
-              <div className="mt-4 rounded-md border border-marigold/30 bg-marigold/10 p-3 text-sm text-ink-700">
+              <div className="mt-4 rounded-none border border-marigold/30 bg-marigold/10 p-3 text-sm text-ink-700">
                 <strong className="text-ink-800">⚠ Security note:</strong> In production, API secret keys and passwords should be stored in server-side environment variables, not in browser storage. This admin panel stores them locally for configuration purposes only.
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Orders</h4>
               <p className="mb-4 text-sm text-ink-600">Order number prefix and available order statuses.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1848,14 +1848,14 @@ function AdminPanel({
                   <textarea
                     name="orderStatuses"
                     defaultValue={store.settings.orderStatuses}
-                    className="min-h-36 rounded-md border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
+                    className="min-h-36 rounded-none border border-brass-600 bg-white p-3 text-ink-900 outline-none focus:border-wine"
                   />
                   <span className="text-xs font-medium text-ink-600">These appear as status dropdown options in order management.</span>
                 </label>
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-1 font-display text-display-sm text-wine-800">Tax & inventory</h4>
               <p className="mb-4 text-sm text-ink-600">Tax rate applied at checkout and low-stock alert threshold.</p>
               <div className="grid gap-3 md:grid-cols-2">
@@ -1864,7 +1864,7 @@ function AdminPanel({
               </div>
             </div>
 
-            <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+            <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
               <h4 className="mb-4 font-display text-display-sm text-wine-800">System</h4>
               <label className="flex items-center gap-3 text-sm font-bold text-ink-700">
                 <input
@@ -1877,12 +1877,12 @@ function AdminPanel({
               </label>
             </div>
 
-            <button className="inline-flex h-11 w-fit items-center gap-2 rounded-md bg-wine-600 px-5 font-bold text-white transition hover:bg-wine-700">
+            <button className="inline-flex h-11 w-fit items-center gap-2 rounded-none bg-wine-600 px-5 font-bold text-white transition hover:bg-wine-700">
               <Check size={18} /> Save all settings
             </button>
           </form>
 
-          <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+          <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
             <h4 className="mb-2 font-display text-display-sm text-wine-800">Role permissions</h4>
             <p className="mb-4 text-sm text-ink-600">Current role-based access control configuration.</p>
             <ResponsiveTable
@@ -1900,7 +1900,7 @@ function AdminPanel({
             />
           </div>
 
-          <div className="rounded-md border border-wine/20 bg-petal/50 p-5">
+          <div className="rounded-none border border-wine/20 bg-petal/50 p-5">
             <h4 className="mb-2 font-display text-display-sm text-wine-600">Danger zone</h4>
             <p className="mb-4 text-sm text-ink-600">
               Reset all store data back to the original demo defaults. This removes all products, orders, customers, and settings changes.
@@ -1908,7 +1908,7 @@ function AdminPanel({
             <button
               type="button"
               onClick={onResetStore}
-              className="inline-flex h-11 items-center gap-2 rounded-md border border-wine-600 bg-white px-4 font-bold text-wine-600 transition hover:bg-wine-700 hover:text-white"
+              className="inline-flex h-11 items-center gap-2 rounded-none border border-wine-600 bg-white px-4 font-bold text-wine-600 transition hover:bg-wine-700 hover:text-white"
             >
               <Trash2 size={18} /> Reset store data
             </button>
@@ -1923,7 +1923,7 @@ function MetricGrid({ metrics }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {metrics.map(([label, value, Icon]) => (
-        <div key={label} className="rounded-md border border-brass-200 bg-ink-100 p-4">
+        <div key={label} className="rounded-none border border-brass-200 bg-ink-100 p-4">
           <div className="flex items-center justify-between gap-3">
             <span className="text-sm font-bold text-ink-600">{label}</span>
             <Icon size={18} className="text-clay-700" />
@@ -1937,7 +1937,7 @@ function MetricGrid({ metrics }) {
 
 function ResponsiveTable({ headers, rows, empty = "No records yet." }) {
   return (
-    <div className="overflow-x-auto rounded-md border border-brass-200">
+    <div className="overflow-x-auto rounded-none border border-brass-200">
       <table className="min-w-[760px] w-full border-collapse bg-ink-50 text-sm">
         <thead className="bg-ink-200 text-left text-xs uppercase tracking-wide text-ink-600">
           <tr>
@@ -1982,9 +1982,9 @@ function StockControl({ initial, onSave }) {
         min="0"
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        className="h-10 w-24 rounded-md border border-brass-600 px-2"
+        className="h-10 w-24 rounded-none border border-brass-600 px-2"
       />
-      <button type="button" onClick={() => onSave(value)} className="h-10 rounded-md bg-garden-700 px-3 text-sm font-bold text-white">
+      <button type="button" onClick={() => onSave(value)} className="h-10 rounded-none bg-garden-700 px-3 text-sm font-bold text-white">
         Save
       </button>
     </div>
@@ -1993,7 +1993,7 @@ function StockControl({ initial, onSave }) {
 
 function PromoCard({ code, title, copy }) {
   return (
-    <div className="rounded-md border border-brass-200 bg-ink-100 p-5">
+    <div className="rounded-none border border-brass-200 bg-ink-100 p-5">
       <span className="inline-flex rounded-full bg-wine-100 px-3 py-1 text-xs font-black text-wine-600">
         {code}
       </span>
@@ -2021,7 +2021,7 @@ function TextInput({ label, name, type = "text", defaultValue = "", required = f
         type={type}
         required={required}
         defaultValue={defaultValue}
-        className="h-11 rounded-md border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
+        className="h-11 rounded-none border border-brass-600 bg-white px-3 text-ink-900 outline-none focus:border-wine"
       />
     </label>
   );
@@ -2029,7 +2029,7 @@ function TextInput({ label, name, type = "text", defaultValue = "", required = f
 
 function EmptyState({ text }) {
   return (
-    <div className="rounded-md border border-dashed border-brass-200 bg-ink-100 p-6 text-center text-sm text-ink-600">
+    <div className="rounded-none border border-dashed border-brass-200 bg-ink-100 p-6 text-center text-sm text-ink-600">
       {text}
     </div>
   );

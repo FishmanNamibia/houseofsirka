@@ -29,7 +29,7 @@ function Detail({ slug, seedProduct }) {
         <div className="mx-auto max-w-3xl px-4 py-24 text-center">
           <h1 className="font-display text-display-lg text-wine-800">Piece not found</h1>
           <p className="mt-4 text-body text-ink-600">This piece may have been archived.</p>
-          <Link href="/" className="mt-8 inline-flex h-12 items-center rounded-md bg-wine-600 px-6 font-semibold text-white">
+          <Link href="/" className="mt-8 inline-flex h-12 items-center rounded-none bg-wine-600 px-6 font-semibold text-white">
             Back to the boutique
           </Link>
         </div>
@@ -91,7 +91,7 @@ function Detail({ slug, seedProduct }) {
                       aria-pressed={active}
                       onClick={() => setVariantId(v.id)}
                       className={classNames(
-                        "inline-flex h-11 items-center gap-2 rounded-md border px-4 text-body-sm font-semibold transition",
+                        "inline-flex h-11 items-center gap-2 rounded-none border px-4 text-body-sm font-semibold transition",
                         active ? "border-wine-600 bg-wine-50 text-wine-700" : "border-brass-600 text-ink-800 hover:border-wine-600",
                         out && "cursor-not-allowed opacity-50",
                       )}
@@ -114,7 +114,7 @@ function Detail({ slug, seedProduct }) {
                 type="button"
                 disabled={!stock || !activeVariant}
                 onClick={() => activeVariant && addToCart(product, activeVariant.id, 1)}
-                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-md bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700 disabled:cursor-not-allowed disabled:opacity-55"
+                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-none bg-wine-600 px-6 font-semibold text-white transition hover:bg-wine-700 disabled:cursor-not-allowed disabled:opacity-55"
               >
                 {stock ? "Add to cart" : "Out of stock"}
               </button>
@@ -123,7 +123,7 @@ function Detail({ slug, seedProduct }) {
                 onClick={() => toggleWishlist(product.id)}
                 aria-pressed={store.wishlist.includes(product.id)}
                 aria-label="Save to wishlist"
-                className="grid h-12 w-12 place-items-center rounded-md border border-brass-600 text-wine-600 transition hover:border-wine-600"
+                className="grid h-12 w-12 place-items-center rounded-none border border-brass-600 text-wine-600 transition hover:border-wine-600"
               >
                 <Heart size={20} fill={store.wishlist.includes(product.id) ? "currentColor" : "none"} />
               </button>
