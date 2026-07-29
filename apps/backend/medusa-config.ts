@@ -1,4 +1,5 @@
 import { loadEnv, defineConfig, Modules } from '@medusajs/framework/utils'
+import { houseOfSirkaAdminBrand } from './admin-brand'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
@@ -35,6 +36,35 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET,
       cookieSecret: process.env.COOKIE_SECRET,
     },
+  },
+  /**
+   * `vite` is the only hook that reaches the whole dashboard rather than the
+   * zones inside it, so it is what brands the login screen, the browser title
+   * and the favicon. See admin-brand.ts.
+   */
+  admin: {
+    /**
+     * Returns only the additions, never a copy of the config it was handed.
+     *
+     * The signature reads `(config: InlineConfig) => InlineConfig`, which
+     * invites you to spread the incoming config and return the whole thing.
+     * Medusa then runs `mergeConfig(baseConfig, yours)`, and Vite's merge
+     * concatenates arrays — so every plugin already present arrives twice.
+     * React lands twice with it, and the dev server dies on a duplicated
+     * react-refresh preamble ("The symbol 'inWebWorker' has already been
+     * declared"). The production build does not complain, so this only shows
+     * up when someone runs the admin locally.
+     */
+    vite: () => ({
+      plugins: [houseOfSirkaAdminBrand()],
+      // Inlined at build time; the admin is a static bundle with no server to
+      // ask where the shop lives.
+      define: {
+        __SIRKA_STOREFRONT_URL__: JSON.stringify(
+          process.env.STOREFRONT_URL || 'http://localhost:3080',
+        ),
+      },
+    }),
   },
   modules: [
     {

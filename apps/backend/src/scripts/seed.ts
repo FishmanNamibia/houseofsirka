@@ -184,6 +184,9 @@ export default async function seed({ container }: ExecArgs) {
     input: {
       selector: { id: store.id },
       update: {
+        // The admin sidebar renders the store's own name, not a Medusa logo, so
+        // this is what greets whoever signs in. Scaffolded as "Default Store".
+        name: "House of Sirka",
         supported_currencies: [{ currency_code: "nad", is_default: true }],
         default_sales_channel_id: salesChannel.id,
       },

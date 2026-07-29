@@ -2,54 +2,45 @@ import { defineWidgetConfig } from "@medusajs/admin-sdk"
 import { Container, Heading, Text } from "@medusajs/ui"
 
 /**
- * Branded header on the orders list.
+ * Injected at build time from STOREFRONT_URL — see the `define` in
+ * medusa-config.ts. Declared here because the admin bundle is type-checked
+ * without knowing about Vite's globals.
+ */
+declare const __SIRKA_STOREFRONT_URL__: string
+
+/**
+ * A short standing header on the orders list — where whoever runs the shop
+ * spends their day — with a way back to the storefront.
  *
- * Medusa's admin branding is genuinely limited: widgets and custom pages are
- * supported, but the login screen, the sidebar logo and the browser title come
- * from the packaged dashboard build and cannot be replaced without forking it.
- * What can be done is put House of Sirka in front of whoever opens the admin,
- * with the shop's own colours.
+ * The rest of the admin's branding no longer happens here. Colours, the
+ * monogram, the login screen and the browser title are all handled at the
+ * document level in admin-brand.ts, which reaches pages a widget cannot. This
+ * is left as content rather than decoration: it says which shop, in which
+ * currency, and how payment is confirmed.
  */
 const BrandHeader = () => {
   return (
-    <Container className="mb-4 overflow-hidden p-0">
-      <div
-        className="flex flex-wrap items-center justify-between gap-4 px-6 py-5"
-        style={{ background: "#561026" }}
-      >
-        <div>
-          <Text
-            size="xsmall"
-            weight="plus"
-            style={{ color: "rgba(255,255,255,0.7)", letterSpacing: "0.14em", textTransform: "uppercase" }}
-          >
-            House of Sirka
-          </Text>
-          <Heading level="h2" style={{ color: "#ffffff", marginTop: 4 }}>
-            Workroom control
-          </Heading>
-          <Text size="small" style={{ color: "rgba(255,255,255,0.85)", marginTop: 4 }}>
-            Windhoek · prices in Namibian dollars · payment confirmed by hand
-          </Text>
-        </div>
-
-        <a
-          href="http://localhost:3080"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            background: "#F2B84B",
-            color: "#151413",
-            borderRadius: 6,
-            padding: "10px 18px",
-            fontWeight: 600,
-            fontSize: 14,
-            textDecoration: "none",
-          }}
-        >
-          View the storefront
-        </a>
+    <Container className="mb-4 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <Text size="small" weight="plus" className="text-ui-fg-muted uppercase tracking-widest">
+          Windhoek workroom
+        </Text>
+        <Heading level="h2" className="mt-1">
+          Orders
+        </Heading>
+        <Text size="small" className="text-ui-fg-subtle mt-1">
+          Prices in Namibian dollars · payment confirmed by hand against proof of transfer
+        </Text>
       </div>
+
+      <a
+        href={__SIRKA_STOREFRONT_URL__}
+        target="_blank"
+        rel="noreferrer"
+        className="bg-ui-button-inverted text-ui-contrast-fg-primary txt-compact-small-plus rounded-md px-4 py-2.5"
+      >
+        View the storefront
+      </a>
     </Container>
   )
 }
