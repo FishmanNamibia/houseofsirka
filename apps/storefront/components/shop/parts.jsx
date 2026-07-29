@@ -53,90 +53,112 @@ export function SelectFilter({ label, value, options, onChange }) {
 export function ProductCard({ product, wished, fmt, onWish, onQuickAdd }) {
   const stock = totalStock(product);
   const colors = unique(product.variants.map((variant) => variant.color));
+  const onSale = Boolean(product.salePrice);
+  const lowStock = stock > 0 && stock <= 3;
 
   return (
-    <article className="group overflow-hidden rounded-md border border-brass-200 bg-ink-50 shadow-sm transition hover:-translate-y-1 hover:border-brass-400 hover:shadow-soft">
-      <div className="relative aspect-[4/5] bg-ink-200 p-3">
-        {/* Presentational for assistive tech: the title link below already
-            names this product, so exposing the image as a third link to the
-            same place would give every card three tab stops. Still clickable
-            with a mouse. */}
+    <article className="group">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-ink-200">
+        {/*
+          Presentational for assistive tech: the title link below already names
+          this product, so exposing the image as a second tab stop to the same
+          place is noise. Still clickable with a mouse.
+        */}
         <Link
           href={`/products/${productSlug(product)}`}
           tabIndex={-1}
           aria-hidden="true"
-          className="block h-full w-full overflow-hidden"
+          className="block h-full w-full"
         >
           <img
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.025]"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
           />
         </Link>
-        <span
-          className={classNames(
-            "absolute left-5 top-5 rounded-full border border-brass-200 bg-pearl/94 px-3 py-1 text-xs font-black shadow-sm",
-            stock <= 2 ? "text-wine-600" : "text-garden-700",
-          )}
-        >
-          {stock ? `${stock} in stock` : "Out of stock"}
-        </span>
+
+        {/*
+          Only shown when it means something. A badge on every card is wallpaper;
+          "2 left" is a reason to decide now. Solid background rather than a
+          translucent one, because contrast over a photograph is otherwise
+          whatever the photograph happens to be.
+        */}
+        {(lowStock || !stock) && (
+          <span
+            className={classNames(
+              "absolute left-3 top-3 rounded-full px-3 py-1 text-micro uppercase tracking-wider shadow-sm",
+              stock ? "bg-clay-700 text-white" : "bg-ink-900 text-white",
+            )}
+          >
+            {stock ? `Only ${stock} left` : "Sold out"}
+          </span>
+        )}
+
+        {onSale && stock > 0 && !lowStock && (
+          <span className="absolute left-3 top-3 rounded-full bg-wine-600 px-3 py-1 text-micro uppercase tracking-wider text-white shadow-sm">
+            Sale
+          </span>
+        )}
+
         <button
           type="button"
           onClick={onWish}
-          className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-brass-200 bg-pearl/94 text-wine-600 shadow-sm"
-          aria-label="Toggle wishlist"
+          aria-pressed={wished}
+          aria-label={wished ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-ink-50 text-wine-600 shadow-sm transition hover:bg-white"
         >
-          <Heart size={18} fill={wished ? "currentColor" : "none"} />
+          <Heart size={17} fill={wished ? "currentColor" : "none"} />
         </button>
-      </div>
-      <div className="grid gap-3 p-4">
-        <div className="flex justify-between gap-3 text-xs font-bold uppercase tracking-[0.16em] text-garden-700">
-          <span>{product.category}</span>
-          <span>{product.sku}</span>
-        </div>
-        <div>
-          <h3 className="font-display text-display-sm leading-tight text-wine-800">
-            <Link href={`/products/${productSlug(product)}`} className="transition hover:text-wine-600">
-              {product.name}
-            </Link>
-          </h3>
-          <p className="mt-1 line-clamp-2 text-sm text-ink-600">{product.description}</p>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex gap-1">
-            {colors.map((color) => (
-              <span
-                key={color}
-                title={color}
-                className="h-5 w-5 rounded-full border border-brass-400"
-                style={{ backgroundColor: swatches[color] || "#ddd" }}
-              >
-                <span className="sr-only">{color}</span>
-              </span>
-            ))}
-          </div>
-          <span className="text-sm font-bold text-ink-600">{product.rating}/5</span>
-        </div>
-        <div className="flex items-baseline gap-2">
-          <strong className="text-lg">{fmt(productPrice(product))}</strong>
-          {product.salePrice && <del className="text-sm text-ink-600">{fmt(product.price)}</del>}
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          <Link
-            href={`/products/${productSlug(product)}`}
-            className="inline-flex h-11 items-center justify-center rounded-md bg-wine-600 px-3 text-body-sm font-bold text-white transition hover:bg-wine-700"
-          >
-            View
-          </Link>
+
+        {/*
+          The add control rides on the image and only appears on hover, so the
+          card below stays quiet. Always present for keyboard users, who cannot
+          hover.
+        */}
+        <div className="absolute inset-x-3 bottom-3 opacity-0 transition group-hover:opacity-100 focus-within:opacity-100">
           <button
             type="button"
             disabled={!stock}
             onClick={onQuickAdd}
-            className="h-11 rounded-md border border-brass-200 bg-ink-100 px-3 text-sm font-bold text-garden-700 transition hover:border-wine-600 hover:text-wine-600"
+            className="h-11 w-full rounded-md bg-ink-950/90 text-body-sm font-semibold text-white backdrop-blur transition hover:bg-ink-950 disabled:opacity-60"
           >
-            Quick add
+            {stock ? "Add to cart" : "Sold out"}
           </button>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-1.5">
+        <p className="text-eyebrow uppercase text-garden-700">{product.category}</p>
+
+        <h3 className="font-display text-display-xs leading-snug text-wine-800">
+          <Link
+            href={`/products/${productSlug(product)}`}
+            className="transition hover:text-wine-600"
+          >
+            {product.name}
+          </Link>
+        </h3>
+
+        <div className="flex items-baseline gap-2">
+          <strong className="tabular text-body font-semibold text-ink-900">
+            {fmt(productPrice(product))}
+          </strong>
+          {onSale && (
+            <del className="tabular text-body-sm text-ink-600">{fmt(product.price)}</del>
+          )}
+        </div>
+
+        <div className="mt-1 flex items-center gap-2">
+          {colors.map((color) => (
+            <span
+              key={color}
+              title={color}
+              className="h-4 w-4 rounded-full ring-1 ring-inset ring-ink-900/15"
+              style={{ backgroundColor: swatches[color] || "#ddd" }}
+            >
+              <span className="sr-only">{color}</span>
+            </span>
+          ))}
         </div>
       </div>
     </article>

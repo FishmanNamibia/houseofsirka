@@ -29,7 +29,7 @@ function Wishlist() {
       {saved.length ? (
         <>
         <h2 className="sr-only">Saved pieces</h2>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        <div className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {saved.map((product) => (
             <ProductCard
               key={product.id}

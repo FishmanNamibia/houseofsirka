@@ -576,7 +576,7 @@ export default function AdminPage() {
             </div>
           </section>
 
-          <section className="rounded-md border border-brass-200 bg-white/82 p-6 shadow-soft backdrop-blur-sm md:p-8">
+          <section className="rounded-md border border-brass-200 bg-white/80 p-6 shadow-soft backdrop-blur-sm md:p-8">
             <div className="w-full max-w-xs">
               <img src="/house-of-sirka-logo-final.png" alt="House of Sirka" className="h-auto w-full" />
             </div>

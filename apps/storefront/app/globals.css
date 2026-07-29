@@ -82,16 +82,12 @@ img {
 }
 
 /**
- * Fraunces variation defaults. SOFT rounds the terminals slightly; WONK stays
- * at 0 for interface headings and is dialled up only on the hero, where the
- * quirk reads as character rather than noise.
+ * Marcellus is a single-weight face with no variation axes. The hero gets a
+ * touch of positive tracking instead, which suits inscriptional letterforms at
+ * large sizes.
  */
-.font-display {
-  font-variation-settings: "SOFT" 25, "WONK" 0;
-}
-
 .display-hero {
-  font-variation-settings: "SOFT" 40, "WONK" 1;
+  letter-spacing: 0.005em;
 }
 
 /** Aligns N$ columns in carts, summaries and order tables. */

@@ -1,23 +1,30 @@
-import { Fraunces, Inter } from "next/font/google";
+import { Marcellus, Inter } from "next/font/google";
 
 /**
- * Fraunces carries the boutique voice.
+ * Marcellus carries the boutique voice.
  *
- * Chosen over Cormorant Garamond for legibility: Cormorant is optically small
- * with hairline-thin strokes that go spindly below ~28px, which forced a hard
- * size floor and still read tired at card-title size. Fraunces has an optical-
- * size axis, so stroke weight increases automatically as the size drops — one
- * family stays comfortable from a 20px sub-head to an 80px hero.
+ * Third attempt, and the reasoning for landing here:
  *
- * It is an old-style revival, so it keeps the "old-world heart" the brand copy
- * asks for while being noticeably warmer and easier on the eye.
+ *   Cormorant Garamond — genuinely elegant, but optically small with hairline
+ *   strokes. It needed a hard 28px floor and still read tired on product cards.
+ *
+ *   Fraunces — solved legibility with its optical-size axis, but it is a warm,
+ *   characterful face. The softened terminals and WONK axis read friendly
+ *   rather than refined, which is the wrong register for a boutique.
+ *
+ *   Marcellus — modelled on Roman inscriptional capitals, the oldest luxury
+ *   signal in typography. Restrained rather than decorative, with strokes
+ *   sturdy enough to hold at 18px, so headings stay elegant without a size
+ *   floor.
+ *
+ * It ships a single weight, which is a constraint worth accepting: hierarchy
+ * comes from size and colour rather than bolding, and that restraint is itself
+ * the premium signal. Where emphasis is genuinely needed — prices, buttons,
+ * labels — Inter carries it.
  */
-export const display = Fraunces({
+export const display = Marcellus({
   subsets: ["latin"],
-  // Variable font: weight stays fluid, so `axes` may be declared but an
-  // explicit weight list may not.
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
+  weight: ["400"],
   display: "swap",
   variable: "--font-display",
   fallback: ["Georgia", "Cambria", "Times New Roman", "serif"],
@@ -25,8 +32,9 @@ export const display = Fraunces({
 });
 
 /**
- * Inter handles body and interface. Large x-height keeps small metadata legible
- * on cream, and tabular figures keep N$ columns aligned.
+ * Inter does the functional work: prices, sizes, filters, forms, measurement
+ * tables. Large x-height keeps 15px metadata legible on cream, and tabular
+ * figures keep N$ columns aligned.
  */
 export const body = Inter({
   subsets: ["latin"],

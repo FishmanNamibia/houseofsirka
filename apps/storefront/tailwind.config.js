@@ -114,30 +114,30 @@ module.exports = {
       },
 
       /**
-       * Fraunces' optical-size axis thickens strokes as size drops, so the
-       * display face no longer needs a hard 28px floor — it stays legible down
-       * to sub-heads. Sizes are a touch smaller than the Cormorant scale they
-       * replace because Fraunces has a considerably larger x-height.
+       * Marcellus ships one weight, so hierarchy comes from size and colour
+       * rather than bolding. Sizes sit slightly below the Fraunces scale they
+       * replace: Marcellus has a taller cap height and reads larger at the same
+       * point size.
        *
-       * Every text token sets line-height >= 1.5 (WCAG SC 1.4.12).
+       * Every text token keeps line-height >= 1.5 (WCAG SC 1.4.12).
        */
       fontSize: {
-        "display-2xl": ["4.25rem", { lineHeight: "1.05", letterSpacing: "-0.022em", fontWeight: "500" }],
-        "display-xl": ["3.25rem", { lineHeight: "1.08", letterSpacing: "-0.020em", fontWeight: "500" }],
-        "display-lg": ["2.5rem", { lineHeight: "1.14", letterSpacing: "-0.017em", fontWeight: "500" }],
-        "display-md": ["1.875rem", { lineHeight: "1.22", letterSpacing: "-0.013em", fontWeight: "600" }],
-        "display-sm": ["1.375rem", { lineHeight: "1.32", letterSpacing: "-0.008em", fontWeight: "600" }],
-        "display-xs": ["1.125rem", { lineHeight: "1.40", letterSpacing: "-0.004em", fontWeight: "600" }],
+        "display-2xl": ["4rem", { lineHeight: "1.08", letterSpacing: "-0.015em", fontWeight: "400" }],
+        "display-xl": ["3rem", { lineHeight: "1.12", letterSpacing: "-0.012em", fontWeight: "400" }],
+        "display-lg": ["2.375rem", { lineHeight: "1.18", letterSpacing: "-0.010em", fontWeight: "400" }],
+        "display-md": ["1.75rem", { lineHeight: "1.26", letterSpacing: "-0.006em", fontWeight: "400" }],
+        "display-sm": ["1.375rem", { lineHeight: "1.34", letterSpacing: "-0.002em", fontWeight: "400" }],
+        "display-xs": ["1.125rem", { lineHeight: "1.44", letterSpacing: "0", fontWeight: "400" }],
 
-        // Inter. 17px base rather than 16px — the extra step measurably eases
-        // long-form reading on the warm, low-contrast background.
+        // Inter. 17px base — the extra step over 16px measurably eases reading
+        // on the warm, low-contrast background.
         "body-lg": ["1.1875rem", { lineHeight: "1.68", letterSpacing: "0" }],
         body: ["1.0625rem", { lineHeight: "1.65", letterSpacing: "0" }],
         "body-sm": ["0.9375rem", { lineHeight: "1.60", letterSpacing: "0.003em" }],
         caption: ["0.8125rem", { lineHeight: "1.538", letterSpacing: "0.010em" }],
         label: ["0.8125rem", { lineHeight: "1.400", letterSpacing: "0.020em", fontWeight: "600" }],
         eyebrow: ["0.75rem", { lineHeight: "1.333", letterSpacing: "0.140em", fontWeight: "700" }],
-        micro: ["0.6875rem", { lineHeight: "1.454", letterSpacing: "0.060em", fontWeight: "700" }],
+        micro: ["0.6875rem", { lineHeight: "1.454", letterSpacing: "0.080em", fontWeight: "700" }],
       },
 
       boxShadow: {

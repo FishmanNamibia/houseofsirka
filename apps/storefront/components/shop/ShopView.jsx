@@ -125,7 +125,7 @@ function Catalogue() {
 
       {/* The card titles are h3; without this the outline jumps h1 -> h3. */}
       <h2 className="sr-only">All pieces</h2>
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <div className="mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
