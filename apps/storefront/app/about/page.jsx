@@ -30,7 +30,7 @@ export default function AboutPage() {
           <li>Prices shown in full, in Namibian dollars, before you reach checkout.</li>
           <li>Real measurements on every piece, so you can decide before it arrives.</li>
           <li>One complimentary alteration on anything bought from the boutique.</li>
-          <li>Payment methods that work here — eWallet, EFT, card, or on delivery.</li>
+          <li>Payment methods that work here — eWallet, EFT, PayPulse, or on delivery.</li>
         </ul>
       </Section>
 

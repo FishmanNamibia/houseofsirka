@@ -13,8 +13,8 @@ const FAQS = [
     a: "Every piece lists body measurements in centimetres on the size guide. If you fall between two sizes in a fitted style, take the larger — we can take it in for you.",
   },
   {
-    q: "Can I pay without a card?",
-    a: "Yes. eWallet, EFT bank transfer and payment on delivery are all accepted alongside card. eWallet and EFT ask for a proof-of-payment upload at checkout, which clears fastest.",
+    q: "How can I pay?",
+    a: "eWallet, EFT bank transfer, PayPulse, EasyWallet, Send Money, Pay2Cell, or cash on delivery. We do not take card details — each transfer asks for a proof-of-payment upload at checkout, which is what clears the order.",
   },
   {
     q: "How long does delivery take?",

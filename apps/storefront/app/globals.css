@@ -118,6 +118,19 @@ img {
   font-feature-settings: "tnum" 1;
 }
 
+/**
+ * Hides the scrollbar on the full-screen gallery track, where the bar would sit
+ * across the photograph. Only the bar is hidden: the track still scrolls by
+ * swipe, wheel, keyboard and the arrow buttons, so nothing becomes unreachable.
+ */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

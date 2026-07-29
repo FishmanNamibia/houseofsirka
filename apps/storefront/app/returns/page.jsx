@@ -43,10 +43,9 @@ export default function ReturnsPage() {
 
       <Section heading="Refunds">
         <p>
-          Once your return is received and checked, refunds are issued by the same method you paid
-          with — EFT back to your account, or a reversal on card. Allow 5–7 working days for it to
-          reflect. Original delivery charges are refunded only where the piece was faulty or we sent
-          the wrong item.
+          Once your return is received and checked, refunds are issued by EFT to the account you
+          paid from, whichever method you used. Allow 5–7 working days for it to reflect. Original
+          delivery charges are refunded only where the piece was faulty or we sent the wrong item.
         </p>
       </Section>
 

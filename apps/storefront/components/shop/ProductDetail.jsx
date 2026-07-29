@@ -138,7 +138,7 @@ function Detail({ slug, seedProduct }) {
               <div className="flex items-center gap-2 text-ink-700">
                 <ShieldCheck size={16} className="text-garden-700" aria-hidden="true" />
                 <dt className="sr-only">Payment</dt>
-                <dd>Secure payment · eWallet, EFT, card or on delivery</dd>
+                <dd>Secure payment · eWallet, EFT, PayPulse or on delivery</dd>
               </div>
               <div className="flex flex-wrap items-center gap-2 text-ink-700">
                 <dt className="font-semibold">Colours:</dt>
