@@ -1,4 +1,5 @@
 import { display, body } from "./fonts";
+import { INDEXABLE } from "@/lib/demo";
 import "./globals.css";
 
 /**
@@ -32,10 +33,12 @@ export const metadata = {
     description:
       "A Windhoek boutique for dresses, tailoring, and intimate collections — classical silhouettes with a bright modern pulse.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  // Belt and braces with app/robots.js: robots.txt asks crawlers not to look,
+  // this tells any that look anyway not to index. A demo carrying invented
+  // reviews should be unfindable by both routes. See lib/demo.js.
+  robots: INDEXABLE
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
 };
 
 export default function RootLayout({ children }) {

@@ -1,14 +1,23 @@
+import { DEMO_DATA } from "@/lib/demo";
+
 /**
- * Seeded customer reviews.
+ * Demonstration reviews. Not real people. Shown only in demo mode.
  *
- * A product page with five reviews converts substantially better than one with
- * none, and ratings between 4.0 and 4.7 outperform a perfect 5.0 — a flawless
- * score reads as fabricated. Seeds here average 4.3–4.8 with a spread, and each
- * carries a fit verdict, which is the single most useful review dimension for
- * clothing.
+ * These exist so the shop can be presented to the buyer looking like a going
+ * concern rather than a blank page — a product page with several reviews reads
+ * completely differently from one with none, and that difference is the point of
+ * a demo. Ratings sit at 4.3–4.8 rather than a perfect 5.0 because a flawless
+ * score reads as fabricated, and each carries a fit verdict, which is the single
+ * most useful review dimension for clothing.
  *
- * Names and towns are Namibian because reviews from "Sarah, London" would
- * undercut the point of a Windhoek shop.
+ * They are also thirty-two invented people who have never bought anything, so
+ * they are gated: `reviewsFor` returns nothing unless NEXT_PUBLIC_DEMO_DATA is
+ * set, and setting it forces the whole site to noindex and strips the
+ * aggregateRating markup. Fake reviews and search visibility cannot both be
+ * switched on. See lib/demo.js.
+ *
+ * Delete this file once the shop has real reviews. Nothing here should outlive
+ * the first genuine customer.
  */
 
 const FIT_VALUES = ["Runs small", "True to size", "Runs large"];
@@ -74,7 +83,9 @@ function toReview(productId, [author, town, rating, fit, body], index) {
 }
 
 export function reviewsFor(product) {
+  // Real reviews always win, and are the only ones a live shop ever shows.
   if (Array.isArray(product?.reviews) && product.reviews.length) return product.reviews;
+  if (!DEMO_DATA) return [];
   return (SEEDS[product?.id] || []).map((r, i) => toReview(product.id, r, i));
 }
 

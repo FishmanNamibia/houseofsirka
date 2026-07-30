@@ -25,43 +25,58 @@ Windhoek over N$1,500.
 </idea>
 
 <target_customer>
-[NEEDS OWNER INPUT] The code implies a Windhoek professional woman buying
-occasion and workwear at N$600–N$2,700, comfortable transferring by eWallet or
-EFT. That is an inference from pricing, copy and payment rails, not a customer
-anyone has spoken to. Replace it with a specific person — "Windhoek office
-manager, 30s, buys two or three occasion pieces a year, currently shops Instagram
-sellers and trips to Cape Town" — not a demographic.
+Two layers, because this is client work.
+
+The client: a Namibian seller who has sold clothing before — so a channel already
+works for them — commissioning an online shop for the House of Sirka label.
+
+The shopper: [NEEDS BUYER INPUT] The code implies a Windhoek professional woman
+buying occasion and workwear at N$600–N$2,700, comfortable transferring by eWallet
+or EFT. That is inferred from pricing, copy and payment rails, not from anyone who
+has been spoken to. Replace with a specific person once the buyer describes who
+actually buys from them today.
 </target_customer>
 
 <problem>
-[NEEDS OWNER INPUT] Not yet stated in the customer's own words. The site's copy
-asserts the pain — limited local range, sizing that does not fit, buying blind —
-but no interview or message from a real buyer has been recorded. Until one is,
-this is the founder's hypothesis, not the customer's complaint.
+[NEEDS BUYER INPUT] Not yet in the customer's own words. The site asserts the pain
+— limited local range, sizing that does not fit, buying blind — but no buyer or
+shopper interview has been recorded.
+
+The question that settles it, to ask at the demo: how do they currently track who
+has paid? A spreadsheet of eWallet references reconciled against Instagram DMs
+means the shop is a painkiller. "I just remember" means it is a vitamin.
 </problem>
 
 <stage>
-Built, not launched. Next.js storefront and self-hosted Medusa v2 backend, both
-running locally only. Zero paying customers, zero real orders, no deployment, no
-domain. Product photography is Unsplash stock and does not depict the actual
-garments. Contact details are placeholders (+264 81 000 0000,
-@houseofsirka.local) and the social handles are unclaimed. Customer accounts with
-passwords are not built yet.
+Client build, heading for a buyer demo. Next.js storefront and self-hosted Medusa
+v2 backend, running locally, not deployed. No domain, no real orders.
+
+Blocking launch, all of it the buyer's to supply: nothing has been made yet — the
+sixteen products and ~303 units of stock are aspirational — product photography is
+Unsplash stock showing the wrong garments, contact details are placeholders
+(+264 81 000 0000, @houseofsirka.local), and the social handles are unclaimed.
+Customer accounts with passwords are not built.
+
+Demo data (the invented reviews) is gated behind NEXT_PUBLIC_DEMO_DATA, which
+forces noindex and strips aggregateRating while it is on. See apps/storefront/lib/demo.js.
 </stage>
 
 <my_background>
-[NEEDS OWNER INPUT] Why you specifically. Relevant experience, an unfair
-advantage, and any distribution that already exists — an Instagram following, a
-customer list, a physical workroom, relationships with tailors or fabric
-suppliers. Distribution you already have is the single highest-value entry here.
+Building this shop for a client rather than running it. The client has sold
+clothing before, which is the hardest part of the business and the part the code
+cannot supply.
+
+[NEEDS OWNER INPUT] Still worth recording: the size and warmth of the buyer's
+existing audience, since that decides whether launch means ten orders or zero.
 </my_background>
 
 <constraints>
-[NEEDS OWNER INPUT] Hours per week, budget, hard deadlines, and — most important
-for a stock-holding business — whether the sixteen products are physically in a
-workroom or aspirational. The seed implies roughly 303 units across 54 variants;
-if that stock is real it represents significant capital already committed, which
-changes every recommendation.
+[NEEDS OWNER INPUT] Hours per week, budget, and the demo date.
+
+Known: stock is aspirational, so the critical path to launch runs through the
+buyer's production and photography, not through this repository. Photography in
+particular is the largest unbudgeted item — sixteen products across fifty-four
+variants is a real shoot.
 </constraints>
 </project_context>
 ```

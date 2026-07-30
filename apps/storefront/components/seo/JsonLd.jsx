@@ -1,4 +1,5 @@
 import { reviewsFor, reviewSummary } from "@/lib/reviews";
+import { DEMO_DATA } from "@/lib/demo";
 
 const SITE = "https://houseofsirka.com";
 
@@ -41,7 +42,10 @@ export function ProductJsonLd({ product, slug }) {
             : "https://schema.org/OutOfStock",
           seller: { "@type": "Organization", name: "House of Sirka" },
         },
-        ...(summary.count
+        // Suppressed in demo mode: the only reviews present then are invented,
+        // and marking up a rating that no customer produced is exactly what
+        // Google issues manual actions for. See lib/demo.js.
+        ...(summary.count && !DEMO_DATA
           ? {
               aggregateRating: {
                 "@type": "AggregateRating",
